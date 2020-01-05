@@ -1,0 +1,525 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+	<ul class="nav navbar-nav">
+  	<li> <p:link value="#{messages.Dashboard}" href="/index.jsf" /></li>
+  	<li class="dropdown mega-dropdown">
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown">#{messages['lbl.menu.poe']}<span class="caret"></span></a>				
+			<ul class="dropdown-menu mega-dropdown-menu">
+				<li class="col-sm-3">
+   					<ul>
+						<li class="dropdown-header">#{messages['menu.generalSettings.new']}</li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Contact']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Product']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Service']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Expense']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Discount']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.workBench']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.priceSchema']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.lifeStage']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.UserResource']}</a></li>
+					</ul>
+				</li>
+				<li class="col-sm-3">
+   					<ul>
+						<li class="dropdown-header">#{messages['lbl.menu.inventory']}</li>
+						<li><a href="/ppages/general/catalogueBrowse.jsf">#{messages['lbl.menu.catalogue']}</a></li>
+						<li><a href="/ppages/general/catalogueSubtypeBrowse.jsf">#{messages['lbl.menu.catalogueSubtype']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.browse.currencyPair']}</a></li>
+					</ul>
+				</li>
+				<li class="col-sm-3">
+   					<ul>
+						<li class="dropdown-header">#{messages['lbl.menu.procurement']}</li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Contact']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Product']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Service']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Expense']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Discount']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.workBench']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.priceSchema']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.lifeStage']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.UserResource']}</a></li>
+					</ul>
+				</li>
+				<li class="col-sm-3">
+   					<ul>
+						<li class="dropdown-header">#{messages['lbl.menu.saleDistribution']}</li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Contact']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Product']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Service']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Expense']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Discount']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.workBench']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.priceSchema']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.lifeStage']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.UserResource']}</a></li>
+					</ul>
+				</li>
+				<li class="col-sm-3">
+   					<ul>
+						<li class="dropdown-header">#{messages['lbl.menu.productionPlanning']}</li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Contact']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Product']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Service']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Expense']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Discount']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.workBench']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.priceSchema']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.lifeStage']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.UserResource']}</a></li>
+					</ul>
+				</li>
+				<li class="col-sm-3">
+   					<ul>
+						<li class="dropdown-header">#{messages['lbl.menu.engineering']}</li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Contact']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Product']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Service']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Expense']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Discount']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.workBench']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.priceSchema']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.lifeStage']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.UserResource']}</a></li>
+					</ul>
+				</li>
+				<li class="col-sm-3">
+   					<ul>
+						<li class="dropdown-header">#{messages['lbl.menu.humanCapital']}</li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Contact']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Product']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Service']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Expense']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Discount']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.workBench']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.priceSchema']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.lifeStage']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.UserResource']}</a></li>
+					</ul>
+				</li>
+				<li class="col-sm-3">
+   					<ul>
+						<li class="dropdown-header">#{messages['lbl.menu.analytic']}</li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Contact']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Product']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Service']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Expense']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Discount']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.workBench']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.priceSchema']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.lifeStage']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.UserResource']}</a></li>
+					</ul>
+				</li>
+				<li class="col-sm-3">
+   					<ul>
+						<li class="dropdown-header">#{messages['lbl.menu.businessIntelligence']}</li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Contact']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Product']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Service']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Expense']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Discount']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.workBench']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.priceSchema']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.lifeStage']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.UserResource']}</a></li>
+					</ul>
+				</li>
+				<li class="col-sm-3">
+   					<ul>
+						<li class="dropdown-header">#{messages['lbl.menu.purchase']}</li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Contact']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Product']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Service']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Expense']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Discount']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.workBench']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.priceSchema']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.lifeStage']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.UserResource']}</a></li>
+					</ul>
+				</li>
+				<li class="col-sm-3">
+   					<ul>
+						<li class="dropdown-header">#{messages['lbl.menu.financialAccounting']}</li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Contact']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Product']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Service']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Expense']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Discount']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.workBench']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.priceSchema']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.lifeStage']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.UserResource']}</a></li>
+					</ul>
+				</li>
+				<li class="col-sm-3">
+   					<ul>
+						<li class="dropdown-header">#{messages['lbl.menu.crm']}</li>
+						<li><a href="/bszone/contact/contactBrowse.jsf">#{messages['menu.generalSettings.browse.contactBrowse']}</a></li>
+						<li><a href="/bszone/stock/productBrowse.jsf">#{messages['menu.generalSettings.new.Product']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Service']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Expense']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.Discount']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.workBench']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.priceSchema']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.lifeStage']}</a></li>
+						<li><a href="#">#{messages['menu.generalSettings.new.UserResource']}</a></li>
+					</ul>
+				</li>
+			</ul>
+			</li>
+    <li class="dropdown mega-dropdown">
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown">#{messages['menu.generalSettings']}<span class="caret"></span></a>				
+							<ul class="dropdown-menu mega-dropdown-menu">
+								<li class="col-sm-3">
+			    					<ul>
+										<li class="dropdown-header">#{messages['menu.generalSettings.new']}</li>
+										<li><a href="#">#{messages['menu.generalSettings.new.Contact']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.Product']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.Service']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.Expense']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.Discount']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.workBench']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.priceSchema']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.lifeStage']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.UserResource']}</a></li>
+									</ul>
+								</li>
+								<li class="col-sm-3">
+			    					<ul>
+										<li class="dropdown-header">#{messages['menu.generalSettings.currency']}</li>
+										<li><a href="#">#{messages['menu.generalSettings.browse.currencyRate']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.browse.currency']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.browse.currencyPair']}</a></li>
+									</ul>
+								</li>
+								<li class="col-sm-3">
+			    					<ul>
+										<li class="dropdown-header">#{messages['menu.generalSettings.bank']}</li>
+										<li><a href="#">#{messages['menu.generalSettings.new.Contact']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.Product']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.Service']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.Expense']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.Discount']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.workBench']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.priceSchema']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.lifeStage']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.UserResource']}</a></li>
+									</ul>
+								</li>
+								<li class="col-sm-3">
+			    					<ul>
+										<li class="dropdown-header">#{messages['menu.generalSettings.bank']}</li>
+										<li><a href="#">#{messages['menu.generalSettings.new.Contact']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.Product']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.Service']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.Expense']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.Discount']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.workBench']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.priceSchema']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.lifeStage']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.UserResource']}</a></li>
+									</ul>
+								</li>
+								<li class="col-sm-3">
+			    					<ul>
+										<li class="dropdown-header">#{messages['menu.generalSettings.bank']}</li>
+										<li><a href="#">#{messages['menu.generalSettings.new.Contact']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.Product']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.Service']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.Expense']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.Discount']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.workBench']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.priceSchema']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.lifeStage']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.UserResource']}</a></li>
+									</ul>
+								</li>
+								<li class="col-sm-3">
+			    					<ul>
+										<li class="dropdown-header">#{messages['menu.generalSettings.bank']}</li>
+										<li><a href="#">#{messages['menu.generalSettings.new.Contact']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.Product']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.Service']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.Expense']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.Discount']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.workBench']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.priceSchema']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.lifeStage']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.UserResource']}</a></li>
+									</ul>
+								</li>
+								<li class="col-sm-3">
+			    					<ul>
+										<li class="dropdown-header">#{messages['menu.generalSettings.bank']}</li>
+										<li><a href="#">#{messages['menu.generalSettings.new.Contact']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.Product']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.Service']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.Expense']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.Discount']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.workBench']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.priceSchema']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.lifeStage']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.UserResource']}</a></li>
+									</ul>
+								</li>
+								<li class="col-sm-3">
+			    					<ul>
+										<li class="dropdown-header">#{messages['menu.generalSettings.bank']}</li>
+										<li><a href="#">#{messages['menu.generalSettings.new.Contact']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.Product']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.Service']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.Expense']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.Discount']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.workBench']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.priceSchema']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.lifeStage']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.UserResource']}</a></li>
+									</ul>
+								</li>
+								<li class="col-sm-3">
+			    					<ul>
+										<li class="dropdown-header">#{messages['menu.generalSettings.bank']}</li>
+										<li><a href="#">#{messages['menu.generalSettings.new.Contact']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.Product']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.Service']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.Expense']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.Discount']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.workBench']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.priceSchema']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.lifeStage']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.UserResource']}</a></li>
+									</ul>
+								</li>
+								<li class="col-sm-3">
+			    					<ul>
+										<li class="dropdown-header">#{messages['menu.generalSettings.bank']}</li>
+										<li><a href="#">#{messages['menu.generalSettings.new.Contact']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.Product']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.Service']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.Expense']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.Discount']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.workBench']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.priceSchema']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.lifeStage']}</a></li>
+										<li><a href="#">#{messages['menu.generalSettings.new.UserResource']}</a></li>
+									</ul>
+								</li>
+							</ul>
+                        </li>
+                        <li class="dropdown">
+                            <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#">#{messages.Sales}</a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <p:link value="#{messages.Customers}"/>
+                                </li>
+                                <li> 
+                                    <p:link value="#{messages.SalesOrders}" />   
+                                </li>   
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#">#{messages.Purchases}</a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <p:link value="#{messages.Vendors}" />
+                                </li>
+                                <li> 
+                                    <p:link value="#{messages.PurchaseOrders}" />   
+                                </li>   
+
+								<li class="dropdown-submenu"><a tabindex="-1" href="#">#{messages.Purchases} 1-2</a>
+									<ul class="dropdown-menu">
+										<li class="dropdown-submenu"><a tabindex="-1" href="#">#{messages.Purchases} 1-2-1</a>
+											<ul class="dropdown-menu">
+												<li><a tabindex="-1" href="#">#{messages.Purchases} 1-2-1-1</a></li>
+											</ul>
+										</li>
+										<li class="dropdown-submenu"><a tabindex="-1" href="#">#{messages.Purchases} 1-2-2</a>
+											<ul class="dropdown-menu">
+												<li><a tabindex="-1" href="#"><p:link rendered="#{ceberusIdentity.hasPermission('purchase122', 'select')}" value="#{messages.Purchases} 1-2-2-1" outcome="/pages/purchaseOrder/index"/></a></li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+								</ul>
+                        </li>
+                        <li class="dropdown">
+                            <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#">#{messages.Inventory}</a>
+                            <ul class="dropdown-menu">
+                                <li> <p:link value="#{messages.IncomingShipments}" /></li>
+                                <li> <p:link value="#{messages.DeliveryOrders}" /></li>
+                                <li> <p:link value="#{messages.Products}" /></li> 
+                                <li> <p:link value="#{messages.InventoryValuation}" /></li> 
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#">#{messages.Accounting}</a>
+                            <ul class="dropdown-menu">
+                                <li> <p:link value="#{messages.CustomerInvoices}" /></li>
+                                <li> <p:link value="#{messages.CustomerPayments}" /></li>
+                                <li> <p:link value="#{messages.VendorBills}" /></li>
+                                <li> <p:link value="#{messages.VendorPayments}" /></li>
+                                <li> <p:link value="#{messages.JournalEntries}" /></li>
+                                <li> <p:link value="#{messages.JournalItems}" /></li>
+                            </ul>
+                        </li> 
+                        <li class="dropdown">
+                            <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#">#{messages.Configuration}</a>
+                            <ul class="dropdown-menu">
+                                <li> <p:link value="#{messages.Accounts}" /></li>
+                                <li> <p:link value="#{messages.Journals}"  /></li>
+                                <li> <p:link value="#{messages.Taxess}" /></li>
+                                <li> <p:link value="#{messages.Users}" /></li>
+                                <li> <p:link value="#{messages.ProductCategories}" /></li>
+                                <li> <p:link value="#{messages.UnitsOfMeasure}"/></li>
+                                <li> <p:link value="#{messages.ProductUomCategories}" /></li>
+                            </ul>
+                        </li> 
+                        <li class="dropdown">
+                            <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#">#{messages.Language}</a>
+                            <ul class="dropdown-menu">
+                                <li> 
+								    <p:commandLink actionListener="#{localeController.changeLanguage('en')}" ajax="true">
+										<h:outputText value="#{messages.LanguageEnglish}" />
+									</p:commandLink>
+								</li>
+                                <li> 
+								    <p:commandLink actionListener="#{localeController.changeLanguage('vi')}" ajax="true">
+										<h:outputText value="#{messages.LanguageVietnamese}" />
+									</p:commandLink>
+								</li>
+                            </ul>
+                        </li> 
+                    </ul>   
+					<ul class="nav navbar-nav">
+			<li class="dropdown mega-dropdown">
+    			<a href="#" class="dropdown-toggle" data-toggle="dropdown">#{messages['menu.addOns']}<span class="caret"></span></a>				
+				<ul class="dropdown-menu mega-dropdown-menu">
+					<li class="col-sm-3">
+    					<ul>
+							<li class="dropdown-header">Features</li>
+							<li><a href="#">Auto Carousel-#{messages['menu.generalSettings']}</a></li>
+                            <li><a href="#">Carousel Control</a></li>
+                            <li><a href="#">Left  Right Navigation</a></li>
+							<li><a href="#">Four Columns Grid</a></li>
+							<li class="divider"></li>
+							<li class="dropdown-header">Fonts</li>
+                            <li><a href="#">Glyphicon</a></li>
+							<li><a href="#">Google Fonts</a></li>
+						</ul>
+					</li>
+					<li class="col-sm-3">
+						<ul>
+							<li class="dropdown-header">Plus</li>
+							<li><a href="#">Navbar Inverse</a></li>
+							<li><a href="#">Pull Right Elements</a></li>
+							<li><a href="#">Coloured Headers</a></li>                            
+							<li><a href="#">Primary Buttons  Default</a></li>							
+						</ul>
+					</li>
+					<li class="col-sm-3">
+						<ul>
+							<li class="dropdown-header">Much more</li>
+                            <li><a href="#">Easy to Customize</a></li>
+							<li><a href="#">Calls to action</a></li>
+							<li><a href="#">Custom Fonts</a></li>
+							<li><a href="#">Slide down on Hover</a></li>                         
+						</ul>
+					</li>
+				</ul>				
+			</li>
+		</ul>	
+    <ul class="nav navbar-nav">
+        <li class="dropdown messages-menu hidden-xs">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                <i class="fa fa-envelope-o"></i>
+                <span class="label label-success">4</span>
+            </a>
+            <ul class="dropdown-menu">
+                <li class="header align-center">You have 4 messages</li>
+                <li>
+                    <ul class="menu">
+                        <li>
+                            Message 1
+                        </li>
+                        <li>
+                            Message 2
+                        </li>
+                        <li>
+                            Message 3
+                        </li>
+                        <li>
+                            Message 4
+                        </li>
+                    </ul>
+                </li>
+                <li class="footer"><a href="#">See all messages</a></li>
+            </ul>
+        </li>
+        <li class="dropdown notifications-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                <i class="fa fa-bell-o"></i>
+                <span class="label label-warning">2</span>
+            </a>
+            <ul class="dropdown-menu">
+                <li class="header align-center">You have 2 notifications.</li>
+                <li>
+                    <!-- inner menu: contains the actual data -->
+                    <ul class="menu">
+                        <li>
+                            Notification 1
+                        </li>
+
+                        <li>
+                            Notification 2
+                        </li>
+                    </ul>
+                </li>
+                <li class="footer"><a href="#">See all notifications</a></li>
+            </ul>
+        </li>
+        <li class="dropdown user user-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <pe:gravatar id="userImage"
+                             value="nonexisting"/>
+                <span class="hidden-xs">Rafael Pestano</span>
+            </a>
+            <ul class="dropdown-menu">
+                <li class="user-header">
+                    <div class="hidden-xs">
+                        <pe:gravatar style="border-radius: 50%"
+                                     value="rmpestano@gmail.com"/>
+                    </div>
+                    <p>
+                        Bui Quy. Duc
+                        <small>Software Engineer-Java Developer</small>
+                    </p>
+                </li>
+                <li class="user-footer">
+                    <h:form prependId="false">
+                        <div class="pull-left">
+                            <p:commandLink  styleClass="btn btn-danger"  value="Change password"/>
+                        </div>
+                        <div class="pull-right">
+                             <h:outputLink value="${pageContext.request.contextPath}/j_spring_security_logout" target="/"><i class="fa fa-sign-out fa-2x"></i></h:outputLink>
+                        </div>
+                    </h:form>
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="#" id="layout-setup" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+        </li>
+
+    </ul>
+
+
+
+</ui:composition>
