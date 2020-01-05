@@ -47,6 +47,7 @@ public class ItemTypeBrowseController implements Serializable {
     @PostConstruct
     public void initDataModel() {
     	try {
+    		System.out.println("Ok. Come");
     		this.businessObjects = businessService.getObjects();
 			} catch (Exception e) {
 				e.printStackTrace();
