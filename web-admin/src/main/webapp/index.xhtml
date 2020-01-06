@@ -7,36 +7,144 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 template="#{layoutMB.template}">
 
-    <ui:define name="head-end">
-        <ui:param name="renderBreadCrumb" value="false"/>
-    </ui:define>
+	<ui:define name="head-end">
+		<ui:param name="renderBreadCrumb" value="false"/>
+	</ui:define>
 
-    <ui:define name="title">
-        <h2 class="align-center">
-            Welcome to the <span class="text-aqua"> <i><a href="https://github.com/adminfaces/admin-starter-springboot"
-                                                          target="_blank"
-                                                          style="text-transform: none;text-decoration: none"> AdminFaces SpringBoot Starter</a></i></span> Project!
-            <br/>
-            <small>Integrating <p:link value="Primefaces" href="http://primefaces.org"/>, <p:link value="Bootstrap"
-                                                                                                  href="http://getbootstrap.com/"/> and
-                <p:link value="Admin LTE" href="https://almsaeedstudio.com/themes/AdminLTE/index2.html/"/> into your
-                <p:link value="JSF" href="https://javaserverfaces.java.net/"/> application.
-            </small>
-        </h2>
-
-    </ui:define>
-		<ui:define name="body">
-<section class="content-header" style="padding-left: 0px">
-    <h1 >Dashboard
-        <small>(Copied from <a href="https://almsaeedstudio.com/themes/AdminLTE/index2.html" target="_blank">Admin LTE</a>)</small>
-    </h1>
-</section>
-<p:spacer height="15px"/>		
-    	<div class="box box-primary" style="font-family: 'Helvetica Neue';font-size: 15px">
-			</div>
+	<ui:define name="title">
+		Dashboard
+	</ui:define>
+	<p:spacer height="15px"/>		
+	<ui:define name="body">
+		<div class="box box-primary" style="font-family: 'Helvetica Neue';font-size: 15px">
+		</div>
 			
 			<!-- Small boxes (Stat box) -->
-        <div class="row">
+		<div class="row">
+		  <div class="col-lg-3 col-6">
+		    <!-- small box -->
+		  <div class="small-box bg-info">
+		    <div class="inner">
+		      <h3>150</h3>
+		
+		      <p>#{messages['lbl.inventoryManagement']}</p>
+		    </div>
+		    <div class="icon">
+		      <i class="ion ion-bag"></i>
+		    </div>
+		    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+		  </div>
+		</div>
+		<!-- ./col -->
+		<div class="col-lg-3 col-6">
+		  <!-- small box -->
+		<div class="small-box bg-success">
+		  <div class="inner">
+		    <h3>53<sup style="font-size: 20px">%</sup></h3>
+		
+		      <p>#{messages['lbl.financialAccoutingManagement']}</p>
+		    </div>
+		    <div class="icon">
+		      <i class="ion ion-stats-bars"></i>
+		    </div>
+		    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+		  </div>
+		</div>
+		<!-- ./col -->
+		<div class="col-lg-3 col-6">
+		  <!-- small box -->
+		  <div class="small-box bg-warning">
+		    <div class="inner">
+		      <h3>44</h3>
+		
+		      <p>#{messages['lbl.manufacturingManagement']}</p>
+		    </div>
+		    <div class="icon">
+		      <i class="ion ion-person-add"></i>
+		    </div>
+		    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+		  </div>
+		</div>
+		<!-- ./col -->
+		<div class="col-lg-3 col-6">
+		  <!-- small box -->
+		  <div class="small-box bg-danger">
+		    <div class="inner">
+		      <h3>65</h3>
+		
+		      <p>#{messages['lbl.salesManagement']}</p>
+		    </div>
+		    <div class="icon">
+		      <i class="ion ion-pie-graph"></i>
+		    </div>
+		    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+		  </div>
+		</div>
+		<!-- ./col -->
+		</div>
+<div class="row">
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3>150</h3>
+
+                <p>#{messages['lbl.purchasingAdministration']}</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-bag"></i>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3>53<sup style="font-size: 20px">%</sup></h3>
+
+                <p>#{messages['lbl.customerRelationshipManagement']}</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-stats-bars"></i>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-warning">
+              <div class="inner">
+                <h3>44</h3>
+
+                <p>User Registrations</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-person-add"></i>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-danger">
+              <div class="inner">
+                <h3>65</h3>
+
+                <p>Unique Visitors</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-pie-graph"></i>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+        </div>
+<div class="row">
           <div class="col-lg-3 col-6">
             <!-- small box -->
             <div class="small-box bg-info">
@@ -98,6 +206,68 @@
           </div>
           <!-- ./col -->
         </div>
+        <div class="row">
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3>150</h3>
+
+                <p>New Orders</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-bag"></i>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3>53<sup style="font-size: 20px">%</sup></h3>
+
+                <p>Bounce Rate</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-stats-bars"></i>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-warning">
+              <div class="inner">
+                <h3>44</h3>
+
+                <p>User Registrations</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-person-add"></i>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-danger">
+              <div class="inner">
+                <h3>65</h3>
+
+                <p>Unique Visitors</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-pie-graph"></i>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+        </div>                
 <div class="row">
 <div class="col-md-3 col-sm-6 col-xs-12">
     <div class="info-box">
