@@ -28,7 +28,7 @@
                         <p:spacer width="5"/>
                         <p:commandButton value="#{messages['lbl.general.deleteSelected']}" icon="fa fa-trash" styleClass="btn-danger"
                                          action="#{itemTypeBrowser.delete()}"
-                                         disabled="#{empty itemTypeBrowser.selectedObjects or itemTypeBrowser.selectedObjects.size() == 0}"
+                                         disabled="#{empty itemTypeBrowse.selectedObjects or itemTypeBrowse.selectedObjects.size() == 0}"
                                          process="@this" update="@form" id="deleteSelected"
                         >
                             <p:confirm header="#{messages['lbl.general.confirmation']}" message="#{messages['lbl.general.areYouSure']}" icon="ui-icon-danger">
@@ -41,9 +41,9 @@
                     </div>
 
                     <p:separator/>
-                    <p:dataTable widgetVar="businessObjectsTable" var="currEntity" value="#{itemTypeBrowser.businessObjects}" rows="30"
+                    <p:dataTable widgetVar="businessObjectsTable" var="currEntity" value="#{itemTypeBrowse.businessObjects}" rows="30"
                                  rowKey="#{currEntity.id}" lazy="true" paginator="true"
-                                 paginatorPosition="bottom" selection="#{itemTypeBrowser.selectedObjects}"
+                                 paginatorPosition="bottom" selection="#{itemTypeBrowse.selectedObjects}"
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {JumpToPageDropdown}"
                                  currentPageReportTemplate="[ {startRecord} to {endRecord} of {totalRecords} ]"
                                  rowsPerPageTemplate="5,10,15,20,30,50,100"
