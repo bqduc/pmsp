@@ -55,6 +55,10 @@
 		<version.admin-template>1.1.0</version.admin-template><!-- 1.0.2 -->
 		<version.admin-theme>1.1.0</version.admin-theme>
 		<version.primefaces>7.0</version.primefaces>
+		
+		<version.servlet-api>3.1.0</version.servlet-api>
+		<version.javax.faces>2.3.3</version.javax.faces>
+		<version.javax.faces-api>2.3</version.javax.faces-api>
 	</properties>
  
     <modules>

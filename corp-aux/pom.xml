@@ -26,6 +26,12 @@
 			<version>${project.version}</version>
 		</dependency>	
 
+		<dependency>
+			<groupId>javax.faces</groupId>
+			<artifactId>javax.faces-api</artifactId>
+			<version>${version.javax.faces-api}</version>
+		</dependency>
+
     <dependency>
 			<groupId>joda-time</groupId>
 			<artifactId>joda-time</artifactId>
