@@ -43,7 +43,7 @@ public class AuthorityBrowser implements Serializable {
 	@PostConstruct
 	public void initDataModel() {
 		try {
-			System.out.println("Ok. Come");
+			System.out.println("==>Come to authority browser!");
 			this.businessObjects = businessService.getObjects();
 		} catch (Exception e) {
 			e.printStackTrace();

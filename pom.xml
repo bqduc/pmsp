@@ -59,6 +59,7 @@
 		<version.servlet-api>3.1.0</version.servlet-api>
 		<version.javax.faces>2.3.3</version.javax.faces>
 		<version.javax.faces-api>2.3</version.javax.faces-api>
+		<version.omnifaces>1.14.1</version.omnifaces>
 	</properties>
  
     <modules>
@@ -76,7 +77,7 @@
 		<module>corp-imx</module>
 		<module>corp-esmx</module>
 		<module>corp-osx</module>
-		<module>web-admin</module>
+		<module>corp-admin</module>
     </modules>
 	
     <dependencies>
