@@ -7,7 +7,7 @@ package net.paramount.framework.model;
  * @author bqduc
  *
  */
-public class DefaultSearchRequest extends SearchRequest{
+public class DefaultSearchRequest extends SearchSpec{
 	public final static String fieldCode = "code";
 
 	private String code;

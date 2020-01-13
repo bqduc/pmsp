@@ -101,9 +101,4 @@ public abstract class BaseServiceImpl<T extends ObjectBase, PK extends Serializa
 		getRepository().findAll().forEach(results::add);
 		return results;
 	}
-	
-	@Transactional(readOnly = true)
-	public Page<T> search(String keyword, Pageable pageable) {
-		return performSearch(keyword, pageable);
-	}
 }

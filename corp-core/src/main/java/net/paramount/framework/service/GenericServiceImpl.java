@@ -13,7 +13,6 @@ import javax.persistence.PersistenceContext;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -32,7 +31,7 @@ import net.paramount.framework.entity.BizObjectBase;
 import net.paramount.framework.entity.ObjectBase;
 import net.paramount.framework.model.ExecutionContext;
 import net.paramount.framework.model.SearchParameter;
-import net.paramount.framework.model.SearchRequest;
+import net.paramount.framework.model.SearchSpec;
 import net.paramount.framework.predicator.BrilliancePredicator;
 import net.paramount.framework.repository.BaseRepository;
 import net.paramount.framework.specification.DefaultSpecification;
@@ -202,7 +201,7 @@ public abstract class GenericServiceImpl<ClassType extends ObjectBase, Key exten
 		return getPaginatedObjects(pageNumber, size);
 	}
 
-	@Override
+	/*@Override
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
 	public Page<ClassType> searchObjects(String keyword, Pageable pageable) {
 		return performSearch(keyword, pageable);
@@ -211,7 +210,7 @@ public abstract class GenericServiceImpl<ClassType extends ObjectBase, Key exten
 	@Transactional(readOnly = true)
 	public Page<ClassType> search(Map<String, Object> parameters){
 		return searchObjects((String)parameters.get(CommonConstants.PARAM_KEYWORD), (Pageable)parameters.get(CommonConstants.PARAM_PAGEABLE));
-	}
+	}*/
 
   @Override
   @Transactional(propagation = Propagation.REQUIRED)
@@ -271,7 +270,7 @@ public abstract class GenericServiceImpl<ClassType extends ObjectBase, Key exten
 
 	protected Page<ClassType> performGetObjects(SearchParameter searchParameter) {
 		return getRepository().findAll(
-				DefaultSpecification.<ClassType, SearchRequest>builder().build().buildRepoSpecification(searchParameter),
+				DefaultSpecification.<ClassType, SearchSpec>builder().build().buildRepoSpecification(searchParameter),
 				searchParameter.getPageable());
 	}
 

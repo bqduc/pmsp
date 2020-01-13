@@ -8,7 +8,7 @@ import org.springframework.data.jpa.domain.Specification;
 import lombok.Builder;
 import net.paramount.entity.stock.Product;
 import net.paramount.framework.model.SearchParameter;
-import net.paramount.framework.model.SearchRequest;
+import net.paramount.framework.model.SearchSpec;
 import net.paramount.framework.specification.CoreSpecifications;
 
 /**
@@ -16,7 +16,7 @@ import net.paramount.framework.specification.CoreSpecifications;
  *
  */
 @Builder
-public class ProductSpecification extends CoreSpecifications<Product, SearchRequest>{
+public class ProductSpecification extends CoreSpecifications<Product, SearchSpec>{
 	/**
 	 * 
 	 */

@@ -7,7 +7,7 @@ import org.springframework.data.jpa.domain.Specification;
 
 import lombok.Builder;
 import net.paramount.framework.model.SearchParameter;
-import net.paramount.framework.model.SearchRequest;
+import net.paramount.framework.model.SearchSpec;
 import net.paramount.framework.specification.CoreSpecifications;
 import net.paramount.imx.entity.InventoryProfile;
 
@@ -16,7 +16,7 @@ import net.paramount.imx.entity.InventoryProfile;
  *
  */
 @Builder
-public class InventoryProfileSpecification extends CoreSpecifications<InventoryProfile, SearchRequest>{
+public class InventoryProfileSpecification extends CoreSpecifications<InventoryProfile, SearchSpec>{
 	/**
 	 * 
 	 */

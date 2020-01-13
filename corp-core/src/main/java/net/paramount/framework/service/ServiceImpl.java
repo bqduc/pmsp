@@ -8,7 +8,9 @@ import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -58,10 +60,28 @@ public abstract class ServiceImpl<EntityType extends ObjectBase, Key extends Ser
 
 	//protected abstract Page<ClassType> performSearch(String keyword, Pageable pageable);
 
+	protected Pageable createDefaultPageable() {
+    PageRequest pageRequest = PageRequest.of(CommonConstants.DEFAULT_PAGE_BEGIN, CommonConstants.DEFAULT_PAGE_SIZE, Sort.Direction.ASC, "id");
+		return pageRequest;
+	}
+
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+	public Page<EntityType> searchObjects(String keyword, Pageable pageable) {
+		return performSearch(keyword, pageable);
+	}
+
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+	public Page<EntityType> search(String keyword){
+		Pageable pageable = this.createDefaultPageable();
+		return performSearch(keyword, pageable);
+	}
+
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
 	public Page<EntityType> search(String keyword, Pageable pageable){
 		return performSearch(keyword, pageable);
 	}
 
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
 	public Page<EntityType> search(Map<String, Object> parameters) {
 		String keyword = (String)parameters.get(CommonConstants.PARAM_KEYWORD);
 		Pageable pageable = (Pageable)parameters.get(CommonConstants.PARAM_PAGEABLE);

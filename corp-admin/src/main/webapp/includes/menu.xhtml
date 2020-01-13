@@ -4,11 +4,654 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui">
 
-    <ul class="sidebar-menu tree" data-widget="tree">
-        <li class="header">
-        	<i class="fa fa-book"></i>
-            #{messages['lbl.menu.applicationAdministration']}
-        </li>
+<ul class="sidebar-menu tree" data-widget="tree">
+	<li class="header">
+		<i class="fa fa-book"></i>
+	  #{messages['lbl.menu.applicationAdministration']}
+	</li>
+	<li class="treeview">
+		<a href="#">
+		    <i class="fa fa-files-o"></i>
+		    <span>#{messages['lbl.menu.corporateEnterpriseSystem']}</span>
+		    <span class="pull-right-container">
+		        <i class="fa fa-angle-left pull-right"></i>
+		    </span>
+		</a>
+		<ul class="treeview-menu">
+			<li class="treeview">
+			   <a href="#">
+			       <i class="fa fa-files-o"></i>
+			       <span>#{messages['lbl.enterpriseCoreAdministration']}</span>
+			       <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+			   </a>
+			   <ul class="treeview-menu">
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="#{messages['lbl.menu.ems.corpPurchaseMgmnt']}">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.ems.corpPurchaseMgmnt']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="#{messages['lbl.menu.ems.corpAssetMgmnt']}">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.ems.corpAssetMgmnt']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="#{messages['lbl.menu.ems.corpSalesMgmnt']}">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.ems.corpSalesMgmnt']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="#{messages['lbl.menu.ems.corpCRM']}">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.ems.corpCRM']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="#{messages['lbl.menu.ems.corpOfficeMgmnt']}">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.ems.corpOfficeMgmnt']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="#{messages['lbl.menu.ems.corpHCMgmnt']}">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.ems.corpHCMgmnt']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="#{messages['lbl.menu.ems.corpDocumentMgmnt']}">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.ems.corpDocumentMgmnt']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="#{messages['lbl.menu.ems.corpPrettyCashMgmnt']}">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.ems.corpPrettyCashMgmnt']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="#{messages['lbl.menu.ems.corpFinanceMgmnt']}">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.ems.corpFinanceMgmnt']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="#{messages['lbl.menu.ems.corpProductionMgmnt']}">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.ems.corpProductionMgmnt']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="#{messages['lbl.menu.ems.corpInventoryMgmnt']}">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.ems.corpInventoryMgmnt']}</span>
+			          </p:link>
+			      </li>
+				</ul>
+		  </li>
+			<li class="treeview">
+			   <a href="#">
+			       <i class="fa fa-files-o"></i>
+			       <span>#{messages['lbl.supplyChainManagement']}</span>
+			       <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+			   </a>
+			   <ul class="treeview-menu">
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faCashOnHand']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faAccountReceivable']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faCustomerCredit']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faRevenue']}</span>
+			          </p:link>
+			      </li>
+				</ul>
+		  </li>
+			<li class="treeview">
+			   <a href="#">
+			       <i class="fa fa-files-o"></i>
+			       <span>#{messages['lbl.humanCapitalManagement']}</span>
+			       <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+			   </a>
+			   <ul class="treeview-menu">
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faCashOnHand']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faAccountReceivable']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faCustomerCredit']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faRevenue']}</span>
+			          </p:link>
+			      </li>
+				</ul>
+		  </li>
+			<li class="treeview">
+			   <a href="#">
+			       <i class="fa fa-files-o"></i>
+			       <span>#{messages['lbl.customerRelationshipManagement']}</span>
+			       <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+			   </a>
+			   <ul class="treeview-menu">
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faCashOnHand']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faAccountReceivable']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faCustomerCredit']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faRevenue']}</span>
+			          </p:link>
+			      </li>
+				</ul>
+		  </li>
+			<li class="treeview">
+			   <a href="#">
+			       <i class="fa fa-files-o"></i>
+			       <span>#{messages['lbl.manufacturingResourcePlanning']}</span>
+			       <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+			   </a>
+			   <ul class="treeview-menu">
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faCashOnHand']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faAccountReceivable']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faCustomerCredit']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faRevenue']}</span>
+			          </p:link>
+			      </li>
+				</ul>
+		  </li>
+			<li class="treeview">
+			   <a href="#">
+			       <i class="fa fa-files-o"></i>
+			       <span>#{messages['lbl.financeResourceManagement']}</span>
+			       <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+			   </a>
+			   <ul class="treeview-menu">
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faCashOnHand']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faAccountReceivable']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faCustomerCredit']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faRevenue']}</span>
+			          </p:link>
+			      </li>
+				</ul>
+		  </li>
+			<li class="treeview">
+			   <a href="#">
+			       <i class="fa fa-files-o"></i>
+			       <span>#{messages['lbl.menu.invoicingSystem']}</span>
+			       <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+			   </a>
+			   <ul class="treeview-menu">
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faCashOnHand']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faAccountReceivable']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faCustomerCredit']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faRevenue']}</span>
+			          </p:link>
+			      </li>
+				</ul>
+		  </li>
+		<li class="treeview">
+			   <a href="#">
+			       <i class="fa fa-files-o"></i>
+			       <span>#{messages['lbl.menu.quotationSystem']}</span>
+			       <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+			   </a>
+			   <ul class="treeview-menu">
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faCashOnHand']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faAccountReceivable']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faCustomerCredit']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faRevenue']}</span>
+			          </p:link>
+			      </li>
+			   </ul>
+		   </li>
+		<li class="treeview">
+			   <a href="#">
+			       <i class="fa fa-files-o"></i>
+			       <span>#{messages['lbl.menu.supplierManagementSystem']}</span>
+			       <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+			   </a>
+			   <ul class="treeview-menu">
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faCashOnHand']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faAccountReceivable']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faCustomerCredit']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faRevenue']}</span>
+			          </p:link>
+			      </li>
+			   </ul>
+		   </li>
+		<li class="treeview">
+			   <a href="#">
+			       <i class="fa fa-files-o"></i>
+			       <span>#{messages['lbl.menu.projectApprovalManagementSystem']}</span>
+			       <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+			   </a>
+			   <ul class="treeview-menu">
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faCashOnHand']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faAccountReceivable']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faCustomerCredit']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faRevenue']}</span>
+			          </p:link>
+			      </li>
+			   </ul>
+		   </li>
+<li class="treeview">
+			   <a href="#">
+			       <i class="fa fa-files-o"></i>
+			       <span>#{messages['lbl.menu.supportLogManagementSystem']}</span>
+			       <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+			   </a>
+			   <ul class="treeview-menu">
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faCashOnHand']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faAccountReceivable']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faCustomerCredit']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faRevenue']}</span>
+			          </p:link>
+			      </li>
+			   </ul>
+		   </li>		
+<li class="treeview">
+			   <a href="#">
+			       <i class="fa fa-files-o"></i>
+			       <span>#{messages['lbl.menu.materialResourcesPlanning']}</span>
+			       <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+			   </a>
+			   <ul class="treeview-menu">
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faCashOnHand']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faAccountReceivable']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faCustomerCredit']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faRevenue']}</span>
+			          </p:link>
+			      </li>
+			   </ul>
+		   </li>		
+			<li class="treeview">
+			   <a href="#">
+			       <i class="fa fa-files-o"></i>
+			       <span>#{messages['lbl.menu.warehouseManagementSystem']}</span>
+			       <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+			   </a>
+			   <ul class="treeview-menu">
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faCashOnHand']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faAccountReceivable']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faCustomerCredit']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faRevenue']}</span>
+			          </p:link>
+			      </li>
+			   </ul>
+		   </li>		
+			<li class="treeview">
+			   <a href="#">
+			       <i class="fa fa-files-o"></i>
+			       <span>#{messages['lbl.menu.customerRelationshipManagement']}</span>
+			       <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+			   </a>
+			   <ul class="treeview-menu">
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faCashOnHand']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faAccountReceivable']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faCustomerCredit']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faRevenue']}</span>
+			          </p:link>
+			      </li>
+			   </ul>
+		   </li>
+			<li class="treeview">
+			   <a href="#">
+			       <i class="fa fa-files-o"></i>
+			       <span>#{messages['lbl.menu.enterpriseResourcesPlanning']}</span>
+			       <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+			   </a>
+			   <ul class="treeview-menu">
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faCashOnHand']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faAccountReceivable']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faCustomerCredit']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faRevenue']}</span>
+			          </p:link>
+			      </li>
+			   </ul>
+		   </li>
+		   
+		   <li class="treeview">
+			   <a href="#">
+			       <i class="fa fa-files-o"></i>
+			       <span>#{messages['lbl.menu.corporateFinanceAccounting']}</span>
+			       <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+			   </a>
+			   <ul class="treeview-menu">
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faCashOnHand']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faAccountReceivable']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faCustomerCredit']}</span>
+			          </p:link>
+			      </li>
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.faRevenue']}</span>
+			          </p:link>
+			      </li>
+			   </ul>
+		   </li>
+		   <li class="treeview">
+			   <a href="#">
+			       <i class="fa fa-files-o"></i>
+			       <span>#{messages['lbl.menu.corporateHumanCapital']}</span>
+			       <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+			   </a>
+			   <ul class="treeview-menu">
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.logon']}</span>
+			          </p:link>
+			      </li>
+			   </ul>
+		   </li>
+		   <li class="treeview">
+			   <a href="#">
+			       <i class="fa fa-files-o"></i>
+			       <span>#{messages['lbl.menu.corporateManufacturingProduction']}</span>
+			       <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+			   </a>
+			   <ul class="treeview-menu">
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.logon']}</span>
+			          </p:link>
+			      </li>
+			   </ul>
+		   </li>
+		   <li class="treeview">
+			   <a href="#">
+			       <i class="fa fa-files-o"></i>
+			       <span>#{messages['lbl.menu.corporateSalesMarketing']}</span>
+			       <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+			   </a>
+			   <ul class="treeview-menu">
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.logon']}</span>
+			          </p:link>
+			      </li>
+			   </ul>
+		   </li>
+		   <li class="treeview">
+			   <a href="#">
+			       <i class="fa fa-files-o"></i>
+			       <span>#{messages['lbl.menu.corporateHealthcare']}</span>
+			       <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+			   </a>
+			   <ul class="treeview-menu">
+			      <li>
+			          <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
+			              <i class="fa fa-users"></i>
+			              <span>#{messages['lbl.menu.logon']}</span>
+			          </p:link>
+			      </li>
+			   </ul>
+		   </li>
+		</ul>
+	</li>
+        
         <li class="treeview">
             <a href="#">
                 <i class="fa fa-files-o"></i>
@@ -72,23 +715,6 @@
 		                    <p:link outcome="/bszone/autx/roleBrowse.xhtml" title="#{messages['lbl.menu.roleBrowse']}">
 		                        <i class="fa fa-users"></i>
 		                        <span>#{messages['lbl.menu.roleBrowse']}</span>
-		                    </p:link>
-		                </li>
-	            		</ul>
-                </li>
-                <li class="treeview">
-			            <a href="#">
-			                <i class="fa fa-files-o"></i>
-			                <span>#{messages['lbl.menu.userManagement']}</span>
-			                <span class="pull-right-container">
-			                    <i class="fa fa-angle-left pull-right"></i>
-			                </span>
-			            </a>
-	            		<ul class="treeview-menu">
-		                <li>
-		                    <p:link outcome="/pages/mvp/virtualSimulator.xhtml" title="Logon page">
-		                        <i class="fa fa-users"></i>
-		                        <span>#{messages['lbl.menu.logon']}</span>
 		                    </p:link>
 		                </li>
 	            		</ul>

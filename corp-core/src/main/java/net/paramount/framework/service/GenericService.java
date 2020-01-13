@@ -46,6 +46,7 @@ public interface GenericService<T extends ObjectBase, K extends Serializable> ex
 	Page<T> getObjects(Integer pageNumber, Integer size);
 	Page<T> searchObjects(String keyword, Pageable pageable);
 	Page<T> search(Map<String, Object> parameters);
+	Page<T> search(String keyword);
 
 	List<T> imports(Map<Object, Object> parameters);
 

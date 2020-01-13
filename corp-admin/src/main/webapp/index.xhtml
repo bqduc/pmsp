@@ -12,7 +12,7 @@
 	</ui:define>
 
 	<ui:define name="title">
-		Dashboard
+		#{messages['lbl.object.dashboard']}
 	</ui:define>
 	<p:spacer height="15px"/>		
 	<ui:define name="body">
@@ -26,13 +26,12 @@
 		  <div class="small-box bg-info">
 		    <div class="inner">
 		      <h3>150</h3>
-		
-		      <p>#{messages['lbl.inventoryManagement']}</p>
+		      <p>#{messages['lbl.menu.ems.corpPurchaseMgmnt']}</p>
 		    </div>
 		    <div class="icon">
 		      <i class="ion ion-bag"></i>
 		    </div>
-		    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+		    <a href="/dbx/dashboardPurchases.xhtml" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
 		  </div>
 		</div>
 		<!-- ./col -->
@@ -41,13 +40,12 @@
 		<div class="small-box bg-success">
 		  <div class="inner">
 		    <h3>53<sup style="font-size: 20px">%</sup></h3>
-		
-		      <p>#{messages['lbl.financialAccoutingManagement']}</p>
+		      <p>#{messages['lbl.menu.ems.corpAssetMgmnt']}</p>
 		    </div>
 		    <div class="icon">
 		      <i class="ion ion-stats-bars"></i>
 		    </div>
-		    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+		    <a href="/dbx/dashboardAsset.xhtml" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
 		  </div>
 		</div>
 		<!-- ./col -->
@@ -56,13 +54,12 @@
 		  <div class="small-box bg-warning">
 		    <div class="inner">
 		      <h3>44</h3>
-		
-		      <p>#{messages['lbl.manufacturingManagement']}</p>
+		      <p>#{messages['lbl.menu.ems.corpSalesMgmnt']}</p>
 		    </div>
 		    <div class="icon">
 		      <i class="ion ion-person-add"></i>
 		    </div>
-		    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+		    <a href="/dbx/dashboardSales.xhtml" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
 		  </div>
 		</div>
 		<!-- ./col -->
@@ -71,13 +68,12 @@
 		  <div class="small-box bg-danger">
 		    <div class="inner">
 		      <h3>65</h3>
-		
-		      <p>#{messages['lbl.salesManagement']}</p>
+		      <p>#{messages['lbl.menu.ems.corpCRM']}</p>
 		    </div>
 		    <div class="icon">
 		      <i class="ion ion-pie-graph"></i>
 		    </div>
-		    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+		    <a href="/dbx/dashboardCRX.xhtml" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
 		  </div>
 		</div>
 		<!-- ./col -->
@@ -88,13 +84,12 @@
             <div class="small-box bg-info">
               <div class="inner">
                 <h3>150</h3>
-
-                <p>#{messages['lbl.purchasingAdministration']}</p>
+                <p>#{messages['lbl.menu.ems.corpOfficeMgmnt']}</p>
               </div>
               <div class="icon">
                 <i class="ion ion-bag"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="/dbx/dashboardOMX.xhtml" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -103,13 +98,12 @@
             <div class="small-box bg-success">
               <div class="inner">
                 <h3>53<sup style="font-size: 20px">%</sup></h3>
-
-                <p>#{messages['lbl.customerRelationshipManagement']}</p>
+                <p>#{messages['lbl.menu.ems.corpHCMgmnt']}</p>
               </div>
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="/dbx/dashboardHCX.xhtml" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -118,13 +112,12 @@
             <div class="small-box bg-warning">
               <div class="inner">
                 <h3>44</h3>
-
-                <p>User Registrations</p>
+                <p>#{messages['lbl.menu.ems.corpDocumentMgmnt']}</p>
               </div>
               <div class="icon">
                 <i class="ion ion-person-add"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="/dbx/dashboardDMX.xhtml" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -133,13 +126,12 @@
             <div class="small-box bg-danger">
               <div class="inner">
                 <h3>65</h3>
-
-                <p>Unique Visitors</p>
+                <p>#{messages['lbl.menu.ems.corpPrettyCashMgmnt']}</p>
               </div>
               <div class="icon">
                 <i class="ion ion-pie-graph"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="/dbx/dashboardCash.xhtml" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -150,13 +142,12 @@
             <div class="small-box bg-info">
               <div class="inner">
                 <h3>150</h3>
-
-                <p>New Orders</p>
+                <p>#{messages['lbl.menu.ems.corpFinanceMgmnt']}</p>
               </div>
               <div class="icon">
                 <i class="ion ion-bag"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="/dbx/dashboardFAX.xhtml" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -165,13 +156,12 @@
             <div class="small-box bg-success">
               <div class="inner">
                 <h3>53<sup style="font-size: 20px">%</sup></h3>
-
-                <p>Bounce Rate</p>
+                <p>#{messages['lbl.menu.ems.corpProductionMgmnt']}</p>
               </div>
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="/dbx/dashboardMRP.xhtml" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -180,13 +170,12 @@
             <div class="small-box bg-warning">
               <div class="inner">
                 <h3>44</h3>
-
-                <p>User Registrations</p>
+                <p>#{messages['lbl.menu.ems.corpInventoryMgmnt']}</p>
               </div>
               <div class="icon">
                 <i class="ion ion-person-add"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="/dbx/dashboardIMX.xhtml" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
