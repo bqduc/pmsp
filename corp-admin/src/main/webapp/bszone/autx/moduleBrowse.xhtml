@@ -12,47 +12,47 @@
         <ui:param name="autoShowNavbar" value="false"/> <!-- disables auto show navbar (only on this page) on small devices -->
     </ui:define>
     <ui:define name="body">
-        <adm:breadcrumb title="#{messages['lbl.menu.userBrowse']}"/>
+        <adm:breadcrumb title="Datatable"/>
         <p:panel styleClass="card box-primary" header="#{messages['menu.generalSettings.browse.contactBrowse']}">
             <h:form prependId="false">
                     <div id="main-buttons" class="hidden-sm hidden-xs">
-                        <p:commandButton action="userAccountDetail?faces-redirect=true" icon="fa fa-plus"
+                        <p:commandButton action="authorityDetail?faces-redirect=true" icon="fa fa-plus"
                                          value="New" styleClass="btn-primary"/>
                         <p:spacer width="5"/>
                         <p:commandButton value="Delete Selected" icon="fa fa-trash" styleClass="btn-danger"
-                                         action="#{userAccountBrowser.delete}"
-                                         disabled="#{empty userAccountBrowser.selectedObjects or userAccountBrowser.selectedObjects.size() == 0}"
+                                         action="#{authorityBrowser.delete}"
+                                         disabled="#{empty authorityBrowser.selectedObjects or authorityBrowser.selectedObjects.size() == 0}"
                                          process="@this" update="@form"
                         >
                             <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-danger"/>
                         </p:commandButton>
                         <p:spacer width="5"/>
                         <p:commandButton value="View selected" update="@(.ui-dialog)" styleClass="btn-info"
-                                         disabled="#{empty userAccountBrowser.selectedObjects or userAccountBrowser.selectedObjects.size() == 0}"
+                                         disabled="#{empty authorityBrowser.selectedObjects or authorityBrowser.selectedObjects.size() == 0}"
                                          oncomplete="PF('selectedContact').show()" icon="fa fa-search"/>
                     </div>
 
-                    <p:splitButton value="New" action="userAccountDetail?faces-redirect=true"
+                    <p:splitButton value="New" action="car-form?faces-redirect=true"
                                    icon="fa fa-plus"
                                    styleClass="hidden-md hidden-lg btn-primary">
-                        <p:menuitem value="Delete Selected" action="#{userAccountBrowser.delete}"
+                        <p:menuitem value="Delete Selected" action="#{authorityBrowser.delete}"
                                     process="@this" update="@form"
-                                    disabled="#{empty userAccountBrowser.selectedObjects or userAccountBrowser.selectedObjects.size() == 0}"
+                                    disabled="#{empty authorityBrowser.selectedObjects or authorityBrowser.selectedObjects.size() == 0}"
                                     icon="fa fa-trash">
                             <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-danger"/>
                         </p:menuitem>
                         <p:menuitem value="View selected" update="@(.ui-dialog)"
                                     oncomplete="PF('selectedContact').show()"
-                                    disabled="#{empty userAccountBrowser.selectedObjects or userAccountBrowser.selectedObjects.size() == 0}"
+                                    disabled="#{empty authorityBrowser.selectedObjects or authorityBrowser.selectedObjects.size() == 0}"
                                     icon="fa fa-search"
                         />
                     </p:splitButton>
                 <div id="datatable">
-                    <p:dataTable var="currBizObject" value="#{userAccountBrowser.businessObjects}" widgetVar="bizObjectTable" paginator="true" styleClass="header-right #{customLayoutMB.borderless ? 'no-border':''}"
+                    <p:dataTable var="currEntity" value="#{authorityBrowser.businessObjects}" widgetVar="carsTable" paginator="true" styleClass="header-right #{customLayoutMB.borderless ? 'no-border':''}"
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                 rowsPerPageTemplate="5,15,20,50,100,250" rows="50" rowKey="#{currBizObject.id}"
-                                 emptyMessage="No cars found with given criteria" stickyHeader="true" selection="#{userAccountBrowser.selectedObjects}"
-                                 filteredValue="#{userAccountBrowser.filteredObjects}">
+                                 rowsPerPageTemplate="5,15,20,50,100,250" rows="50" rowKey="#{currEntity.id}"
+                                 emptyMessage="No cars found with given criteria" stickyHeader="true" selection="#{authorityBrowser.selectedObjects}"
+                                 filteredValue="#{authorityBrowser.filteredObjects}">
 
                         <p:ajax event="rowSelectCheckbox" update="@(.ui-button, .ui-confirm-dialog)"/>
                         <p:ajax event="rowUnselectCheckbox" update="@(.ui-button, .ui-confirm-dialog)"/>
@@ -63,7 +63,7 @@
                             <p:outputPanel>
                                 <h:outputText value="Search all fields:"/>
                                 <p:spacer height="10"/>
-                                <p:inputText id="globalFilter" onkeyup="PF('bizObjectTable').filter()" style="width:150px"
+                                <p:inputText id="globalFilter" onkeyup="PF('carsTable').filter()" style="width:150px"
                                              placeholder="Enter keyword"/>
                             </p:outputPanel>
                         </f:facet>
@@ -72,48 +72,50 @@
                                   styleClass="align-center"
                                   priority="1"/>
 
-                        <p:column filterBy="#{currBizObject.id}" sortBy="#{currBizObject.id}" headerText="Id" footerText="contains"
-                                  filterMatchMode="contains" priority="1">
-                            <p:link value="#{currBizObject.id}" outcome="/bszone/autx/userAccountDetail.jsf">
-                                <f:param name="id" value="#{currBizObject.id}"/>
+                        <p:column filterBy="#{currEntity.id}" sortBy="#{currEntity.id}" headerText="Id" footerText="contains" filterMatchMode="contains" priority="1">
+                            <p:link value="#{currEntity.id}" outcome="/bszone/autx/authorityDetail.jsf">
+                                <f:param name="id" value="#{currEntity.id}"/>
                             </p:link>
                         </p:column>
 
-                        <p:column filterBy="#{currBizObject.activationDate}" sortBy="#{currBizObject.activationDate}" headerText="Year" footerText="lte" filterMatchMode="lte" priority="2">
+                        <p:column filterBy="#{currEntity.birthdate}" sortBy="#{currEntity.name}" headerText="Year" footerText="lte" filterMatchMode="lte" priority="2">
                             <f:facet name="filter">
                                 <p:calendar pattern="dd/MM/yyyy" navigator="true">
                                     <f:converter converterId="calendarYearConverter"/>
-                                    <p:ajax process="@this" event="change" oncomplete="PF('bizObjectTable').filter()"/>
-                                    <p:ajax process="@this" event="dateSelect" oncomplete="PF('bizObjectTable').filter()"/>
+                                    <p:ajax process="@this" event="change" oncomplete="PF('carsTable').filter()"/>
+                                    <p:ajax process="@this" event="dateSelect" oncomplete="PF('carsTable').filter()"/>
                                 </p:calendar>
                             </f:facet>
-                            <h:outputText value="#{currBizObject.activationDate}"/>
+                            <h:outputText value="#{currEntity.name}"/>
                         </p:column>
 
-                        <p:column filterBy="#{currBizObject.firstName}" headerText="Brand" footerText="exact" filterMatchMode="exact"
+                        <p:column filterBy="#{currEntity.displayName}" headerText="Brand" footerText="exact" filterMatchMode="exact"
                                   priority="2">
                             <f:facet name="filter">
-                                <p:selectOneMenu onchange="PF('bizObjectTable').filter()">
-                                    <f:selectItem itemLabel="Select One" itemValue="#{null}" noSelectionOption="true"/>
+                                <p:selectOneMenu onchange="PF('carsTable').filter()">
                                 </p:selectOneMenu>
                             </f:facet>
-                            <h:outputText value="#{currBizObject.firstName}"/>
+                            <h:outputText value="#{currEntity.displayName}"/>
                         </p:column>
 
-                        <p:column filterBy="#{currBizObject.lastName}" headerText="Color" footerText="in" filterMatchMode="in"
+                        <p:column filterBy="#{currEntity.info}" headerText="Color" footerText="in" filterMatchMode="in"
                                   priority="3">
                             <f:facet name="filter">
-                                <p:selectCheckboxMenu label="Colors" onchange="PF('bizObjectTable').filter()"
+                                <p:selectCheckboxMenu label="Colors" onchange="PF('carsTable').filter()"
                                                       panelStyle="width:125px" scrollHeight="150">
                                 </p:selectCheckboxMenu>
                             </f:facet>
-                            <h:outputText value="#{currBizObject.lastName}"/>
+                            <h:outputText value="#{currEntity.info}"/>
                         </p:column>
 
-                        <p:column filterBy="#{currBizObject.code}" headerText="Status" footerText="equals"
+                        <p:column filterBy="#{currEntity.active}" headerText="Status" footerText="equals"
                                   filterMatchMode="equals"
                                   priority="3">
-                            <h:outputText value="#{currBizObject.code}"/>
+                            <h:outputText value="#{currEntity.active}"/>
+                        </p:column>
+
+                        <p:column filterBy="#{currEntity.parent}" headerText="#{messages['lbl.general.parent']}" footerText="equals" filterMatchMode="equals" priority="3">
+                        	<h:outputText value="#{currEntity.parent.displayName}" rendered="#{not empty currEntity.parent}"/>
                         </p:column>
                     </p:dataTable>
                 </div>
@@ -122,9 +124,9 @@
 
 	        <p:dialog header="Selected contact" widgetVar="selectedContact" height="250"
 	                  width="400" responsive="true" styleClass="box-success">
-	            <p:dataList id="selectedCarsList" value="#{userAccountBrowser.selectedObjects}" var="currBizObject"
+	            <p:dataList id="selectedCarsList" value="#{authorityBrowser.selectedObjects}" var="currEntity"
 	                        type="definition">
-	                ID: #{currBizObject.id} - Brand: #{currBizObject.brand} - Color: #{currBizObject.color} - Price: #{currBizObject.price}
+	                ID: #{currEntity.id} <br/>Brand: #{currEntity.name} <br/> Color: #{currEntity.displayName} <br/> Price: #{currEntity.info}
 	            </p:dataList>
 	        </p:dialog>
         </p:panel>

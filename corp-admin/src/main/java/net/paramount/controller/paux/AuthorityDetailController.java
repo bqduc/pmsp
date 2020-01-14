@@ -17,7 +17,7 @@ import org.omnifaces.util.Faces;
 
 import com.github.adminfaces.template.exception.AccessDeniedException;
 
-import net.paramount.auth.service.UserAuthenticationService;
+import net.paramount.auth.service.UserAccountService;
 import net.paramount.css.service.contact.ContactService;
 import net.paramount.domain.dummy.Car;
 import net.paramount.entity.contact.Contact;
@@ -36,7 +36,7 @@ public class AuthorityDetailController implements Serializable {
 	private static final long serialVersionUID = -8331499270487789202L;
 
   @Inject
-  private UserAuthenticationService userAuthenticationService;
+  private UserAccountService userAuthenticationService;
 
   @Inject
 	CarService carService;

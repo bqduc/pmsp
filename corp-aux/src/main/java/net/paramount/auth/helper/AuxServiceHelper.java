@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import net.paramount.auth.domain.UserAccountProfile;
 import net.paramount.auth.entity.UserAccount;
-import net.paramount.auth.service.UserAuthenticationService;
+import net.paramount.auth.service.UserAccountService;
 import net.paramount.common.CommonUtility;
 
 /**
@@ -19,7 +19,7 @@ import net.paramount.common.CommonUtility;
 @Component
 public class AuxServiceHelper {
 	@Inject 
-	private UserAuthenticationService userAuthenticationService;
+	private UserAccountService userAuthenticationService;
 
 	public UserAccountProfile getUserAccountProfile(final String userAccountSsoId) {
 		if (CommonUtility.isEmpty(userAccountSsoId))

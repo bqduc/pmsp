@@ -8,7 +8,7 @@ import net.paramount.exceptions.AuthenticationException;
 import net.paramount.exceptions.ObjectNotFoundException;
 import net.paramount.framework.service.GenericService;
 
-public interface UserAuthenticationService extends GenericService<UserAccount, Long>, UserDetailsService{
+public interface UserAccountService extends GenericService<UserAccount, Long>, UserDetailsService{
     /**
      * Finds the user with the provided name.
      * 

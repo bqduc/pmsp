@@ -33,7 +33,7 @@ import net.paramount.framework.service.GenericServiceImpl;
 
 
 @Service
-public class UserAuthenticationServiceImpl extends GenericServiceImpl<UserAccount, Long> implements UserAuthenticationService {
+public class UserAccountServiceImpl extends GenericServiceImpl<UserAccount, Long> implements UserAccountService {
     /**
 	 * 
 	 */

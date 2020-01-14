@@ -8,7 +8,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import net.paramount.auth.service.UserAuthenticationService;
+import net.paramount.auth.service.UserAccountService;
 import net.paramount.common.CommonUtility;
 import net.paramount.css.service.contact.ContactService;
 import net.paramount.dmx.repository.ContactRepositoryManager;
@@ -41,7 +41,7 @@ public class AuthorityBrowseController extends BaseController {
     List<Car> selectedCars; //cars selected in checkbox column
 
     @Inject
-    private UserAuthenticationService userAuthenticationService;
+    private UserAccountService userAuthenticationService;
     
     @Inject
     private FacesCarService carService;

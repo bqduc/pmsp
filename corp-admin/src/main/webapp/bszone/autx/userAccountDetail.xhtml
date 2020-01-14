@@ -4,53 +4,52 @@
                 xmlns:p="http://primefaces.org/ui" xmlns:adm="http://github.com/adminfaces"
                 template="#{customLayoutMB.template}">
 
-    <ui:define name="title">
-        Contact detail form
-    </ui:define>
+	<ui:define name="title">
+		Contact detail form
+	</ui:define>
 
     <ui:define name="body">
         <f:metadata>
-            <f:viewParam name="id" value="#{contactDetail.id}" converter="javax.faces.Long"/>
-            <!-- use view action if you are in a Java EE 7 server: <f:viewAction action="#{contactDetail.init()}"/>-->
-            <f:event type="preRenderView" listener="#{contactDetail.init}"/>
+            <f:viewParam name="id" value="#{userAccountDetail.id}" converter="javax.faces.Long"/>
+            <!-- use view action if you are in a Java EE 7 server: <f:viewAction action="#{userAccountDetail.init()}"/>-->
+            <f:event type="preRenderView" listener="#{userAccountDetail.init}"/>
         </f:metadata>
 
-        <adm:breadcrumb title="#{empty contactDetail.id ? 'New Car' : 'Car '.concat(contactDetail.id)}" link="car-form.jsf?id=#{contactDetail.id}"/>
+        <adm:breadcrumb title="#{empty userAccountDetail.id ? messages['lbl.general.new'].concat(' ').concat(messages['lbl.object.userAccount'].toLowerCase())  : messages['lbl.object.userAccount'].concat(' ').concat(userAccountDetail.id)}" link="userAccountDetail.jsf?id=#{userAccountDetail.id}"/>
         <h:form id="form" prependId="false">
-            <p:focus rendered="#{empty contactDetail.id}"/>
+            <p:focus rendered="#{empty userAccountDetail.id}"/>
 
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <div id="main-buttons" class="hidden-sm hidden-xs">
-                        <p:commandButton value="Save" action="#{contactDetail.save}" update="@form"
+                        <p:commandButton value="Save" action="#{userAccountDetail.save}" update="@form"
                                          icon="fa fa-check" styleClass="btn-primary"/>
-                        <p:spacer width="5" rendered="#{contactDetail.isNew()}"/>
-                        <p:commandButton value="Clear" action="#{contactDetail.clear}" process="@this"
+                        <p:spacer width="5" rendered="#{userAccountDetail.isNew()}"/>
+                        <p:commandButton value="Clear" action="#{userAccountDetail.clear}" process="@this"
                                          icon="fa fa-refresh" styleClass="btn-success"
-                                         update="@form" rendered="#{contactDetail.isNew()}" resetValues="true"/>
-                        <p:spacer width="5" rendered="#{not contactDetail.isNew()}"/>
+                                         update="@form" rendered="#{userAccountDetail.isNew()}" resetValues="true"/>
+                        <p:spacer width="5" rendered="#{not userAccountDetail.isNew()}"/>
 
-                        <p:commandButton value="Delete" action="#{contactDetail.remove}" process="@this"
-                                         rendered="#{not contactDetail.isNew()}" icon="fa fa-trash"
+                        <p:commandButton value="Delete" action="#{userAccountDetail.remove}" process="@this"
+                                         rendered="#{not userAccountDetail.isNew()}" icon="fa fa-trash"
                                          styleClass="btn-danger">
-                            <f:setPropertyActionListener value="true"
-                                                         target="#{facesContext.externalContext.flash.keepMessages}"/>
+                            <f:setPropertyActionListener value="true" target="#{facesContext.externalContext.flash.keepMessages}"/>
                             <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-danger"/>
                         </p:commandButton>
                         <p:spacer width="5"/>
                         <p:commandButton value="Back" immediate="true"
-                                         action="contactBrowse?faces-redirect=true"
+                                         action="userAccountBrowse?faces-redirect=true"
                                          process="@this"
                                          icon="fa fa-reply"/>
                     </div>
-                    <p:splitButton value="Save" action="#{contactDetail.save}" update="@form"
+                    <p:splitButton value="Save" action="#{userAccountDetail.save}" update="@form"
                                    icon="fa fa-check"
                                    styleClass="hidden-md hidden-lg btn-primary">
-                        <p:menuitem value="Reset" action="#{contactDetail.clear}"
-                                    process="@this" update="@form" rendered="#{contactDetail.isNew()}"
+                        <p:menuitem value="Reset" action="#{userAccountDetail.clear}"
+                                    process="@this" update="@form" rendered="#{userAccountDetail.isNew()}"
                                     resetValues="true" icon="fa fa-refresh"/>
-                        <p:menuitem value="Delete" action="#{contactDetail.remove}" process="@this"
-                                    rendered="#{not contactDetail.isNew()}" icon="fa fa-trash"
+                        <p:menuitem value="Delete" action="#{userAccountDetail.remove}" process="@this"
+                                    rendered="#{not userAccountDetail.isNew()}" icon="fa fa-trash"
                                  >
                             <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-danger"/>
                         </p:menuitem>
@@ -64,30 +63,47 @@
 
                     <div class="ui-g ui-fluid">
                         <div class="ui-sm-12 ui-md-2 ui-lg-1">
-                            <p:outputLabel for="id" value="ID"/>
+                            <p:outputLabel for="id" value="Sso Id"/>
                         </div>
                         <div class="ui-sm-12 ui-md-4 ui-lg-5" >
-                            <p:inputText id="id" value="#{contactDetail.contact.id}" size="4"
-                                         readonly="true" styleClass="form-control" style="width: 100%"/>
+                            <p:inputText id="id" value="#{userAccountDetail.businessObject.ssoId}" size="4"
+                                         styleClass="form-control" style="width: 50%"/>
                         </div>
                         <div class="ui-sm-12 ui-md-2 ui-lg-1">
-                            <p:outputLabel value="Model" for="inptModel"/>
+                            <p:outputLabel value="Password" for="inptPassword"/>
                         </div>
                         <div class="ui-sm-12 ui-md-4 ui-lg-5" >
-                            <p:inputText id="inptModel" value="#{contactDetail.contact.firstName}"/>
+                            <p:password id="inptPassword" value="#{userAccountDetail.businessObject.password}" style="width: 50%" />
                         </div>
                         <div class="ui-sm-12 ui-md-2 ui-lg-1">
-                            <p:outputLabel value="Name" for="inptName"/>
+                            <p:outputLabel value="First Name" for="inptFirstName"/>
                         </div>
                         <div class="ui-sm-12 ui-md-4 ui-lg-5" >
-                            <p:inputText id="inptName" value="#{contactDetail.contact.lastName}"/>
+                            <p:inputText id="inptFirstName" value="#{userAccountDetail.businessObject.firstName}"/>
                         </div>
                         <div class="ui-sm-12 ui-md-2 ui-lg-1">
-                            <p:outputLabel value="Price" for="inptPrice"/>
+                            <p:outputLabel value="Last Name" for="inptLastName"/>
                         </div>
                         <div class="ui-sm-12 ui-md-4 ui-lg-5" >
-                            <p:inputNumber id="inptPrice" value="#{contactDetail.contact.code}"/>
+                            <p:inputText id="inptLastName" value="#{userAccountDetail.businessObject.lastName}"/>
                         </div>
+
+                        <div class="ui-sm-12 ui-md-2 ui-lg-1">
+                    			<p:outputLabel for="selectMany" value="Select Many:" />
+                        </div>
+                        <div class="ui-sm-12 ui-md-4 ui-lg-5" >
+			                    <p:selectManyMenu id="selectMany" value="#{selectManyMB.selectedThemes}" converter="themeConverter"
+			                                      var="t" filter="true" filterMatchMode="contains" showCheckbox="true">
+			                        <f:selectItems value="#{selectManyMB.themes}" var="theme" itemLabel="#{theme.displayName}" itemValue="#{theme}" />
+			                        <p:column>
+			                            <h:outputText styleClass="ui-theme ui-theme-#{t.name}" style="margin-left:35px" />
+			                        </p:column>
+			                        <p:column>
+			                            <h:outputText value="#{t.displayName}" />
+			                        </p:column>
+			                    </p:selectManyMenu>
+                        </div>
+
                     </div>
                 </div>
             </div>
