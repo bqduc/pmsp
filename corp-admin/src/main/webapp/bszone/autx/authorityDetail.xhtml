@@ -4,59 +4,58 @@
                 xmlns:p="http://primefaces.org/ui" xmlns:adm="http://github.com/adminfaces"
                 template="#{customLayoutMB.template}">
 
-    <ui:define name="title">
-        Contact detail form
-         #{messages['lbl.item.searchDescription'].toLowerCase()}
-    </ui:define>
+	<ui:define name="title">
+		<adm:breadcrumb title="#{messages['lbl.general.deail'].concat(' ').concat(messages['lbl.object.authority'].toLowerCase())}"/>
+		#{messages['lbl.general.deail'].concat(' ').concat(messages['lbl.object.authority'].toLowerCase())}
+	</ui:define>
 
     <ui:define name="body">
         <f:metadata>
-            <f:viewParam name="id" value="#{authorityDetailController.id}" converter="javax.faces.Long"/>
-            <!-- use view action if you are in a Java EE 7 server: <f:viewAction action="#{authorityDetailController.init()}"/>-->
-            <f:event type="preRenderView" listener="#{authorityDetailController.init}"/>
+            <f:viewParam name="id" value="#{authorityDetail.id}" converter="javax.faces.Long"/>
+            <!-- use view action if you are in a Java EE 7 server: <f:viewAction action="#{authorityDetail.init()}"/>-->
+            <f:event type="preRenderView" listener="#{authorityDetail.init}"/>
         </f:metadata>
 
-        <adm:breadcrumb title="#{empty authorityDetailController.id ? 'New Car' : 'Car '.concat(authorityDetailController.id)}" link="authorityDetail.jsf?id=#{authorityDetailController.id}"/>
         <h:form id="form" prependId="false">
-            <p:focus rendered="#{empty authorityDetailController.id}"/>
+            <p:focus rendered="#{empty authorityDetail.id}"/>
 
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <div id="main-buttons" class="hidden-sm hidden-xs">
-                        <p:commandButton value="Save" action="#{authorityDetailController.save}" update="@form"
+                        <p:commandButton value="#{messages['lbl.general.save']}" action="#{authorityDetail.save}" update="@form"
                                          icon="fa fa-check" styleClass="btn-primary"/>
-                        <p:spacer width="5" rendered="#{authorityDetailController.isNew()}"/>
-                        <p:commandButton value="Clear" action="#{authorityDetailController.clear}" process="@this"
+                        <p:spacer width="5" rendered="#{authorityDetail.isNew()}"/>
+                        <p:commandButton value="#{messages['lbl.general.reset']}" action="#{authorityDetail.clear}" process="@this"
                                          icon="fa fa-refresh" styleClass="btn-success"
-                                         update="@form" rendered="#{authorityDetailController.isNew()}" resetValues="true"/>
-                        <p:spacer width="5" rendered="#{not authorityDetailController.isNew()}"/>
+                                         update="@form" rendered="#{authorityDetail.isNew()}" resetValues="true"/>
+                        <p:spacer width="5" rendered="#{not authorityDetail.isNew()}"/>
 
-                        <p:commandButton value="Delete" action="#{authorityDetailController.remove}" process="@this"
-                                         rendered="#{not authorityDetailController.isNew()}" icon="fa fa-trash"
+                        <p:commandButton value="#{messages['lbl.general.delete']}" action="#{authorityDetail.remove}" process="@this"
+                                         rendered="#{not authorityDetail.isNew()}" icon="fa fa-trash"
                                          styleClass="btn-danger">
                             <f:setPropertyActionListener value="true"
                                                          target="#{facesContext.externalContext.flash.keepMessages}"/>
-                            <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-danger"/>
+                            <p:confirm header="#{messages['lbl.general.confirmation']}" message="#{messages['lbl.general.areYouSure']}" icon="ui-icon-danger"/>
                         </p:commandButton>
                         <p:spacer width="5"/>
-                        <p:commandButton value="Back" immediate="true"
+                        <p:commandButton value="#{messages['lbl.general.goBack']}" immediate="true"
                                          action="authorityBrowse?faces-redirect=true"
                                          process="@this"
                                          icon="fa fa-reply"/>
                     </div>
-                    <p:splitButton value="Save" action="#{authorityDetailController.save}" update="@form"
+                    <p:splitButton value="#{messages['lbl.general.save']}" action="#{authorityDetail.save}" update="@form"
                                    icon="fa fa-check"
                                    styleClass="hidden-md hidden-lg btn-primary">
-                        <p:menuitem value="Reset" action="#{authorityDetailController.clear}"
-                                    process="@this" update="@form" rendered="#{authorityDetailController.isNew()}"
+                        <p:menuitem value="#{messages['lbl.general.reset']}" action="#{authorityDetail.clear}"
+                                    process="@this" update="@form" rendered="#{authorityDetail.isNew()}"
                                     resetValues="true" icon="fa fa-refresh"/>
-                        <p:menuitem value="Delete" action="#{authorityDetailController.remove}" process="@this"
-                                    rendered="#{not authorityDetailController.isNew()}" icon="fa fa-trash"
+                        <p:menuitem value="Delete" action="#{authorityDetail.remove}" process="@this"
+                                    rendered="#{not authorityDetail.isNew()}" icon="fa fa-trash"
                                  >
-                            <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-danger"/>
+                            <p:confirm header="#{messages['lbl.general.confirmation']}" message="#{messages['lbl.general.areYouSure']}" icon="ui-icon-danger"/>
                         </p:menuitem>
                         <p:separator/>
-                        <p:menuitem value="Back" action="authorityBrowse?faces-redirect=true"
+                        <p:menuitem value="#{messages['lbl.general.goBack']}" action="authorityBrowse?faces-redirect=true"
                                     process="@this" immediate="true"
                                     icon="fa fa-reply"/>
                     </p:splitButton>
@@ -65,36 +64,24 @@
 
                     <div class="ui-g ui-fluid">
                         <div class="ui-sm-12 ui-md-2 ui-lg-1">
-                            <p:outputLabel for="id" value="ID"/>
+                            <p:outputLabel for="name" value="#{messages['lbl.general.name']}"/>
                         </div>
                         <div class="ui-sm-12 ui-md-4 ui-lg-5" >
-                            <p:inputText id="id" value="#{authorityDetailController.businessObject.id}" size="4" readonly="true" styleClass="form-control" style="width: 100%"/>
+                            <p:inputText id="name" value="#{authorityDetail.bizEntity.name}" size="4" styleClass="form-control" style="width: 50%"/>
                         </div>
                         <div class="ui-sm-12 ui-md-2 ui-lg-1">
-                            <p:outputLabel value="Model" for="inptModel"/>
+                            <p:outputLabel value="#{messages['lbl.general.displayName']}" for="displayName"/>
                         </div>
                         <div class="ui-sm-12 ui-md-4 ui-lg-5" >
-                            <p:inputText id="inptModel" value="#{authorityDetailController.businessObject.displayName}"/>
-                        </div>
-                        <div class="ui-sm-12 ui-md-2 ui-lg-1">
-                            <p:outputLabel value="Name" for="inptName"/>
-                        </div>
-                        <div class="ui-sm-12 ui-md-4 ui-lg-5" >
-                            <p:inputText id="inptName" value="#{authorityDetailController.businessObject.name}"/>
-                        </div>
-                        <div class="ui-sm-12 ui-md-2 ui-lg-1">
-                            <p:outputLabel value="Price" for="inptPrice"/>
-                        </div>
-                        <div class="ui-sm-12 ui-md-4 ui-lg-5" >
-                            <p:inputText id="inptPrice" value="#{authorityDetailController.businessObject.name}"/>
+                            <p:inputText id="displayName" value="#{authorityDetail.bizEntity.displayName}"/>
                         </div>
                         <div class="ui-sm-12 ui-md-2 ui-lg-1">
                             <p:outputLabel value="#{messages['lbl.general.parent']}" for="itemParent"/>
                         </div>
                         <div class="ui-sm-12 ui-md-4 ui-lg-5" >
 													<p:autoComplete id="itemParent" value="#{autoCompleteAuthority.item}" completeMethod="#{autoCompleteAuthority.completeItem}"
-													                var="theme" itemLabel="#{theme.name}" itemValue="#{theme}" converter="#{authorityConverter}" forceSelection="true" >
-														<p:ajax event="itemSelect" listener="#{authorityDetailController.handleParentSelect}" />
+													                var="theme" itemLabel="#{theme.name}" itemValue="#{theme}" converter="#{authorityConverter}" forceSelection="true" style="width: 50%">
+														<p:ajax event="itemSelect" listener="#{authorityDetail.handleParentSelect}" />
 													    <f:facet name="itemtip">
 													        <h:panelGrid columns="2" cellpadding="5">
 													            <f:facet name="header">
@@ -109,6 +96,12 @@
 													        </h:panelGrid>
 													    </f:facet>
 													</p:autoComplete>
+                        </div>
+                        <div class="ui-sm-12 ui-md-2 ui-lg-1">
+                            <p:outputLabel value="#{messages['lbl.general.info']}" for="inptInfo"/>
+                        </div>
+                        <div class="ui-sm-12 ui-md-4 ui-lg-5" >
+                            <p:inputTextarea id="inptInfo" value="#{authorityDetail.bizEntity.info}" rows="5"/>
                         </div>
                     </div>
                 </div>

@@ -25,7 +25,7 @@ import net.paramount.msp.faces.service.FacesCarService;
  */
 @Named(value="authorityBrowse")
 @ViewScoped
-public class AuthorityBrowseController extends BaseController {
+public class AuthorityBrowser extends BaseController {
 		/**
 	 * 
 	 */

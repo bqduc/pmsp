@@ -37,30 +37,24 @@ import net.paramount.framework.entity.BizObjectBase;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "aux_module")
-public class Module extends BizObjectBase {
-	private static final long serialVersionUID = 5474725952032953164L;
+@Table(name = "aux_security_policy")
+public class SecurityPolicy extends BizObjectBase {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6670794612606704195L;
 
 	@NotNull
-	@Size(min = 1, max = 100)
-	@Column(name = "name", unique=true)
+	@Size(min = 1, max = 50)
+	@Column(name = "name")
 	private String name;
 
-	@Column(name = "alias", length=15)
-	private String alias;
-
-	@Column(name = "author", length=80)
-	private String author;
-	
-	@Column(name = "enable")
-	private java.lang.Boolean enable;
-	
 	@Column(name = "info", columnDefinition="text")
 	private String info;
 
 	@ManyToOne
 	@JoinColumn(name = "parent_id")
-	private Module parent;
+	private SecurityPolicy parent;
 
 	public String getName() {
 		return name;
@@ -78,36 +72,12 @@ public class Module extends BizObjectBase {
 		this.info = info;
 	}
 
-	public Module getParent() {
+	public SecurityPolicy getParent() {
 		return parent;
 	}
 
-	public void setParent(Module parent) {
+	public void setParent(SecurityPolicy parent) {
 		this.parent = parent;
-	}
-
-	public String getAlias() {
-		return alias;
-	}
-
-	public void setAlias(String alias) {
-		this.alias = alias;
-	}
-
-	public String getAuthor() {
-		return author;
-	}
-
-	public void setAuthor(String author) {
-		this.author = author;
-	}
-
-	public java.lang.Boolean getEnable() {
-		return enable;
-	}
-
-	public void setEnable(java.lang.Boolean enable) {
-		this.enable = enable;
 	}
 	
 }

@@ -11,48 +11,51 @@
         <ui:param name="enableSlideMenu" value="false"/> <!-- disables slide menu (only on this page) on small screens -->
         <ui:param name="autoShowNavbar" value="false"/> <!-- disables auto show navbar (only on this page) on small devices -->
     </ui:define>
-    <ui:define name="body">
-        <adm:breadcrumb title="Datatable"/>
+	<ui:define name="title">
+		<adm:breadcrumb title="#{messages['lbl.general.browse'].concat(' ').concat(messages['lbl.object.module'].toLowerCase())}"/>
+		#{messages['lbl.general.browse'].concat(' ').concat(messages['lbl.object.module'].toLowerCase())}
+	</ui:define>
+	<ui:define name="body">
         <p:panel styleClass="card box-primary" header="#{messages['menu.generalSettings.browse.contactBrowse']}">
             <h:form prependId="false">
                     <div id="main-buttons" class="hidden-sm hidden-xs">
-                        <p:commandButton action="authorityDetail?faces-redirect=true" icon="fa fa-plus"
+                        <p:commandButton action="moduleDetail?faces-redirect=true" icon="fa fa-plus"
                                          value="New" styleClass="btn-primary"/>
                         <p:spacer width="5"/>
                         <p:commandButton value="Delete Selected" icon="fa fa-trash" styleClass="btn-danger"
-                                         action="#{authorityBrowser.delete}"
-                                         disabled="#{empty authorityBrowser.selectedObjects or authorityBrowser.selectedObjects.size() == 0}"
+                                         action="#{moduleBrowser.delete}"
+                                         disabled="#{empty moduleBrowser.selectedObjects or moduleBrowser.selectedObjects.size() == 0}"
                                          process="@this" update="@form"
                         >
                             <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-danger"/>
                         </p:commandButton>
                         <p:spacer width="5"/>
                         <p:commandButton value="View selected" update="@(.ui-dialog)" styleClass="btn-info"
-                                         disabled="#{empty authorityBrowser.selectedObjects or authorityBrowser.selectedObjects.size() == 0}"
+                                         disabled="#{empty moduleBrowser.selectedObjects or moduleBrowser.selectedObjects.size() == 0}"
                                          oncomplete="PF('selectedContact').show()" icon="fa fa-search"/>
                     </div>
 
                     <p:splitButton value="New" action="car-form?faces-redirect=true"
                                    icon="fa fa-plus"
                                    styleClass="hidden-md hidden-lg btn-primary">
-                        <p:menuitem value="Delete Selected" action="#{authorityBrowser.delete}"
+                        <p:menuitem value="Delete Selected" action="#{moduleBrowser.delete}"
                                     process="@this" update="@form"
-                                    disabled="#{empty authorityBrowser.selectedObjects or authorityBrowser.selectedObjects.size() == 0}"
+                                    disabled="#{empty moduleBrowser.selectedObjects or moduleBrowser.selectedObjects.size() == 0}"
                                     icon="fa fa-trash">
                             <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-danger"/>
                         </p:menuitem>
                         <p:menuitem value="View selected" update="@(.ui-dialog)"
                                     oncomplete="PF('selectedContact').show()"
-                                    disabled="#{empty authorityBrowser.selectedObjects or authorityBrowser.selectedObjects.size() == 0}"
+                                    disabled="#{empty moduleBrowser.selectedObjects or moduleBrowser.selectedObjects.size() == 0}"
                                     icon="fa fa-search"
                         />
                     </p:splitButton>
                 <div id="datatable">
-                    <p:dataTable var="currEntity" value="#{authorityBrowser.businessObjects}" widgetVar="carsTable" paginator="true" styleClass="header-right #{customLayoutMB.borderless ? 'no-border':''}"
+                    <p:dataTable var="currEntity" value="#{moduleBrowser.businessObjects}" widgetVar="carsTable" paginator="true" styleClass="header-right #{customLayoutMB.borderless ? 'no-border':''}"
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                  rowsPerPageTemplate="5,15,20,50,100,250" rows="50" rowKey="#{currEntity.id}"
-                                 emptyMessage="No cars found with given criteria" stickyHeader="true" selection="#{authorityBrowser.selectedObjects}"
-                                 filteredValue="#{authorityBrowser.filteredObjects}">
+                                 emptyMessage="No cars found with given criteria" stickyHeader="true" selection="#{moduleBrowser.selectedObjects}"
+                                 filteredValue="#{moduleBrowser.filteredObjects}">
 
                         <p:ajax event="rowSelectCheckbox" update="@(.ui-button, .ui-confirm-dialog)"/>
                         <p:ajax event="rowUnselectCheckbox" update="@(.ui-button, .ui-confirm-dialog)"/>
@@ -73,7 +76,7 @@
                                   priority="1"/>
 
                         <p:column filterBy="#{currEntity.id}" sortBy="#{currEntity.id}" headerText="Id" footerText="contains" filterMatchMode="contains" priority="1">
-                            <p:link value="#{currEntity.id}" outcome="/bszone/autx/authorityDetail.jsf">
+                            <p:link value="#{currEntity.id}" outcome="/bszone/autx/moduleDetail.jsf">
                                 <f:param name="id" value="#{currEntity.id}"/>
                             </p:link>
                         </p:column>
@@ -124,7 +127,7 @@
 
 	        <p:dialog header="Selected contact" widgetVar="selectedContact" height="250"
 	                  width="400" responsive="true" styleClass="box-success">
-	            <p:dataList id="selectedCarsList" value="#{authorityBrowser.selectedObjects}" var="currEntity"
+	            <p:dataList id="selectedCarsList" value="#{moduleBrowser.selectedObjects}" var="currEntity"
 	                        type="definition">
 	                ID: #{currEntity.id} <br/>Brand: #{currEntity.name} <br/> Color: #{currEntity.displayName} <br/> Price: #{currEntity.info}
 	            </p:dataList>

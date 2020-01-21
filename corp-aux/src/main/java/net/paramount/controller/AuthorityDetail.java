@@ -24,9 +24,9 @@ import net.paramount.utility.FacesUtilities;
 /**
  * @author ducbq
  */
-@Named(value = "authorityDetailController")
+@Named(value = "authorityDetail")
 @ViewScoped
-public class AuthorityDetailController implements Serializable {
+public class AuthorityDetail implements Serializable {
 	/**
 	 * 
 	 */
@@ -39,7 +39,7 @@ public class AuthorityDetailController implements Serializable {
 	private FacesUtilities facesUtilities;
 
 	private Long id;
-	private Authority businessObject;
+	private Authority bizEntity;
 	private Authority parent;
 
 	public void init() {
@@ -47,9 +47,9 @@ public class AuthorityDetailController implements Serializable {
 			return;
 		}
 		if (Assert.has(id)) {
-			businessObject = businessService.getObject(id);
+			bizEntity = businessService.getObject(id);
 		} else {
-			businessObject = new Authority();
+			bizEntity = new Authority();
 		}
 	}
 
@@ -61,21 +61,13 @@ public class AuthorityDetailController implements Serializable {
 		this.id = id;
 	}
 
-	public Authority getBusinessObject() {
-		return businessObject;
-	}
-
-	public void setBusinessObject(Authority businessObject) {
-		this.businessObject = businessObject;
-	}
-
 	public void remove() throws IOException {
 		if (!facesUtilities.isUserInRole("ROLE_ADMIN")) {
 			throw new AccessDeniedException("User not authorized! Only role <b>admin</b> can remove cars.");
 		}
-		if (Assert.has(businessObject) && Assert.has(businessObject.getId())) {
-			businessService.remove(businessObject);
-			facesUtilities.addDetailMessage("Business object " + businessObject.getName() + " removed successfully");
+		if (Assert.has(bizEntity) && Assert.has(bizEntity.getId())) {
+			businessService.remove(bizEntity);
+			facesUtilities.addDetailMessage("Business object " + bizEntity.getName() + " removed successfully");
 			Faces.getFlash().setKeepMessages(true);
 			Faces.redirect("user/car-list.jsf");
 		}
@@ -83,24 +75,24 @@ public class AuthorityDetailController implements Serializable {
 
 	public void save() {
 		String msg;
-		businessObject.setParent(parent);
-		if (businessObject.getId() == null) {
-			businessService.saveOrUpdate(businessObject);
-			msg = "Business object " + businessObject.getName() + " created successfully";
+		bizEntity.setParent(parent);
+		if (bizEntity.getId() == null) {
+			businessService.saveOrUpdate(bizEntity);
+			msg = "Business object " + bizEntity.getName() + " created successfully";
 		} else {
-			businessService.saveOrUpdate(businessObject);
-			msg = "Business object " + businessObject.getName() + " updated successfully";
+			businessService.saveOrUpdate(bizEntity);
+			msg = "Business object " + bizEntity.getName() + " updated successfully";
 		}
 		facesUtilities.addDetailMessage(msg);
 	}
 
 	public void clear() {
-		businessObject = new Authority();
+		bizEntity = new Authority();
 		id = null;
 	}
 
 	public boolean isNew() {
-		return businessObject == null || businessObject.getId() == null;
+		return bizEntity == null || bizEntity.getId() == null;
 	}
 
 	public void handleParentSelect(SelectEvent event) { 
@@ -111,4 +103,11 @@ public class AuthorityDetailController implements Serializable {
 		//FacesMessage msg = new FacesMessage("Selected", "Item:" + item); 
 	}
 
+	public Authority getBizEntity() {
+		return bizEntity;
+	}
+
+	public void setBizEntity(Authority bizEntity) {
+		this.bizEntity = bizEntity;
+	}
 }

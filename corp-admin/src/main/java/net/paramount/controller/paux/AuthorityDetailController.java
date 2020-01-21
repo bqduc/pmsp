@@ -27,7 +27,7 @@ import net.paramount.utility.FacesUtilities;
 /**
  * @author ducbq
  */
-@Named(value="authorityDetail")
+@Named(value="authorityDetailBack")
 @ViewScoped
 public class AuthorityDetailController implements Serializable {
 	/**
