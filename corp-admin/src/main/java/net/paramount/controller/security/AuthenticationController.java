@@ -13,10 +13,10 @@ import javax.inject.Named;
 
 import com.github.adminfaces.template.config.AdminConfig;
 
+import net.paramount.component.email.MailServiceHelper;
 import net.paramount.framework.controller.RootController;
 import net.paramount.msp.service.MailService;
 import net.paramount.msp.util.Constants;
-import net.paramount.service.email.MailServiceHelper;
 import net.paramount.service.mailing.Mail;
 
 /**
@@ -54,12 +54,17 @@ public class AuthenticationController extends RootController {
 		this.requestEmail = requestEmail;
 	}
 
-	public void handleForgotPasswordRequest() {
-		handleForgotPassword();
+	public void handleForgotPassword() {
+		onHandleForgotPassword();
 		this.routePage(getLoginPageId(), true);
 	}
 
-	private void handleForgotPassword() {
+	public void handleRegister() {
+		onHandleRegister();
+		this.routePage(getLoginPageId(), true);
+	}
+
+	private void onHandleForgotPassword() {
 		Mail mail = new Mail();
 		mail.setMailFrom("javabycode@gmail.com");
 		mail.setMailTo("ducbuiquy@gmail.com");
@@ -81,6 +86,27 @@ public class AuthenticationController extends RootController {
 		}
 	}
 	
+	private void onHandleRegister() {
+		Mail mail = new Mail();
+		mail.setMailFrom("javabycode@gmail.com");
+		mail.setMailTo("ducbuiquy@gmail.com");
+		mail.setSubject("Spring Boot - Email with FreeMarker template");
+ 
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("firstName", "Duc");
+		model.put("lastName", "Bui Quy");
+		model.put("location", "Columbus");
+		model.put("signature", "www.javabycode.com");
+		mail.setModel(model);
+ 
+		try {
+			mailServiceHelper.setEmailTemplateLoadingDir("/emailTemplate/");
+			mailServiceHelper.sendEmail(mail, "/auth/register.ftl");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	private String getLoginPageId() {
 		String loginPage = adminConfig.getLoginPage();
 		if (loginPage == null || "".equals(loginPage)) {

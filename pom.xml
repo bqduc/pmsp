@@ -80,6 +80,7 @@
 		<module>corp-esmx</module>
 		<module>corp-osx</module>
 		<module>corp-edbx</module>
+		<module>corp-commx</module>
 		<module>corp-admin</module>
     </modules>
 	

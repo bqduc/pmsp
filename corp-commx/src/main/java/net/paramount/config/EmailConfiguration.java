@@ -1,7 +1,7 @@
 /**
  * 
- *//*
-package net.paramount.msp.config.email;
+ */
+package net.paramount.config;
 
 import java.util.Properties;
 
@@ -13,13 +13,15 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Component;
 
-*//**
+import net.paramount.domain.EmailConfigProperties;
+
+/**
  * @author ducbq
  *
- *//*
+ */
 @Component
 @Configuration
-public class EmailConfig {
+public class EmailConfiguration {
 	@Inject
 	private EmailConfigProperties emailProperties;
 
@@ -43,7 +45,7 @@ public class EmailConfig {
 		javaMailProperties.put("email.smtpStartTlsRequired", emailProperties.getSmtpStartTlsRequired());
 		javaMailProperties.put("email.transportProtocol", emailProperties.getTransportProtocol());
 		javaMailProperties.put("email.encoding", emailProperties.getEncoding());
-*//**
+/**
 		javaMailProperties.put("mail.smtp.starttls.enable", "true");
 		javaMailProperties.put("mail.smtp.auth", "true");
 		javaMailProperties.put("mail.transport.protocol", "smtp");
@@ -55,7 +57,7 @@ public class EmailConfig {
 		javaMailProperties.put("email.transportProtocol", "smtp");
 		javaMailProperties.put("email.encoding", "UTF-8");
 
-*//*
+*/
 		
 		
 		//mail.smtp.port=25, 
@@ -64,4 +66,3 @@ public class EmailConfig {
 		return mailSender;
 	}
 }
-*/

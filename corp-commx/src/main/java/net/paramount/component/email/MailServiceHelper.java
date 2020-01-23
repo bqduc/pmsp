@@ -1,4 +1,4 @@
-/*package net.paramount.service.email;
+package net.paramount.component.email;
 
 import javax.inject.Inject;
 import javax.mail.internet.MimeMessage;
@@ -15,9 +15,9 @@ import net.paramount.service.mailing.Mail;
 
 @Component
 public class MailServiceHelper extends ComponentBase {
-	*//**
+	/**
 	 * 
-	 *//*
+	 */
 	private static final long serialVersionUID = -7426015807103285508L;
 
 	@Inject
@@ -25,6 +25,8 @@ public class MailServiceHelper extends ComponentBase {
 
 	@Inject
 	private Configuration freemarkerConfig;
+	
+	private String emailTemplateLoadingDir = "/emailTemplate/";
 
 	public void sendEmail(Mail mail) throws Exception {
 		MimeMessage message = sender.createMimeMessage();
@@ -32,7 +34,7 @@ public class MailServiceHelper extends ComponentBase {
 		MimeMessageHelper helper = new MimeMessageHelper(message);
 
 		// Using a subfolder such as /templates here
-		freemarkerConfig.setClassForTemplateLoading(this.getClass(), getTemplateLoadingDir());
+		freemarkerConfig.setClassForTemplateLoading(this.getClass(), getEmailTemplateLoadingDir());
 
 		Template t = freemarkerConfig.getTemplate("/auth/forgotPassword.ftl");
 		String text = FreeMarkerTemplateUtils.processTemplateIntoString(t, mail.getModel());
@@ -44,8 +46,12 @@ public class MailServiceHelper extends ComponentBase {
 		sender.send(message);
 	}
 
-	public String getTemplateLoadingDir() {
-		return "/emailTemplate/";
+	public String getEmailTemplateLoadingDir() {
+		return emailTemplateLoadingDir;
+	}
+
+	public void setEmailTemplateLoadingDir(String emailTemplateLoadingDir) {
+		this.emailTemplateLoadingDir = emailTemplateLoadingDir;
 	}
 
 	public void sendEmail(Mail mail, String templateId) throws Exception {
@@ -54,10 +60,10 @@ public class MailServiceHelper extends ComponentBase {
 		MimeMessageHelper helper = new MimeMessageHelper(message);
 
 		// Using a subfolder such as /templates here
-		freemarkerConfig.setClassForTemplateLoading(this.getClass(), getTemplateLoadingDir());
+		freemarkerConfig.setClassForTemplateLoading(this.getClass(), getEmailTemplateLoadingDir());
 
-		Template t = freemarkerConfig.getTemplate(templateId);
-		String text = FreeMarkerTemplateUtils.processTemplateIntoString(t, mail.getModel());
+		Template template = freemarkerConfig.getTemplate(templateId);
+		String text = FreeMarkerTemplateUtils.processTemplateIntoString(template, mail.getModel());
 
 		helper.setTo(mail.getMailTo());
 		helper.setText(text, true);
@@ -66,4 +72,3 @@ public class MailServiceHelper extends ComponentBase {
 		sender.send(message);
 	}
 }
-*/
