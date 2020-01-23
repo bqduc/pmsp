@@ -66,15 +66,15 @@ public class AuthenticationController extends RootController {
 		mail.setSubject("Spring Boot - Email with FreeMarker template");
  
 		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("firstName", "David");
-		model.put("lastName", "Pham");
+		model.put("firstName", "Duc");
+		model.put("lastName", "Bui Quy");
 		model.put("location", "Columbus");
 		model.put("signature", "www.javabycode.com");
 		mail.setModel(model);
  
 		try {
 			mailServiceHelper.sendEmail(mail);
-			mailService.sendEmail(mail);
+			//mailService.sendEmail(mail);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

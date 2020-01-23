@@ -33,6 +33,17 @@ public class EmailConfig {
 		mailSender.setPassword(emailProperties.getPassword());
 
 		Properties javaMailProperties = new Properties();
+		javaMailProperties.put("mail.smtp.starttls.enable", emailProperties.getSmtpStarttlsEnable());
+		javaMailProperties.put("mail.smtp.auth", emailProperties.getSmtpAuth());
+		javaMailProperties.put("mail.transport.protocol", emailProperties.getTransportProtocol());
+		javaMailProperties.put("mail.debug", emailProperties.getDebug());
+
+
+		javaMailProperties.put("mail.smtp.ssl.trust", emailProperties.getSmtpSslTrust());
+		javaMailProperties.put("email.smtpStartTlsRequired", emailProperties.getSmtpStartTlsRequired());
+		javaMailProperties.put("email.transportProtocol", emailProperties.getTransportProtocol());
+		javaMailProperties.put("email.encoding", emailProperties.getEncoding());
+/**
 		javaMailProperties.put("mail.smtp.starttls.enable", "true");
 		javaMailProperties.put("mail.smtp.auth", "true");
 		javaMailProperties.put("mail.transport.protocol", "smtp");
@@ -43,7 +54,11 @@ public class EmailConfig {
 		javaMailProperties.put("email.smtpStartTlsRequired", "true");
 		javaMailProperties.put("email.transportProtocol", "smtp");
 		javaMailProperties.put("email.encoding", "UTF-8");
-				//mail.smtp.port=25, 
+
+*/
+		
+		
+		//mail.smtp.port=25, 
 
 		mailSender.setJavaMailProperties(javaMailProperties);
 		return mailSender;
