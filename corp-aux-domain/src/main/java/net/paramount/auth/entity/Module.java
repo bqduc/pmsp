@@ -15,6 +15,8 @@
 */
 package net.paramount.auth.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -61,6 +63,9 @@ public class Module extends BizObjectBase {
 	@ManyToOne
 	@JoinColumn(name = "parent_id")
 	private Module parent;
+
+	@Column(name = "integrate_date")
+	private Date integrateDate;
 
 	public String getName() {
 		return name;

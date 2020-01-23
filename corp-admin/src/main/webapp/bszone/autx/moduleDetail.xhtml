@@ -4,16 +4,15 @@
                 xmlns:p="http://primefaces.org/ui" xmlns:adm="http://github.com/adminfaces"
                 template="#{customLayoutMB.template}">
 
-    <ui:define name="title">
-        Contact detail form
-         #{messages['lbl.item.searchDescription'].toLowerCase()}
-    </ui:define>
+	<ui:define name="metadata">
+	  <ui:param name="enableSlideMenu" value="false"/> <!-- disables slide menu (only on this page) on small screens -->
+		<ui:param name="autoShowNavbar" value="false"/> <!-- disables auto show navbar (only on this page) on small devices -->
+	</ui:define>
 	<ui:define name="title">
 		<adm:breadcrumb title="#{messages['lbl.general.deail'].concat(' ').concat(messages['lbl.object.module'].toLowerCase())}"/>
 		#{messages['lbl.general.deail'].concat(' ').concat(messages['lbl.object.module'].toLowerCase())}
 	</ui:define>
-
-    <ui:define name="body">
+	<ui:define name="body">
         <f:metadata>
             <f:viewParam name="id" value="#{moduleDetail.id}" converter="javax.faces.Long"/>
             <!-- use view action if you are in a Java EE 7 server: <f:viewAction action="#{moduleDetail.init()}"/>-->

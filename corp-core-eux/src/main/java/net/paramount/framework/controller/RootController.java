@@ -3,9 +3,11 @@
  */
 package net.paramount.framework.controller;
 
+import javax.faces.context.ExternalContext;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import org.omnifaces.util.Faces;
 import org.springframework.context.MessageSource;
 
 import net.paramount.framework.component.ComponentBase;
@@ -37,4 +39,23 @@ public abstract class RootController extends ComponentBase {
 		return this.httpSession.getAttribute(key);
 	}
 
+	protected void routingPage(String pageId) {
+		try {
+			ExternalContext context = Faces.getExternalContext();
+			context.redirect(context.getRequestContextPath() + pageId);
+		} catch (Exception e) {
+			log.error(e);
+		}
+	}
+
+	protected void routePage(String pageId) {
+		this.routingPage(pageId);
+	}
+
+	protected void routePage(String pageId, Boolean invalidateSessionInfoFlag) {
+		if (Boolean.TRUE.equals(invalidateSessionInfoFlag)) {
+			Faces.getSession().invalidate();
+		}
+		this.routingPage(pageId);
+	}
 }
