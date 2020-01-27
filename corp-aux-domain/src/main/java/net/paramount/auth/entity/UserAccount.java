@@ -77,6 +77,21 @@ public class UserAccount extends SsoEntityBase implements AuthAccount {
 	@Column(name = "last_name")
 	private String lastName;
 	
+	@Column(name = "company_name", length=120)
+	private String companyName;
+
+	@Column(name = "occupation_code", length=15)
+	private String occupationCode;
+
+	@Column(name = "phone_number", length=50)
+	private String phoneNumber;
+
+	@Column(name = "state_province", length=50)
+	private String stateProvince;
+	
+	@Column(name = "country_code", length=12)
+	private String countryCode;
+
 	@ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
 	//@formatter:off
 	@JoinTable(
@@ -209,5 +224,45 @@ public class UserAccount extends SsoEntityBase implements AuthAccount {
 			}
 		}
 		return grantedAuthorities;
+	}
+
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+
+	public String getOccupationCode() {
+		return occupationCode;
+	}
+
+	public void setOccupationCode(String occupationCode) {
+		this.occupationCode = occupationCode;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public String getStateProvince() {
+		return stateProvince;
+	}
+
+	public void setStateProvince(String stateProvince) {
+		this.stateProvince = stateProvince;
+	}
+
+	public String getCountryCode() {
+		return countryCode;
+	}
+
+	public void setCountryCode(String countryCode) {
+		this.countryCode = countryCode;
 	}
 }

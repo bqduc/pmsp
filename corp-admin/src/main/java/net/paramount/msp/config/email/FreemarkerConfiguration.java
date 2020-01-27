@@ -5,7 +5,6 @@ package net.paramount.msp.config.email;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 
@@ -14,12 +13,13 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
  *
  */
 @Configuration
-@EnableWebMvc
+//@EnableWebMvc
 public class FreemarkerConfiguration {
 	@Bean
 	public FreeMarkerConfigurer freemarkerConfig() {
 		FreeMarkerConfigurer freeMarkerConfigurer = new FreeMarkerConfigurer();
-		freeMarkerConfigurer.setTemplateLoaderPath("/emailTemplate/");
+		//freeMarkerConfigurer.setTemplateLoaderPath("/emailTemplate/");
+		freeMarkerConfigurer.setDefaultEncoding("UTF-8");
 		return freeMarkerConfigurer;
 	}
 

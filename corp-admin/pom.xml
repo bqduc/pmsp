@@ -127,7 +127,7 @@
 
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>corp-commx</artifactId>
+            <artifactId>corp-communicator</artifactId>
             <version>${project.version}</version>
         </dependency> 
 

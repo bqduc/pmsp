@@ -67,6 +67,13 @@ public final class DateTimeUtility {
 		return calendar.getTimeInMillis();
 	}
 
+	public static Date add(Date date, int field, int amount){
+		Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+		calendar.setTime(date);
+		calendar.add(field, amount);
+		return calendar.getTime();
+	}
+
 	private static Date parseDateTime(String pattern, String value){
 		Date retDate = null;
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);

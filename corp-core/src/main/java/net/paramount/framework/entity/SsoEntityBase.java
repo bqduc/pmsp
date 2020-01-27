@@ -39,6 +39,9 @@ public abstract class SsoEntityBase extends BizObjectBase {
 	@JsonIgnore
 	private String activationKey;
 
+	@Column(name = "registered_date")
+	private Date registeredDate;
+
 	@Column(name = "activation_date")
 	private Date activationDate;
 
@@ -160,6 +163,14 @@ public abstract class SsoEntityBase extends BizObjectBase {
 
 	public void setApprovedDate(Date approvedDate) {
 		this.approvedDate = approvedDate;
+	}
+
+	public Date getRegisteredDate() {
+		return registeredDate;
+	}
+
+	public void setRegisteredDate(Date registeredDate) {
+		this.registeredDate = registeredDate;
 	}
 
 	public int compareTo(Object obj) {
