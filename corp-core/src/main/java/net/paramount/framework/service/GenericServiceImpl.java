@@ -10,6 +10,7 @@ import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 import net.paramount.common.CommonBeanUtils;
 import net.paramount.common.CommonConstants;
 import net.paramount.common.CommonUtility;
+import net.paramount.common.ListUtility;
 import net.paramount.exceptions.ExecutionContextException;
 import net.paramount.exceptions.MspDataException;
 import net.paramount.exceptions.ObjectNotFoundException;
@@ -84,11 +86,11 @@ public abstract class GenericServiceImpl<ClassType extends ObjectBase, Key exten
 		BaseRepository<ClassType, Key> repository = this.getRepository();
 		try {
 			if (operationSpec instanceof String) {
-				fetchedObject = CommonBeanUtils.invokeOperation(repository, (String)operationSpec, operationData);
+				fetchedObject = CommonBeanUtils.invokeOperation(repository, (String)operationSpec, operationData, PACKAGE_PREFIX);
 			} else if (operationSpec instanceof List) {
 				List<String> operationSpecs = (List<String>)operationSpec;
 				for (String currentOperationSpec :operationSpecs) {
-					fetchedObject = CommonBeanUtils.invokeOperation(repository, (String)operationSpec, operationData);
+					fetchedObject = CommonBeanUtils.invokeOperation(repository, (String)operationSpec, operationData, PACKAGE_PREFIX);
 					if (null != fetchedObject) {
 						break;
 					}
@@ -163,16 +165,23 @@ public abstract class GenericServiceImpl<ClassType extends ObjectBase, Key exten
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
 	public long count(String countByProperty, Object value) {
-		throw new RuntimeException("Not implemented yet");
+		String invokeMethod = "countBy" + StringUtils.capitalize(countByProperty);
+		Map<?, ?> parameters = ListUtility.createMap(countByProperty, value);
+		return countEntity(invokeMethod, parameters);
+		//throw new RuntimeException("Not implemented yet");
 	}
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
 	public long count(String countMethodName, Map<?, ?> parameters) {
+		return countEntity(countMethodName, parameters);
+	}
+
+	private long countEntity(String methodName, Map<?, ?> parameters) {
 		Object retData = null;
 		long count = 0;
 		try {
-			retData = CommonBeanUtils.invokeOperation(this.getRepository(), countMethodName, parameters);
+			retData = CommonBeanUtils.invokeOperation(this.getRepository(), methodName, parameters, PACKAGE_PREFIX);
 			count = (Long)retData;
 		} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
 				| InstantiationException e) {

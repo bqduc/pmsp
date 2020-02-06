@@ -54,7 +54,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<UserAccount, Long
   }
 
 	@Override
-	public UserAccount getOne(String username) throws ObjectNotFoundException {
+	public UserAccount get(String username) throws ObjectNotFoundException {
 		return repository.findBySsoId(username);
 	}
 
@@ -284,5 +284,10 @@ public class UserAccountServiceImpl extends GenericServiceImpl<UserAccount, Long
 				.map(authority -> new SimpleGrantedAuthority(authority.getAuthority())).collect(Collectors.toList());
 
 		return new org.springframework.security.core.userdetails.User(userProfile.getSsoId(), userProfile.getPassword(), grantedAuthorities);
+	}
+
+	@Override
+	public boolean existsByEmail(String emailAddress) {
+		return this.repository.existsByEmail(emailAddress);
 	}
 }

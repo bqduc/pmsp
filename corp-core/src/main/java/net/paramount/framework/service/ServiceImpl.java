@@ -48,10 +48,7 @@ public abstract class ServiceImpl<EntityType extends ObjectBase, Key extends Ser
 	}
 
 	protected EntityType getOptionalObject(Optional<EntityType> optObject) {
-		if (optObject.isPresent())
-			return optObject.get();
-
-		return null;
+		return getOptional(optObject);
 	}
 
 	//////////////////////////Revise and exclude as soon as possible
@@ -96,7 +93,7 @@ public abstract class ServiceImpl<EntityType extends ObjectBase, Key extends Ser
 		Object findingResult = null;
 		List<EntityType> searchResult = null;
 		try {
-			findingResult = CommonBeanUtils.callMethod(this.getRepository(), "find", ListUtility.createMap("keyword", parameter));
+			findingResult = CommonBeanUtils.callMethod(this.getRepository(), "find", ListUtility.createMap("keyword", parameter), PACKAGE_PREFIX);
 			if (findingResult instanceof List) {
 				searchResult = (List<EntityType>)findingResult;
 			}
@@ -109,5 +106,9 @@ public abstract class ServiceImpl<EntityType extends ObjectBase, Key extends Ser
 	@Override
 	public List<EntityType> search(Object searchParam) {
 		return performSearch(searchParam);
+	}
+
+	protected EntityType getOptional(Optional<EntityType> optional) {
+		return optional.orElse(null);
 	}
 }

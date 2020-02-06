@@ -8,9 +8,12 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 import net.paramount.common.validator.DateValidator;
+import net.paramount.model.CorpTimeZone;
 import net.paramount.model.DateTimePatterns;
 
 /**
@@ -237,5 +240,37 @@ public final class DateTimeUtility {
 
 	public static Date getDummyMaxDate() {
 		return toDate("31/12/2200");
+	}
+
+	public static List<CorpTimeZone> getTimezones(){
+		TimeZone timeZone;
+		List<CorpTimeZone> fetchedData = ListUtility.createDataList();
+		String[] availableZoneIDs = TimeZone.getAvailableIDs();
+		for (String zoneId : availableZoneIDs) {
+			timeZone = TimeZone.getTimeZone(zoneId); 
+			fetchedData.add(CorpTimeZone.builder()
+					.id(timeZone.getID())
+					.displayName(timeZone.getDisplayName())
+					.build()
+					);
+		}
+		return fetchedData;
+	}
+
+	private static String displayTimeZone(TimeZone tz) {
+
+		long hours = TimeUnit.MILLISECONDS.toHours(tz.getRawOffset());
+		long minutes = TimeUnit.MILLISECONDS.toMinutes(tz.getRawOffset()) - TimeUnit.HOURS.toMinutes(hours);
+		// avoid -4:-30 issue
+		minutes = Math.abs(minutes);
+
+		String result = "";
+		if (hours > 0) {
+			result = String.format("(GMT+%d:%02d) %s %s", hours, minutes, tz.getID(), tz.getDisplayName(CommonUtility.LOCALE_VIETNAMESE));
+		} else {
+			result = String.format("(GMT%d:%02d) %s %s", hours, minutes, tz.getID(), tz.getDisplayName(CommonUtility.LOCALE_VIETNAMESE));
+		}
+
+		return result;
 	}
 }

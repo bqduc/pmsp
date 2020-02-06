@@ -11,6 +11,8 @@ import java.nio.charset.Charset;
  *
  */
 public interface CommonConstants {
+	final static String AT_SIGN = "@";
+	final static String DOT_SEPARATOR = ".";
 	final static String FILE_EXTENSION_SEPARATOR = ".";
 	final static String FILE_PATH_SEPARATOR = "/";
 

@@ -77,6 +77,10 @@ public class BusinessUnit extends BizObjectBase {
 	@JoinColumn(name = "level_id")
 	private Item level;
 
+	@ManyToOne
+	@JoinColumn(name = "business_level_id")
+	private CatalogueItem businessLevel;
+
 	@Column(name = "support_level", length=GlobalConstants.SIZE_STRING_TINY)
 	private String supportLevel;
 
@@ -275,5 +279,13 @@ public class BusinessUnit extends BizObjectBase {
 
 	public void setPublishUserAccount(UserAccount publishUserAccount) {
 		this.publishUserAccount = publishUserAccount;
+	}
+
+	public CatalogueItem getBusinessLevel() {
+		return businessLevel;
+	}
+
+	public void setBusinessLevel(CatalogueItem businessLevel) {
+		this.businessLevel = businessLevel;
 	}
 }

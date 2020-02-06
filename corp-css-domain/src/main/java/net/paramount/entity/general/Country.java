@@ -12,143 +12,112 @@
 
 package net.paramount.entity.general;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+
+import lombok.Builder;
+import net.paramount.framework.entity.Auditable;
 
 /**
  * Entity class Country
  * 
  * @author haky
  */
+@Builder
 @Entity
-@Table(name="COUNTRY")
-public class Country implements Serializable {
+@Table(name = "country")
+public class Country extends Auditable<String> {
+	private static final long serialVersionUID = -8233303460213700583L;
 
-    private static final long serialVersionUID = 1L;
+	@Column(name = "code", nullable = false, unique = true, length = 2)
+	private String code;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.TABLE,generator="genericSeq")
-    @Column(name="ID")
-    private Long id;
-	
-    @Column(name="CODE", nullable=false, unique=true, length=3)
-    @NotNull
-    @Size(max=3, min=1)
-    private String code;
-    
-    @Column(name="NAME", length=30)
-    @Size(max=30)
-    private String name;
-    
-    @Column(name="NAME_EN", length=30)
-    @Size(max=30)
-    private String nameInternational;
-    
-    @Column(name="INFO")
-    private String info;
-    
-    @Column(name="SYSTEM")
-    private Boolean system;
-    
-    @Column(name="WEIGHT")
-    private Integer weight;
+	@Column(name = "iso_code", nullable = false, unique = true, length = 3)
+	private String isoCode;
 
-    @Column(name="ISACTIVE")
-    private Boolean active = Boolean.TRUE;
+	@Column(name = "iso_language_code", length = 2)
+	private String isoLanguageCode;
 
-    public Long getId() {
-        return id;
-    }
+	@Column(name = "name", length = 50)
+	private String name;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	@Column(name = "name_local", length = 50)
+	private String nameLocal;
 
-    public String getCode() {
-        return code;
-    }
+	@Lob
+	@Column(name = "info", columnDefinition="TEXT")
+	private String info;
 
-    public void setCode(String code) {
-        this.code = code;
-    }
+	@Column(name = "system")
+	private Boolean system;
 
-    public String getName() {
-        return name;
-    }
+	@Builder.Default
+	@Column(name = "is_active")
+	private Boolean active = Boolean.FALSE;
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getInfo() {
-        return info;
-    }
-
-    public void setInfo(String info) {
-        this.info = info;
-    }
-
-    public Boolean getActive() {
-        return active;
-    }
-
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
-
-    public Boolean getSystem() {
-        return system;
-    }
-
-    public void setSystem(Boolean system) {
-        this.system = system;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (this.id != null ? this.id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Country)) {
-            return false;
-        }
-        Country other = (Country)object;
-        if (this.id != other.id && (this.id == null || !this.id.equals(other.id))) return false;
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.ut.tekir.entities.Country[id=" + id + "]";
-    }
-
-	public Integer getWeight() {
-		return weight;
+	public String getCode() {
+		return code;
 	}
 
-	public void setWeight(Integer weight) {
-		this.weight = weight;
+	public void setCode(String code) {
+		this.code = code;
 	}
 
-	public String getNameInternational() {
-		return nameInternational;
+	public String getName() {
+		return name;
 	}
 
-	public void setNameInternational(String nameInternational) {
-		this.nameInternational = nameInternational;
+	public void setName(String name) {
+		this.name = name;
 	}
 
+	public String getInfo() {
+		return info;
+	}
+
+	public void setInfo(String info) {
+		this.info = info;
+	}
+
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+
+	public Boolean getSystem() {
+		return system;
+	}
+
+	public void setSystem(Boolean system) {
+		this.system = system;
+	}
+
+	public String getIsoCode() {
+		return isoCode;
+	}
+
+	public void setIsoCode(String isoCode) {
+		this.isoCode = isoCode;
+	}
+
+	public String getNameLocal() {
+		return nameLocal;
+	}
+
+	public void setNameLocal(String nameLocal) {
+		this.nameLocal = nameLocal;
+	}
+
+	public String getIsoLanguageCode() {
+		return isoLanguageCode;
+	}
+
+	public void setIsoLanguageCode(String isoLanguageCode) {
+		this.isoLanguageCode = isoLanguageCode;
+	}
 }

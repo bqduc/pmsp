@@ -1,4 +1,4 @@
-package net.paramount.service.mailing;
+/*package net.paramount.service.mailing;
 
 import java.util.Properties;
 
@@ -53,7 +53,7 @@ public class FreeMarkerMailService {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-      /*MimeMessage message = sender.createMimeMessage();
+      MimeMessage message = sender.createMimeMessage();
 
         MimeMessageHelper helper = new MimeMessageHelper(message);
       
@@ -64,7 +64,7 @@ public class FreeMarkerMailService {
         helper.setText(text, true);
         helper.setSubject(mail.getMailSubject());
 
-        sender.send(message);*/
+        sender.send(message);
     }
 
     public void send(Mail mail) throws Exception {
@@ -77,3 +77,4 @@ public class FreeMarkerMailService {
       javaMailSender.send(message);
     }
 }
+*/

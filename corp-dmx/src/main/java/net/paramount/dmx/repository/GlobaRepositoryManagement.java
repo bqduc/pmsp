@@ -5,11 +5,9 @@ package net.paramount.dmx.repository;
 
 import javax.inject.Inject;
 
-import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.event.EventListener;
-import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Component;
 
+import net.paramount.dmx.postconstruct.GlobalDataServiceHelper;
 import net.paramount.framework.component.ComponentBase;
 
 /**
@@ -26,6 +24,9 @@ public class GlobaRepositoryManagement extends ComponentBase {
 	/*@Inject
 	private TaskExecutor asyncExecutor;*/
 
+	@Inject
+	private GlobalDataServiceHelper globalDataServiceHelper;
+
 	public void initMasterData() {
 		log.info(String.join(LOG_ENTRY_ENTER, "GlobalDataRepository", "::", "initMasterData"));
 		initInventoryItems();
@@ -38,13 +39,14 @@ public class GlobaRepositoryManagement extends ComponentBase {
 		//log.info(String.join(LOG_ENTRY_LEAVE, logSpec));
 	}
 
-	@EventListener(ApplicationReadyEvent.class)
-	public void doSomethingAfterStartup() {
-		//System.out.println("AsyncExecutor: [" + asyncExecutor + "]");
-		System.out.println("Hello world, the application just started up");
-	}
+	/*
+	 * @EventListener(ApplicationReadyEvent.class) public void onApplicationReadyEventListener() { initiateMasterData();
+	 * System.out.println("Hello world, the application just started up"); }
+	 */
 
 	public void initiateMasterData() {
-		
+		log.info("Enter initiateMasterData");
+		globalDataServiceHelper.initialize();
+		log.info("Leave initiateMasterData");
 	}
 }

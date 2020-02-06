@@ -3,12 +3,16 @@
  */
 package net.paramount.framework.controller;
 
+import java.util.Locale;
+
 import javax.faces.context.ExternalContext;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.omnifaces.util.Faces;
 import org.springframework.context.MessageSource;
+import org.springframework.web.servlet.LocaleResolver;
 
 import net.paramount.framework.component.ComponentBase;
 
@@ -30,6 +34,12 @@ public abstract class RootController extends ComponentBase {
 
 	@Inject
 	protected HttpSession httpSession;
+
+	@Inject
+	private HttpServletRequest request;
+	
+	@Inject 
+	protected LocaleResolver localeResolver;
 
 	protected void cachePut(String key, Object data) {
 		this.httpSession.setAttribute(key, data);
@@ -57,5 +67,9 @@ public abstract class RootController extends ComponentBase {
 			Faces.getSession().invalidate();
 		}
 		this.routingPage(pageId);
+	}
+	
+	protected Locale getCurrentLocale() {
+		return localeResolver.resolveLocale(request);//((SessionLocaleResolver)localeResolver);//LocaleContextHolder.getLocale();
 	}
 }

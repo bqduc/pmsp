@@ -28,16 +28,16 @@ public class LanguageServiceImpl extends GenericServiceImpl<Language, Long> impl
 
 	@Override
 	protected Page<Language> performSearch(String keyword, Pageable pageable) {
-		return this.repository.search(keyword, pageable);
+		return this.repository.find(keyword, pageable);
 	}
 
 	@Override
 	public Language getByCode(String code) {
-		return this.repository.findByCode(code);
+		return super.getOptional(this.repository.findByCode(code));
 	}
 
 	@Override
 	public Language getByName(String name) {
-		return this.repository.findByName(name);
+		return super.getOptional(this.repository.findByName(name));
 	}
 }

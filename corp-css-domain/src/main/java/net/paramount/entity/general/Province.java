@@ -12,19 +12,13 @@
 
 package net.paramount.entity.general;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.Size;
 
-import net.paramount.framework.entity.ObjectBase;
+import net.paramount.framework.entity.Auditable;
 
 /**
  * Entity class Province
@@ -32,30 +26,27 @@ import net.paramount.framework.entity.ObjectBase;
  * @author dumlupinar
  */
 @Entity
-@Table(name="PROVINCE")
-public class Province extends ObjectBase {
+@Table(name = "province")
+public class Province extends Auditable<String> {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8380311023248841621L;
 
-    private static final long serialVersionUID = 1L;
-
-    @Column(name="PLATE", length=6, nullable=false )
-	@Size(max=6, min=1)
+	@Column(name = "plate", length = 8, nullable = false)
 	private String plate;
-    
-    @Column(name="NAME", length=40)
-    @Size(max=40)
+
+	@Column(name = "name", length = 50)
 	private String name;
-	
-    @Column(name="WEIGHT")
-    private Integer weight;
-	
-    @ManyToOne
-    @JoinColumn(name="CITY_ID")
-    private City city;
-	
-    @Column(name="SYSTEM")
-    private Boolean system;
-	
-    @Column(name="ISACTIVE")
+
+	@ManyToOne
+	@JoinColumn(name = "city_id")
+	private City city;
+
+	@Column(name = "system")
+	private Boolean system;
+
+	@Column(name = "isactive")
 	private Boolean active = Boolean.TRUE;
 
 	public String getPlate() {
@@ -72,14 +63,6 @@ public class Province extends ObjectBase {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public Integer getWeight() {
-		return weight;
-	}
-
-	public void setWeight(Integer weight) {
-		this.weight = weight;
 	}
 
 	public City getCity() {
@@ -106,9 +89,9 @@ public class Province extends ObjectBase {
 		this.active = active;
 	}
 
-    @Override
-    public String toString() {
-        return "com.ut.tekir.entities.Province[id=" + getId() + "]";
-    }
+	@Override
+	public String toString() {
+		return "Province[id=" + getId() + "]";
+	}
 
 }

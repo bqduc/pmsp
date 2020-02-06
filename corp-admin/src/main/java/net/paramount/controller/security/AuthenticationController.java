@@ -3,7 +3,10 @@
  */
 package net.paramount.controller.security;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Base64;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -13,11 +16,21 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.InputStreamSource;
+import org.springframework.util.ResourceUtils;
+
 import com.github.adminfaces.template.config.AdminConfig;
 
 import net.paramount.auth.entity.UserAccount;
+import net.paramount.comm.component.CommunicationService;
+import net.paramount.comm.component.MailServiceHelper;
+import net.paramount.comm.domain.MailMessage;
+import net.paramount.common.CommonUtility;
 import net.paramount.common.DateTimeUtility;
-import net.paramount.component.email.MailServiceHelper;
+import net.paramount.exceptions.CommunicatorException;
 import net.paramount.framework.controller.RootController;
 import net.paramount.msp.util.Constants;
 import net.paramount.service.mailing.Mail;
@@ -41,6 +54,9 @@ public class AuthenticationController extends RootController {
 	private MailService mailService;*/
 	
 	@Inject
+	private CommunicationService communicationService;
+
+	@Inject
 	private MailServiceHelper mailServiceHelper;
 	
 	private String requestEmail;
@@ -59,10 +75,17 @@ public class AuthenticationController extends RootController {
 
 	public void handleForgotPassword() {
 		onHandleForgotPassword();
-		this.routePage(getLoginPageId(), true);
+		//this.routePage(getLoginPageId(), true);
 	}
 
 	public void handleRegister() {
+		DateTimeUtility.getTimezones();
+		try {
+			communicationService.send(MailMessage.builder().build());
+		} catch (CommunicatorException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		onHandleRegister();
 		this.routePage(getLoginPageId(), true);
 	}
@@ -92,7 +115,7 @@ public class AuthenticationController extends RootController {
 	private void onHandleRegister() {
 		Mail mail = new Mail();
 		mail.setMailFrom("javabycode@gmail.com");
-		mail.setMailTo("ducbuiquy@gmail.com");
+		mail.setMailTo("duc.buiquy@vn.bosch.com");
 		mail.setSubject("Admin-Spring Boot - Email with FreeMarker template");
  
 		Map<String, Object> model = new HashMap<String, Object>();
@@ -101,11 +124,38 @@ public class AuthenticationController extends RootController {
 		model.put("lastName", "Bùi Quy");
 		model.put("location", "Binh Dinh-Sai Gon");
 		model.put("signature", "www.mekongparadise.com");
-		mail.setModel(model);
- 
+		
 		try {
-			mailServiceHelper.setEmailTemplateLoadingDir("/emailTemplate/");
-			mailServiceHelper.sendEmail(mail, "/auth/register.ftl");
+			File imageFile = ResourceUtils.getFile("classpath:template/subscription/images/marker-icon.png");
+			byte[] fileContent = FileUtils.readFileToByteArray(imageFile);
+			String encodedString = Base64.getEncoder().encodeToString(fileContent);
+			String encodedfile = new String(Base64.getEncoder().encode(fileContent), "UTF-8");
+			
+			String imgAsBase64 = "data:image/png;base64," + encodedfile;
+			model.put("imgAsBase64", imgAsBase64);
+			/*
+			
+			File img = ResourceUtils.getFile("classpath:template/subscription/images/marker-icon.png");
+			fileContent = FileUtils.readFileToByteArray(img);
+			encodedString = Base64.getEncoder().encodeToString(fileContent);
+			encodedfile = new String(Base64.getEncoder().encode(fileContent), "UTF-8");
+			
+			byte[] imgBytes = IOUtils.toByteArray(new FileInputStream(img));
+			byte[] imgBytesAsBase64 = Base64.getEncoder().encode(imgBytes);
+			String imgDataAsBase64 = new String(imgBytesAsBase64);
+			imgAsBase64 = "data:image/png;base64," + imgDataAsBase64;
+			
+			
+			InputStreamSource imageSource = new ByteArrayResource(IOUtils.toByteArray(getClass().getResourceAsStream("/template/subscription/images/marker-icon.png")));
+			
+			model.put("imgAsBase64", imageSource);*/
+			
+			//model.put("imageSpec", img);
+			mail.setModel(model);
+
+			mailServiceHelper.setEmailTemplateLoadingDir("/template/");
+			//mailServiceHelper.sendEmail(mail, "/auth/register.ftl");
+			mailServiceHelper.sendEmail(mail, "/subscription/subscription.ftl");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

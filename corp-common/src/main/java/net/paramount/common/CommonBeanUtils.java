@@ -9,6 +9,7 @@ import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -356,33 +357,81 @@ public class CommonBeanUtils {
       return resultPropertyDescriptor;
   }
 
-  public static Object invokeOperation(Object bean, String methodName, Map<?, ?> params) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException {
+  public static Object invokeOperation(Object bean, String methodName, Map<?, ?> params, String packagePrefix) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException {
   	Class<?> beanClass = bean.getClass();
+  	Class<?>[] beanClasses = getInterfaces(beanClass, packagePrefix);
+
   	//final int paramSize = params.keySet().size();
   	//Class<?> paramClassTypes[] = new Class[paramSize];
+		Class<?>[] parameterTypes = new Class<?>[params.size()];
   	Object[] parameters = new Object[params.size()];
   	int idx = 0;
-  	Method theMethod = null;
+  	//Method theMethod = null;
   	for (Object key :params.keySet()) {
-  		parameters[idx++] = params.get(key);
+  		parameters[idx] = params.get(key);
+  		parameterTypes[idx++] = key.getClass();
   	}
   	//theMethod = beanClass.getDeclaredMethod(methodName, new Class[] {});
   	//theMethod = beanClass.getDeclaredMethod(methodName, paramClassTypes);
-		
-		Method[] declaredMethods = beanClass.getDeclaredMethods(); 
+
+  	Method expectedMethod = null;
+  	//Method[] methods = null;
+  	for (Class<?> currBeanClass :beanClasses) {
+ 			expectedMethod = currBeanClass.getMethod(methodName, parameterTypes);
+ 			if (null != expectedMethod)
+ 				break;
+  	}
+
+		/*declaredMethods = beanClass.getDeclaredMethods(); 
 		for (Method method :declaredMethods) { 
 			if (methodName.equals(method.getName())) { 
 				theMethod = method; 
 				break; 
 			} 
-		}
+		}*/
 
-  	return theMethod.invoke(bean, parameters);
+		if (null==expectedMethod)
+			return null;
+
+  	return expectedMethod.invoke(bean, parameters);
   }
 
-  public static Object callMethod(Object bean, String methodName, Map<?, ?> params) throws ExecutionContextException {
+  private static Class<?>[] getInterfaces(Class<?> c, String packagePrefix) {
+    List<Class<?>> result = ListUtility.createDataList();
+    Class<?> processingClass = c;
+    if (processingClass.isInterface()) {
+        result.add(processingClass);
+    } else {
+        do {
+            addInterfaces(processingClass, result);
+            processingClass = processingClass.getSuperclass();
+        } while (processingClass != null);
+    }
+    for (int i = 0; i < result.size(); ++i) {
+        addInterfaces(result.get(i), result);
+    }
+
+    List<Class<?>> finalResults = ListUtility.createDataList();
+    for (Class<?> classInstance :result) {
+    	if (classInstance.getCanonicalName().startsWith(packagePrefix)) {
+    		finalResults.add(classInstance);
+    	}
+    }
+
+    return finalResults.toArray(new Class<?>[finalResults.size()]);
+  }
+  
+  private static void addInterfaces(Class<?> c, List<Class<?>> list) {
+      for (Class<?> intf: c.getInterfaces()) {
+          if (!list.contains(intf)) {
+              list.add(intf);
+          }
+      }
+  }
+
+  public static Object callMethod(Object bean, String methodName, Map<?, ?> params, String packagePrefix) throws ExecutionContextException {
   	try {
-			return invokeOperation(bean, methodName, params);
+			return invokeOperation(bean, methodName, params, packagePrefix);
 		} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
 				| InstantiationException e) {
 			throw new ExecutionContextException(e);

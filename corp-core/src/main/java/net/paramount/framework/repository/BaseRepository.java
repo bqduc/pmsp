@@ -18,7 +18,7 @@ import org.springframework.data.repository.NoRepositoryBean;
  */
 @NoRepositoryBean
 public interface BaseRepository<T, PK extends Serializable> extends JpaRepository<T, PK>, JpaSpecificationExecutor<T> {
-	Optional<T> findOneById(PK id);
+	Optional<T> findById(PK id);
 
 	Page<T> findAll(Pageable pageable);
 	Page<T> findAllByOrderByIdAsc(Pageable pageable);

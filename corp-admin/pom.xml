@@ -38,12 +38,12 @@
             <dependency>
                 <groupId>com.github.adminfaces</groupId>
                 <artifactId>admin-theme</artifactId>
-                <version>1.0.2</version>
+                <version>${version.admin-theme}<!-- 1.0.2 --></version>
             </dependency>
             <dependency>
                 <groupId>org.primefaces</groupId>
                 <artifactId>primefaces</artifactId>
-                <version>7.0</version>
+                <version>${version.primefaces}<!-- 7.0 --></version>
             </dependency>
         </dependencies>    
     </dependencyManagement>  
@@ -69,6 +69,18 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>corp-aux</artifactId>
+            <version>${project.version}</version>
+        </dependency>	
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>corp-lingual</artifactId>
+            <version>${project.version}</version>
+        </dependency>	
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>corp-dispatcher</artifactId>
             <version>${project.version}</version>
         </dependency>	
 

@@ -49,6 +49,7 @@ import net.paramount.common.DateTimeUtility;
 import net.paramount.entity.Attachment;
 import net.paramount.framework.entity.SsoEntityBase;
 import net.paramount.framework.entity.auth.AuthAccount;
+import net.paramount.global.GlobalConstants;
 import net.paramount.model.DateTimePatterns;
 
 /**
@@ -91,6 +92,9 @@ public class UserAccount extends SsoEntityBase implements AuthAccount {
 	
 	@Column(name = "country_code", length=12)
 	private String countryCode;
+
+	@Column(name = "business_unit_code", length=GlobalConstants.SIZE_SERIAL)
+	private String businessUnitCode;
 
 	@ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
 	//@formatter:off
@@ -264,5 +268,13 @@ public class UserAccount extends SsoEntityBase implements AuthAccount {
 
 	public void setCountryCode(String countryCode) {
 		this.countryCode = countryCode;
+	}
+
+	public String getBusinessUnitCode() {
+		return businessUnitCode;
+	}
+
+	public void setBusinessUnitCode(String businessUnitCode) {
+		this.businessUnitCode = businessUnitCode;
 	}
 }

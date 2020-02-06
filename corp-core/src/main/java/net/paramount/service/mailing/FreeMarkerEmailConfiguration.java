@@ -1,4 +1,4 @@
-package net.paramount.service.mailing;
+/*package net.paramount.service.mailing;
 
 import java.util.Properties;
 
@@ -38,3 +38,4 @@ public class FreeMarkerEmailConfiguration {
 		return mailSender;
 	}
 }
+*/

@@ -28,17 +28,16 @@ import org.springframework.context.annotation.Import;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 import lombok.extern.slf4j.Slf4j;
-import net.paramount.ase.config.MspQuartzConfig;
 import net.paramount.domain.dummy.Car;
 import net.paramount.msp.config.BaseConfiguration;
-import net.paramount.msp.config.SecurityConfig;
 import net.paramount.utility.FacesUtilities;
 
 /**
  * @author ducbq
  */
 @Slf4j
-@Import(value = { BaseConfiguration.class, SecurityConfig.class, MspQuartzConfig.class })
+//@Import(value = { BaseConfiguration.class, SecurityConfig.class, MspQuartzConfig.class })
+@Import(value = { BaseConfiguration.class})
 @SpringBootApplication(scanBasePackages={"net.paramount"})
 @EnableAsync
 public class ApplicationAdminLaunchpad {

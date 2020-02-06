@@ -68,6 +68,7 @@
 		<module>corp-common</module>
 		<module>corp-core</module>
 		<module>corp-core-eux</module>
+		<module>corp-lingual</module>
 		<module>corp-ase</module>
 		<module>corp-aux</module>
 		<module>corp-aux-domain</module>
@@ -81,9 +82,10 @@
 		<module>corp-osx</module>
 		<module>corp-edbx</module>
 		<module>corp-communicator</module>
+		<module>corp-dispatcher</module>
 		<module>corp-admin</module>
     </modules>
-	
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>

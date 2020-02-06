@@ -1,6 +1,6 @@
 /**
  * 
- */
+ *//*
 package net.paramount.service.mailing;
 
 import java.util.HashMap;
@@ -17,10 +17,10 @@ import net.paramount.common.Base64Utils;
 import net.paramount.exceptions.MspRuntimeException;
 import net.paramount.framework.entity.auth.ClientAccount;
 
-/**
+*//**
  * @author bqduc
  *
- */
+ *//*
 @Service
 public class EmailServiceHelper {
 	@Autowired
@@ -83,3 +83,4 @@ public class EmailServiceHelper {
 
 	}
 }
+*/

@@ -1,6 +1,6 @@
 /**
  * 
- */
+ *//*
 package net.paramount.service.mailing;
 
 import javax.inject.Inject;
@@ -15,13 +15,13 @@ import net.paramount.common.DateTimeUtility;
 import net.paramount.exceptions.EcosysException;
 import net.paramount.framework.logging.LogService;
 
-/**
+*//**
  * @author bqduc
  *
- */
+ *//*
 
 @Service
-public class MailClientService /*extends RootService */{
+public class MailClientService extends RootService {
 	@Inject 
 	private LogService log;
 
@@ -43,4 +43,4 @@ public class MailClientService /*extends RootService */{
 			throw new EcosysException(e);
 		}
 	}
-}
+}*/

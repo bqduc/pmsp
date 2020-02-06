@@ -25,4 +25,5 @@ public abstract class ComponentBase implements Serializable {
 	@Inject
 	protected LogService log;
 
+	protected static final String PACKAGE_PREFIX = "net.paramount.";
 }

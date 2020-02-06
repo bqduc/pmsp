@@ -16,7 +16,7 @@ public interface UserAccountService extends GenericService<UserAccount, Long>, U
      * @return The user
      * @throws ObjectNotFoundException If no such user exists.
      */
-	UserAccount getOne(String username) throws ObjectNotFoundException;
+	UserAccount get(String username) throws ObjectNotFoundException;
 
 	/**
 	 * Create a new user with the supplied details.
@@ -41,6 +41,11 @@ public interface UserAccountService extends GenericService<UserAccount, Long>, U
 	 * @param newPassword the password to change to
 	 */
 	void changePassword(String oldPassword, String newPassword);
+
+	/**
+	 * Check if a user with the email exists in the system.
+	 */
+	boolean existsByEmail(String emailAddress);
 
 	/**
 	 * Check if a user with the supplied login name exists in the system.

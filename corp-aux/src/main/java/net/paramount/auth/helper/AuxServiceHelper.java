@@ -25,7 +25,7 @@ public class AuxServiceHelper {
 		if (CommonUtility.isEmpty(userAccountSsoId))
 			return null;
 
-		UserAccount userAccount = userAuthenticationService.getOne(userAccountSsoId);
+		UserAccount userAccount = userAuthenticationService.get(userAccountSsoId);
 		if (null==userAccount)
 			return null;
 

@@ -61,4 +61,13 @@ public interface UserAccountRepository extends BaseRepository<UserAccount, Long>
 	 * @see UserAccount#getLogin()
 	 */
 	Long countBySsoId(String login);
+	
+	/**
+	 * Check if a user with the email exists in the system
+	 * 
+	 * @param email
+	 *            the user account's email
+	 * @return a true if exists
+	 */
+	boolean existsByEmail(String email);
 }
