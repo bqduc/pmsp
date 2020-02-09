@@ -28,11 +28,20 @@ public class AuditingConfiguration {
 	class AuditorAwareImpl implements AuditorAware<String> {
 		@Override
 		public Optional<String> getCurrentAuditor() {
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			if (auth.getPrincipal() instanceof String) {
+				return Optional.of((String)auth.getPrincipal());
+			}
+
+			User authUser = (User)auth.getPrincipal();
+			return Optional.of(authUser.getUsername());
+			/*
 			Optional<User> optLoggedInUser = this.getCurrentLoggedInUser();
 			if (optLoggedInUser.isPresent())
 				return Optional.of(optLoggedInUser.get().getUsername());
 
 			return Optional.of("ANNO");//Annonymous
+			*/
 		}
 
 		private Optional<User> getCurrentLoggedInUser() {

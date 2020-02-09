@@ -1,10 +1,6 @@
  package net.paramount.msp.i18n;
 
-import javax.inject.Inject;
-
 import org.springframework.stereotype.Component;
-
-import net.paramount.css.service.config.ConfigurationService;
 
 /**
  * Adds support for UTF-8 based bundles for admin i18n messages
@@ -20,8 +16,6 @@ public class CustomResourceBundle extends MultiplePropertiesResourceBundle {
     protected static final String BUNDLE_EXTENSION = "properties";
     protected static final String CHARSET = "UTF-8";
     
-    @Inject ConfigurationService configurationService;
-
     static String i18nMvp = "";
     static {
       i18nMvp = "i18n.mvp";

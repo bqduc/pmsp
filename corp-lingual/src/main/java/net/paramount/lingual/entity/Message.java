@@ -20,9 +20,9 @@ import net.paramount.framework.entity.Auditable;
  */
 @Builder
 @Entity
-@Table(name = "label_localized")
+@Table(name = "resx_message")
 @EqualsAndHashCode(callSuper = true)
-public class LabelLocalized extends Auditable <String>{
+public class Message extends Auditable <String>{
 	/**
 	 * 
 	 */

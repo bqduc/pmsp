@@ -8,7 +8,6 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import net.paramount.auth.service.UserAccountService;
 import net.paramount.common.CommonUtility;
 import net.paramount.css.service.contact.ContactService;
 import net.paramount.dmx.repository.ContactRepositoryManager;
@@ -38,11 +37,6 @@ public class UserAccountBrowseController extends BaseController {
 
     private List<FacesCar> filteredCars;
 
-    List<Car> selectedCars; //cars selected in checkbox column
-
-    @Inject
-    private UserAccountService userAuthenticationService;
-    
     @Inject
     private FacesCarService carService;
 
@@ -172,14 +166,6 @@ public class UserAccountBrowseController extends BaseController {
     public void setSelectedCar(FacesCar selectedCar) {
         this.selectedCar = selectedCar;
     }
-
-		public List<Car> getSelectedCars() {
-			return selectedCars;
-		}
-
-		public void setSelectedCars(List<Car> selectedCars) {
-			this.selectedCars = selectedCars;
-		}
 
 		public List<Contact> getBusinessObjects() {
 			return businessObjects;

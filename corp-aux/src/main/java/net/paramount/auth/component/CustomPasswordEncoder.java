@@ -46,7 +46,11 @@ public class CustomPasswordEncoder implements SimplePasswordEncoder {
 	}
 
 	public boolean comparePassword(String userPassword, String repositoryPassword, String algorithm) {
-		if (CryptoAlgorithm.PLAIN_TEXT.getAlgorithm().equalsIgnoreCase(algorithm) || CommonUtility.isEmpty(algorithm)){
+		if (CommonUtility.isEmpty(algorithm)) {
+			return repositoryPassword.equals(passwordEncoder.encode(userPassword));
+		}
+
+		if (CryptoAlgorithm.PLAIN_TEXT.getAlgorithm().equalsIgnoreCase(algorithm)){
 			return userPassword.equals(repositoryPassword);
 		}
 

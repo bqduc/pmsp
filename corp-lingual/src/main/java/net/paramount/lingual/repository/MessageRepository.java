@@ -12,18 +12,18 @@ import org.springframework.stereotype.Repository;
 import net.paramount.entity.general.Language;
 import net.paramount.framework.repository.BaseRepository;
 import net.paramount.lingual.entity.Label;
-import net.paramount.lingual.entity.LabelLocalized;
+import net.paramount.lingual.entity.Message;
 
 /**
  * @author bqduc
  *
  */
 @Repository
-public interface LabelLocalizedRepository extends BaseRepository<LabelLocalized, Long> {
-	List<LabelLocalized> findByLanguage(Language language);
+public interface MessageRepository extends BaseRepository<Message, Long> {
+	List<Message> findByLanguage(Language language);
 
-	LabelLocalized findByLabelAndLanguage(Label label, Language language);
+	Message findByLabelAndLanguage(Label label, Language language);
 
 	@Query("SELECT entity FROM #{#entityName} entity WHERE LOWER(entity.label.name) like LOWER(:keyword) or LOWER(entity.language.code) like LOWER(:keyword) or LOWER(entity.language.name) like LOWER(:keyword)")
-	List<LabelLocalized> find(@Param("keyword") String keyword);
+	List<Message> find(@Param("keyword") String keyword);
 }

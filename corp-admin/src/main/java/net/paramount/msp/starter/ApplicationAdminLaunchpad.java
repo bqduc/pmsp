@@ -16,21 +16,14 @@
 
 package net.paramount.msp.starter;
 
-import java.util.List;
-
-import javax.inject.Inject;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 import lombok.extern.slf4j.Slf4j;
-import net.paramount.domain.dummy.Car;
 import net.paramount.msp.config.BaseConfiguration;
-import net.paramount.utility.FacesUtilities;
 
 /**
  * @author ducbq
@@ -41,6 +34,7 @@ import net.paramount.utility.FacesUtilities;
 @SpringBootApplication(scanBasePackages={"net.paramount"})
 @EnableAsync
 public class ApplicationAdminLaunchpad {
+	/*
 	@Inject
 	private FacesUtilities utils;
 
@@ -48,6 +42,7 @@ public class ApplicationAdminLaunchpad {
 	public List<Car> getCars() {
 		return utils.getCars();
 	}
+	*/
 
 	public static void main(String[] args) {
 		ApplicationAdminLaunchpad adminStarterApplication = new ApplicationAdminLaunchpad();

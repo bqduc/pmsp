@@ -5,12 +5,10 @@ package net.paramount.msp.config;
 
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -40,7 +38,7 @@ public class BaseConfiguration {
 		localeResolver.setDefaultLocale(CommonUtility.LOCALE_VIETNAMESE); // change this
 		return localeResolver;
 	}
-
+/*
 	@Bean
   public MessageSource messageSource() {
   	String[] resourceBundles = new String[]{
@@ -68,6 +66,14 @@ public class BaseConfiguration {
       messageSource.setDefaultEncoding("UTF-8");
       return messageSource;
   }
+	*/
+	/*
+	@Bean
+  public MessageSource messageSource() {
+  	MessageSource messageSource = new DBMessageSource();
+    return messageSource;
+  }
+	*/
 	/*
 	@Bean
 	public MessageSource messageSource() {
@@ -77,4 +83,5 @@ public class BaseConfiguration {
 		return messageSource;
 	}
 	*/
+	
 }

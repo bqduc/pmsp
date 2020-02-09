@@ -17,11 +17,9 @@ import org.omnifaces.util.Faces;
 
 import com.github.adminfaces.template.exception.AccessDeniedException;
 
-import net.paramount.auth.service.UserAccountService;
 import net.paramount.css.service.contact.ContactService;
 import net.paramount.domain.dummy.Car;
 import net.paramount.entity.contact.Contact;
-import net.paramount.msp.service.CarService;
 import net.paramount.utility.FacesUtilities;
 
 /**
@@ -34,12 +32,6 @@ public class PermissionDetailController implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -8331499270487789202L;
-
-  @Inject
-  private UserAccountService userAuthenticationService;
-
-  @Inject
-	CarService carService;
 
 	@Inject
 	private ContactService contactService;
@@ -68,7 +60,7 @@ public class PermissionDetailController implements Serializable {
             throw new AccessDeniedException("User not authorized! Only role <b>admin</b> can remove cars.");
         }
         if (has(car) && has(car.getId())) {
-            carService.remove(car);
+            //carService.remove(car);
             utils.addDetailMessage("Car " + car.getModel()
                     + " removed successfully");
             Faces.getFlash().setKeepMessages(true);

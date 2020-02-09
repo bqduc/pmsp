@@ -21,7 +21,7 @@ public interface UserAccountService extends GenericService<UserAccount, Long>, U
 	/**
 	 * Create a new user with the supplied details.
 	 */
-	void createUser(UserAccount user);
+	void registerUserAccount(UserAccount user);
 
 	/**
 	 * Update the specified user.
@@ -56,9 +56,10 @@ public interface UserAccountService extends GenericService<UserAccount, Long>, U
 
 	UserDetails loadUserByEmail(final String email);
 	UserAccount save(UserAccount user);
-	UserAccount authenticate(String loginToken, String password) throws AuthenticationException;
-	UserAccount getUser(String userToken) throws AuthenticationException;
+	UserAccount authenticate(String loginId, String password) throws AuthenticationException;
+	UserAccount authenticate(String userToken) throws AuthenticationException;
 	UserAccount confirm(String confirmedEmail) throws AuthenticationException;
 	void initializeMasterData() throws AuthenticationException;
 
+	
 }

@@ -20,7 +20,6 @@ import com.github.adminfaces.template.exception.AccessDeniedException;
 import net.paramount.auth.entity.UserAccount;
 import net.paramount.auth.service.UserAccountService;
 import net.paramount.common.CommonConstants;
-import net.paramount.common.CommonUtility;
 import net.paramount.entity.general.BusinessUnit;
 import net.paramount.framework.controller.RootController;
 import net.paramount.utility.FacesUtilities;
@@ -79,7 +78,7 @@ public class UserAccountRegister extends RootController {
 		}
 
 		this.entity.setBusinessUnitCode(this.businessUnit.getCode());
-		businessService.saveOrUpdate(this.entity);
+		businessService.registerUserAccount(this.entity);
 		utils.addDetailMessage(messageSource.getMessage("msg.userAccountRegisterSuccess", new Object[] {this.entity.getEmail()}, super.getCurrentLocale()));
 		Faces.getFlash().setKeepMessages(true);
 		try {

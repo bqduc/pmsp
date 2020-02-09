@@ -46,6 +46,7 @@ import lombok.ToString;
 import net.paramount.auth.model.CryptoAlgorithm;
 import net.paramount.common.CommonUtility;
 import net.paramount.common.DateTimeUtility;
+import net.paramount.common.ListUtility;
 import net.paramount.entity.Attachment;
 import net.paramount.framework.entity.SsoEntityBase;
 import net.paramount.framework.entity.auth.AuthAccount;
@@ -99,7 +100,7 @@ public class UserAccount extends SsoEntityBase implements AuthAccount {
 	@ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
 	//@formatter:off
 	@JoinTable(
-			name = "sa_granted_user_authority", 
+			name = "aux_granted_user_authority", 
 			inverseJoinColumns = {@JoinColumn(name = "authority_id")},
 			joinColumns = {@JoinColumn(name = "account_id")}
 	)
@@ -276,5 +277,13 @@ public class UserAccount extends SsoEntityBase implements AuthAccount {
 
 	public void setBusinessUnitCode(String businessUnitCode) {
 		this.businessUnitCode = businessUnitCode;
+	}
+
+	public UserAccount addAuthority(Authority grantedAuthority) {
+		if (null==this.authorities)
+			this.authorities = ListUtility.createHashSet();
+
+		this.authorities.add(grantedAuthority);
+		return this;
 	}
 }

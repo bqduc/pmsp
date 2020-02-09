@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -22,12 +21,22 @@ import java.util.jar.JarFile;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.annotation.PostConstruct;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.servlet.ServletContext;
+
+import org.springframework.context.MessageSource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import net.paramount.common.CommonUtility;
 import net.paramount.common.ListUtility;
+import net.paramount.i18n.DatabaseMessageServiceImpl;
+import net.paramount.i18n.PersistenceMessageService;
 
 /**
  * <code>MultiplePropertiesResourceBundle</code> is an abstract base implementation to allow to
@@ -105,8 +114,8 @@ import net.paramount.common.ListUtility;
  * @author ducbui
  *
  */
-public abstract class MultiplePropertiesResourceBundle extends ResourceBundle {
-	private final static String SEPARATOR = ";";
+public class MultiplePropertiesResourceBundle extends ResourceBundle {
+	//private final static String SEPARATOR = ";";
 	private static final String CLASS = MultiplePropertiesResourceBundle.class.getName();
 
 	/** private Logger instance */
@@ -124,11 +133,16 @@ public abstract class MultiplePropertiesResourceBundle extends ResourceBundle {
 	private String packageName;
 	private String[] packageNames;
 
+	@Inject
+	private MessageSource dbMessageSource;
+
 	/**
 	 * A Map containing the combined resources of all parts building this
 	 * MultiplePropertiesResourceBundle.
 	 */
-	private Map<String, Object> mappedMessages = null;
+	//private Map<String, Object> mappedMessages = null;
+
+	private Map<String, String> localMessages = null;
 
 	/**
 	 * Construct a <code>MultiplePropertiesResourceBundle</code> for the passed in base-name.
@@ -174,27 +188,75 @@ public abstract class MultiplePropertiesResourceBundle extends ResourceBundle {
 		if (key == null) {
 			throw new NullPointerException();
 		}
-		loadBundlesOnce();
-		return mappedMessages.get(key);
+
+		return getMessageContent(key);//mappedMessages.get(key);
+	}
+
+	@PostConstruct
+	public void onInit() {
+		loadPersistenceMessages();
 	}
 
 	@Override
 	public Enumeration<String> getKeys() {
 		loadBundlesOnce();
 		ResourceBundle parent = this.parent;
-		return new ResourceBundleEnumeration(mappedMessages.keySet(), (parent != null) ? parent.getKeys()
+		return new ResourceBundleEnumeration(this.localMessages.keySet(), (parent != null) ? parent.getKeys()
 				: null);
+	}
+
+	private String getMessageContent(String key) {
+		if (CommonUtility.isEmpty(this.localMessages)) {
+			//Load all messages from database
+			loadPersistenceMessages();
+		} else {
+			if (!this.localMessages.containsKey(key)) {
+				// Load the message from database and update to the local messages map
+			}
+		}
+
+		if (!this.localMessages.containsKey(key)) {
+			// Actually did not contain the message with the key in database
+			return key;
+		}
+
+		return this.localMessages.get(key);
+	}
+
+	private MessageSource getMessageSource() {
+		ExternalContext externalContext = null;
+    ServletContext servletContext = null;
+		if (this.dbMessageSource==null) {
+			externalContext = FacesContext.getCurrentInstance().getExternalContext();
+      servletContext = (ServletContext) externalContext.getContext();
+      this.dbMessageSource = WebApplicationContextUtils.getWebApplicationContext(servletContext).getAutowireCapableBeanFactory().createBean(DatabaseMessageServiceImpl.class);
+		}
+		return this.dbMessageSource;
+	}
+
+	private void loadPersistenceMessages() {
+		PersistenceMessageService persistenceMessageService = (PersistenceMessageService)this.getMessageSource();
+		this.localMessages = persistenceMessageService.getMessagesMap(locale);
 	}
 
 	/**
 	 * Load the resources once.
 	 */
 	private void loadBundlesOnce() {
-		if (CommonUtility.isNotEmpty(mappedMessages)) {
+		if (CommonUtility.isNotEmpty(this.localMessages)) {
 			return;
 		}
 
-		this.mappedMessages = new HashMap<String, Object>(128);
+		if (this.dbMessageSource==null) {
+			ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+      ServletContext servletContext = (ServletContext) externalContext.getContext();
+      this.dbMessageSource = WebApplicationContextUtils.getWebApplicationContext(servletContext).getAutowireCapableBeanFactory().createBean(DatabaseMessageServiceImpl.class);
+		}
+
+		if (this.dbMessageSource==null) {
+			LOG.log(Level.SEVERE, CLASS, "The dbMessageSource object is empty. ");
+			return;
+		}
 
 		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 		PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver(classLoader);
@@ -213,12 +275,22 @@ public abstract class MultiplePropertiesResourceBundle extends ResourceBundle {
 			keys = bundle.getKeys();
 			while (keys.hasMoreElements()) {
 				key = keys.nextElement();
-				if (!mappedMessages.containsKey(key)) {
-					mappedMessages.put(key, bundle.getObject(key));
+				if (!this.localMessages.containsKey(key)) {
+					//this.localMessages.put(key, bundle.getObject(key));
 				}
 			}
 		}
+		//syncResourceBundles();
 	}
+
+	/*
+	private void syncResourceBundles() {
+		System.out.println(this.mappedMessages.size());
+		for (String key :this.mappedMessages.keySet()) {
+			((DatabaseMessageServiceImpl)this.dbMessageSource).saveMessage(key, (String)this.mappedMessages.get(key), this.locale);
+		}
+	}
+	*/
 
 	/**
 	 * Return a Set with the real base-names of the multiple properties based resource bundles that
@@ -394,13 +466,15 @@ public abstract class MultiplePropertiesResourceBundle extends ResourceBundle {
 						resourceBundle = ResourceBundle.getBundle("i18n/messages", this.locale, classLoader);
 						if (resourceBundle.keySet().size() > 0 && !scannedResources.contains(resourceBundle.getBaseBundleName())) {
 							scannedResources.add(resourceBundle.getBaseBundleName());
+							/*
 							for (String key :resourceBundle.keySet()) {
 								if (!this.mappedMessages.containsKey(key)) {
 									this.mappedMessages.put(key, resourceBundle.getString(key));
-								} /*else {
+								} else {
 									System.out.println("Key: " + key + ". PARK!");
-								}*/
+								}
 							}
+							*/
 						}
 					} catch (Exception e) {
 						//LOG.log(Level.WARNING, CLASS, e.getMessage());
@@ -446,7 +520,7 @@ public abstract class MultiplePropertiesResourceBundle extends ResourceBundle {
 		}
 		return result;
 	}
-
+	/*
 	private String[] getResourcePaths() {
 		String resourcePaths[] = null;
 		if (packageName != null && this.packageName.contains(SEPARATOR)) {
@@ -457,6 +531,7 @@ public abstract class MultiplePropertiesResourceBundle extends ResourceBundle {
 		}
 		return resourcePaths;
 	}
+	*/
 
 	private void addMatchingNameOnce(String resourcePath, String baseName, List<String> bundleNames,
 			String baseFileName, String name) {

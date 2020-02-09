@@ -17,11 +17,9 @@ import net.paramount.framework.entity.Auditable;
  */
 @Builder
 @Entity
-@Table(name = "label")
+@Table(name = "resx_label")
 @EqualsAndHashCode(callSuper = true)
-public class Label extends Auditable <String>{/**
-	 * 
-	 */
+public class Label extends Auditable <String>{
 	private static final long serialVersionUID = 2794766451650834594L;
 
 	@Column(name = "name", unique = true, length=100)

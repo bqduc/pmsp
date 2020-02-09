@@ -76,21 +76,18 @@
                     </ul> -->
                 </div>
                 <div class="form-group has-feedback">
-                    <p:inputText id="username" styleClass="form-control"
-                                 placeholder="Username" value="#{messages['aux.login']}">
+                    <p:inputText id="username" styleClass="form-control" placeholder="Username" value="#{messages['aux.login']}">
                         <p:focus/>
                     </p:inputText>
                     <i class="fa fa-envelope form-control-feedback"></i>
                 </div>
                 <div class="form-group has-feedback">
-                    <p:password id="password" styleClass="form-control"
-                                placeholder="#{messages['aux.password']}" feedback="true" value="#{messages['aux.password']}"/>
+                    <p:password id="password" styleClass="form-control" placeholder="#{messages['aux.password']}" feedback="true" value="#{messages['aux.password']}"/>
                     <i class="fa fa-lock form-control-feedback" style="font-size: 18px"></i>
                 </div>
                 <div class="row">
                     <div class="col-xs-12">
-                        <p:commandButton id="submit"
-                                         styleClass="btn btn-success btn-block" value="#{messages['aux.loginAction']}" ajax="false"/>
+                        <p:commandButton id="submit" styleClass="btn btn-success btn-block" value="#{messages['aux.loginAction']}" ajax="false"/>
                     </div>
                 </div><p:spacer height="20"/>
             </h:form>

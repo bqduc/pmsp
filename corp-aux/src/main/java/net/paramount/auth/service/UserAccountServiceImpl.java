@@ -3,6 +3,7 @@ package net.paramount.auth.service;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
@@ -14,15 +15,18 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import net.paramount.auth.component.SimplePasswordEncoder;
 import net.paramount.auth.entity.Authority;
 import net.paramount.auth.entity.UserAccount;
+import net.paramount.auth.entity.UserAccountPrivilege;
 import net.paramount.auth.exception.UserAuthenticationException;
 import net.paramount.auth.model.AuthenticationCode;
 import net.paramount.auth.model.AuthorityGroup;
 import net.paramount.auth.model.MasterUserGroup;
+import net.paramount.auth.repository.UserAccountPrivilegeRepository;
 import net.paramount.auth.repository.UserAccountRepository;
 import net.paramount.common.CommonUtility;
 import net.paramount.exceptions.AccountNotActivatedException;
@@ -40,13 +44,19 @@ public class UserAccountServiceImpl extends GenericServiceImpl<UserAccount, Long
 	private static final long serialVersionUID = 6033439932741319171L;
 
 	@Inject
-	private AuthorityService authorityServiceManager;
+	private AuthorityService authorityService;
 
 	@Autowired
   private UserAccountRepository repository;
 
 	@Inject
 	private SimplePasswordEncoder virtualEncoder;
+	
+	@Inject
+	private PasswordEncoder virtualPasswordEncoder;
+
+	@Inject
+	private UserAccountPrivilegeRepository userAccountPrivilegeRepository;
 
 	@Override
   protected BaseRepository<UserAccount, Long> getRepository() {
@@ -92,10 +102,32 @@ public class UserAccountServiceImpl extends GenericServiceImpl<UserAccount, Long
 	}
 
 	@Override
-	public void createUser(UserAccount user) {
-		this.repository.saveAndFlush(user);
+	public void registerUserAccount(UserAccount userAccount) {
+		if (!hasBeenEncoded(userAccount.getPassword())) {
+			userAccount.setPassword(virtualPasswordEncoder.encode(userAccount.getPassword()));
+		}
+		Authority minimumAuthority = authorityService.getMinimumUserAuthority();
+		userAccount.addAuthority(minimumAuthority);
+		this.repository.saveAndFlush(userAccount);
+
+		this.userAccountPrivilegeRepository.saveAndFlush(
+				UserAccountPrivilege.builder()
+				.userAccount(userAccount)
+				.authority(minimumAuthority)
+				.build()
+		);
 	}
 
+	private boolean hasBeenEncoded(String password) {
+		boolean haveBeanEncoded = false;
+		final Pattern BCRYPT_PATTERN = Pattern.compile("\\A\\$2a?\\$\\d\\d\\$[./0-9A-Za-z] {53}");
+
+		if (BCRYPT_PATTERN.matcher(password).matches()){
+			haveBeanEncoded = true;
+		}
+
+		return haveBeanEncoded;
+	}
 	@Override
 	public void updateUser(UserAccount user) {
 		this.repository.saveAndFlush(user);
@@ -134,27 +166,28 @@ public class UserAccountServiceImpl extends GenericServiceImpl<UserAccount, Long
 
 	@Override
 	public UserAccount save(UserAccount user) {
-		user.setPassword(virtualEncoder.encode(user.getPassword()));
+		//user.setPassword(virtualEncoder.encode(user.getPassword()));
+		user.setPassword(virtualPasswordEncoder.encode(user.getPassword()));
 		repository.save(user);
 		return user;
 	}
 
 	@Override
-	public UserAccount authenticate(String loginToken, String password) throws AuthenticationException {
+	public UserAccount authenticate(String loginId, String password) throws AuthenticationException {
 		UserAccount authenticatedUser = null;
 		UserDetails userDetails = null;
 		UserAccount repositoryUser = null;
-		if (CommonUtility.isEmailAddreess(loginToken)){
-			repositoryUser = repository.findByEmail(loginToken);
+		if (CommonUtility.isEmailAddreess(loginId)){
+			repositoryUser = repository.findByEmail(loginId);
 		}else{
-			repositoryUser = repository.findBySsoId(loginToken);
+			repositoryUser = repository.findBySsoId(loginId);
 		}
 
 		if (null == repositoryUser)
-			throw new AuthenticationException(AuthenticationException.ERROR_INVALID_PRINCIPAL, "Could not get the user information base on [" + loginToken + "]");
+			throw new AuthenticationException(AuthenticationException.ERROR_INVALID_PRINCIPAL, "Could not get the user information base on [" + loginId + "]");
 
-		if (false==virtualEncoder.comparePassword(password, repositoryUser.getPassword(), repositoryUser.getEncryptAlgorithm()))
-			throw new AuthenticationException(AuthenticationException.ERROR_INVALID_CREDENTIAL, "Invalid password of the user information base on [" + loginToken + "]");
+		if (false==this.virtualPasswordEncoder.matches(password, repositoryUser.getPassword()))
+			throw new AuthenticationException(AuthenticationException.ERROR_INVALID_CREDENTIAL, "Invalid password of the user information base on [" + loginId + "]");
 
 		if (!Boolean.TRUE.equals(repositoryUser.isActivated()))
 			throw new AuthenticationException(AuthenticationException.ERROR_INACTIVE, "Login information is fine but this account did not activated yet. ");
@@ -166,7 +199,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<UserAccount, Long
 	}
 
 	@Override
-	public UserAccount getUser(String userToken) throws AuthenticationException {
+	public UserAccount authenticate(String userToken) throws AuthenticationException {
 		UserAccount repositoryUser = null;
 		if (CommonUtility.isEmailAddreess(userToken)){
 			repositoryUser = repository.findByEmail(userToken);
@@ -187,22 +220,22 @@ public class UserAccountServiceImpl extends GenericServiceImpl<UserAccount, Long
 		Authority clientRoleEntity = null, userRoleEntity = null, adminRoleEntity = null;
 		//Setup authorities/roles
 		try {
-			clientRoleEntity = authorityServiceManager.getByName(AuthorityGroup.RoleClient.getCode());
+			clientRoleEntity = authorityService.getByName(AuthorityGroup.RoleClient.getCode());
 			if (null==clientRoleEntity){
 				clientRoleEntity = Authority.builder().name(AuthorityGroup.RoleClient.getCode()).displayName("Client activity. ").build();
-				authorityServiceManager.save(clientRoleEntity);
+				authorityService.save(clientRoleEntity);
 			}
 
-			userRoleEntity = authorityServiceManager.getByName(AuthorityGroup.RoleUser.getCode());
+			userRoleEntity = authorityService.getByName(AuthorityGroup.RoleUser.getCode());
 			if (null==userRoleEntity){
 				userRoleEntity = Authority.builder().name(AuthorityGroup.RoleUser.getCode()).displayName("Common activity for normal user. ").build();
-				authorityServiceManager.saveOrUpdate(userRoleEntity);
+				authorityService.saveOrUpdate(userRoleEntity);
 			}
 
-			adminRoleEntity = authorityServiceManager.getByName(AuthorityGroup.RoleAdmin.getCode());
+			adminRoleEntity = authorityService.getByName(AuthorityGroup.RoleAdmin.getCode());
 			if (null==adminRoleEntity){
 				adminRoleEntity = Authority.builder().name(AuthorityGroup.RoleAdmin.getCode()).displayName("System Administration. ").build();
-				authorityServiceManager.saveOrUpdate(adminRoleEntity);
+				authorityService.saveOrUpdate(adminRoleEntity);
 			}
 
 			Set<Authority> adminAuthorities = new HashSet<>();

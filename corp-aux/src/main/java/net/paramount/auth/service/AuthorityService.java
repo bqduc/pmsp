@@ -28,4 +28,16 @@ public interface AuthorityService extends GenericService<Authority, Long> {
 	 * @return The pageable Authorities
 	 */
 	Page<Authority> getObjects(SearchParameter searchParameter);
+
+	
+	/**
+	 * Get one Authority with the provided code.
+	 * 
+	 * @param name
+	 *            The Authority name
+	 * @return The Authority
+	 * @throws ObjectNotFoundException
+	 *             If no such Authority exists.
+	 */
+	Authority getMinimumUserAuthority() throws ObjectNotFoundException;
 }

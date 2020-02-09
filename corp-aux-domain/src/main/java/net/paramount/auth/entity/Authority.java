@@ -12,6 +12,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.springframework.security.core.GrantedAuthority;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -31,7 +33,7 @@ import net.paramount.framework.entity.ObjectBase;
 		@NamedQuery(name = "Role.findById", query = "SELECT u FROM UserProfile u WHERE u.id = :id"),
 		@NamedQuery(name = "Role.findByName", query = "SELECT u FROM UserProfile u WHERE u.name = :name"),
 		@NamedQuery(name = "Role.findByActive", query = "SELECT u FROM UserProfile u WHERE u.active = :active") })
-public class Authority extends ObjectBase {
+public class Authority extends ObjectBase implements GrantedAuthority {
 	private static final long serialVersionUID = 1L;
 
 	@Basic(optional = false)
@@ -61,6 +63,10 @@ public class Authority extends ObjectBase {
 	@Column(name = "category_id")
 	private Long categoryId;
 	
+	@Builder.Default
+	@Column(name = "is_administration")
+	private Boolean isAdministration = Boolean.FALSE;
+
 	public String getName() {
 		return name;
 	}
@@ -112,6 +118,19 @@ public class Authority extends ObjectBase {
 
 	public void setCategoryId(Long categoryId) {
 		this.categoryId = categoryId;
+	}
+
+	public Boolean getIsAdministration() {
+		return isAdministration;
+	}
+
+	public void setIsAdministration(Boolean isAdministration) {
+		this.isAdministration = isAdministration;
+	}
+
+	@Override
+	public String getAuthority() {
+		return this.name;
 	}
 
 }

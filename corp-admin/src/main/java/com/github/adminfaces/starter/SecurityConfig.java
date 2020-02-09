@@ -8,16 +8,18 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
+import net.paramount.msp.config.CorporateAuthenticationProvider;
+
 /**
  * Created by aLeXcBa1990 on 24/11/2018.
  * 
  */
-
+/*
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
-	private CustomAuthenticationProvider authProvider;
+	private CorporateAuthenticationProvider authProvider;
 
 	@Configuration
 	@Order(1)
@@ -47,3 +49,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 }
+*/

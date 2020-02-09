@@ -64,6 +64,12 @@
 
                     <div class="ui-g ui-fluid">
                         <div class="ui-sm-12 ui-md-2 ui-lg-1">
+                            <p:outputLabel value="#{messages['lbl.general.displayName']}" for="displayName"/>
+                        </div>
+                        <div class="ui-sm-12 ui-md-4 ui-lg-5" >
+                            <p:inputText id="displayName" value="#{authorityDetail.bizEntity.displayName}"/>
+                        </div>
+                        <div class="ui-sm-12 ui-md-2 ui-lg-1">
                             <p:outputLabel for="name" value="#{messages['lbl.general.name']}"/>
                         </div>
                         <div class="ui-sm-12 ui-md-4 ui-lg-5" >
@@ -79,23 +85,23 @@
                             <p:outputLabel value="#{messages['lbl.general.parent']}" for="itemParent"/>
                         </div>
                         <div class="ui-sm-12 ui-md-4 ui-lg-5" >
-													<p:autoComplete id="itemParent" value="#{autoCompleteAuthority.item}" completeMethod="#{autoCompleteAuthority.completeItem}"
-													                var="theme" itemLabel="#{theme.name}" itemValue="#{theme}" converter="#{authorityConverter}" forceSelection="true" style="width: 50%">
-														<p:ajax event="itemSelect" listener="#{authorityDetail.handleParentSelect}" />
-													    <f:facet name="itemtip">
-													        <h:panelGrid columns="2" cellpadding="5">
-													            <f:facet name="header">
-													                <h:outputText styleClass="ui-theme ui-theme-#{theme.name}" style="margin-left:35px" />
-													            </f:facet>
-													
-													            <p:outputLabel value="Code:" />
-													            <h:outputText value="#{theme.displayName}" />
-													
-													            <p:outputLabel value="Name:" />
-													            <h:outputText value="#{theme.name}" />
-													        </h:panelGrid>
-													    </f:facet>
-													</p:autoComplete>
+							<p:autoComplete id="itemParent" value="#{autoCompleteAuthority.item}" completeMethod="#{autoCompleteAuthority.completeItem}"
+							                var="theme" itemLabel="#{theme.name}" itemValue="#{theme}" converter="#{authorityConverter}" forceSelection="true" style="width: 50%">
+								<p:ajax event="itemSelect" listener="#{authorityDetail.handleParentSelect}" />
+							    <f:facet name="itemtip">
+							        <h:panelGrid columns="2" cellpadding="5">
+							            <f:facet name="header">
+							                <h:outputText styleClass="ui-theme ui-theme-#{theme.name}" style="margin-left:35px" />
+							            </f:facet>
+							
+							            <p:outputLabel value="Code:" />
+							            <h:outputText value="#{theme.displayName}" />
+							
+							            <p:outputLabel value="Name:" />
+							            <h:outputText value="#{theme.name}" />
+							        </h:panelGrid>
+							    </f:facet>
+							</p:autoComplete>
                         </div>
                         <div class="ui-sm-12 ui-md-2 ui-lg-1">
                             <p:outputLabel value="#{messages['lbl.general.info']}" for="inptInfo"/>

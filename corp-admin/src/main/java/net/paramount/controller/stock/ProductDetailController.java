@@ -21,7 +21,6 @@ import net.paramount.css.service.contact.ContactService;
 import net.paramount.domain.dummy.Car;
 import net.paramount.entity.contact.Contact;
 import net.paramount.entity.stock.Product;
-import net.paramount.msp.service.CarService;
 import net.paramount.utility.FacesUtilities;
 
 /**
@@ -34,9 +33,6 @@ public class ProductDetailController implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -5550266105589219010L;
-
-	@Inject
-	CarService carService;
 
 	@Inject
 	private ContactService businessService;
@@ -66,7 +62,7 @@ public class ProductDetailController implements Serializable {
 			throw new AccessDeniedException("User not authorized! Only role <b>admin</b> can remove cars.");
 		}
 		if (has(car) && has(car.getId())) {
-			carService.remove(car);
+			//carService.remove(car);
 			utils.addDetailMessage("Car " + car.getModel() + " removed successfully");
 			Faces.getFlash().setKeepMessages(true);
 			Faces.redirect("user/car-list.jsf");
