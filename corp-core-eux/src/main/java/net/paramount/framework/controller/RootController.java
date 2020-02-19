@@ -30,7 +30,7 @@ public abstract class RootController extends ComponentBase {
 	protected static final String DEFAULT_PAGE_NUM = "0";
 
 	@Inject
-	protected MessageSource messageSource;
+	protected MessageSource persistenceMessageSource;//dbMessageSource
 
 	@Inject
 	protected HttpSession httpSession;

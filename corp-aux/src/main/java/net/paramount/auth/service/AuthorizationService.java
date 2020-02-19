@@ -3,14 +3,18 @@
  */
 package net.paramount.auth.service;
 
-import net.paramount.auth.domain.UserAccountProfile;
-import net.paramount.auth.exception.UserAuthenticationException;
+import net.paramount.auth.domain.UserProfile;
+import net.paramount.auth.exception.CorporateAuthenticationException;
 
 /**
  * @author ducbq
  *
  */
 public interface AuthorizationService {
-	UserAccountProfile authenticate(String ssoId, String password) throws UserAuthenticationException;
-	UserAccountProfile authenticate(String token) throws UserAuthenticationException;
+	UserProfile authenticate(String ssoId, String password) throws CorporateAuthenticationException;
+	UserProfile authenticate(String token) throws CorporateAuthenticationException;
+
+	UserProfile getUserProfile() throws CorporateAuthenticationException;
+	
+	boolean hasPermission(String target, String action) throws CorporateAuthenticationException;
 }

@@ -1,4 +1,4 @@
-package net.paramount.service.mailing;
+/*package net.paramount.service.mailing;
 
 import java.util.Date;
 import java.util.List;
@@ -105,3 +105,4 @@ public class Mail {
 	}
 
 }
+*/

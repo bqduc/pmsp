@@ -1,4 +1,4 @@
-package net.paramount.auth.entity;
+/*package net.paramount.auth.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -7,31 +7,31 @@ import javax.persistence.Table;
 
 import net.paramount.framework.entity.ObjectBase;
 
-/**
+*//**
  * 
  * @author ducbq
- */
+ *//*
 @Entity
 @Table(name = "aux_user_role")
 public class UserRole extends ObjectBase {
-	/**
+	*//**
 	 * 
-	 */
+	 *//*
 	private static final long serialVersionUID = -5738835622345821174L;
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
-	private UserProfile user;
+	private AuxUserProfile user;
 
 	@ManyToOne
 	@JoinColumn(name = "role_id")
 	private Authority role;
 
-	public UserProfile getUser() {
+	public AuxUserProfile getUser() {
 		return user;
 	}
 
-	public void setUser(UserProfile user) {
+	public void setUser(AuxUserProfile user) {
 		this.user = user;
 	}
 
@@ -43,3 +43,4 @@ public class UserRole extends ObjectBase {
 		this.role = role;
 	}
 }
+*/

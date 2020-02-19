@@ -27,6 +27,12 @@
 		</dependency>	
 
 		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>corp-communicator</artifactId>
+			<version>${project.version}</version>
+		</dependency>	
+
+		<dependency>
 			<groupId>javax.faces</groupId>
 			<artifactId>javax.faces-api</artifactId>
 			<version>${version.javax.faces-api}</version>

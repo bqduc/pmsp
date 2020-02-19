@@ -39,11 +39,6 @@ public class GlobaRepositoryManagement extends ComponentBase {
 		//log.info(String.join(LOG_ENTRY_LEAVE, logSpec));
 	}
 
-	/*
-	 * @EventListener(ApplicationReadyEvent.class) public void onApplicationReadyEventListener() { initiateMasterData();
-	 * System.out.println("Hello world, the application just started up"); }
-	 */
-
 	public void initiateMasterData() {
 		log.info("Enter initiateMasterData");
 		globalDataServiceHelper.initialize();

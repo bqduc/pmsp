@@ -25,6 +25,14 @@ public class ListUtility {
 		return new DataList<T>();
 	}
 
+	public static <T> DataList<T> createDataList(Collection<T> collection){
+		DataList<T> dataList = new DataList<T>();
+		for (T object :collection) {
+			dataList.add(object);
+		}
+		return dataList;
+	}
+	
 	@SafeVarargs
 	public static <T> DataList<T> createDataList(T ...initialValues){
 		DataList<T> dataList = new DataList<T>();

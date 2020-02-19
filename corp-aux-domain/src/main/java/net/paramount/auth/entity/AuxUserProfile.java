@@ -1,4 +1,4 @@
-
+/*
 package net.paramount.auth.entity;
 
 import java.util.ArrayList;
@@ -22,23 +22,23 @@ import org.hibernate.annotations.Cascade;
 
 import net.paramount.framework.entity.ObjectBase;
 
-/**
+*//**
  * 
  * @author ducbui
  * 
- */
+ *//*
 
 @Entity
 @Table(name = "aux_user_profile")
 @NamedQueries({
-    @NamedQuery(name = "User.findAll", query = "SELECT u FROM UserProfile u"),
-    @NamedQuery(name = "User.findById", query = "SELECT u FROM UserProfile u WHERE u.id = :id"),
-    @NamedQuery(name = "User.findByLogin", query = "SELECT u FROM UserProfile u WHERE u.authAccount.ssoId = :login"),
-    @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM UserProfile u WHERE u.authAccount.password = :password"),
-    @NamedQuery(name = "User.findByName", query = "SELECT u FROM UserProfile u WHERE u.name = :name"),
-    @NamedQuery(name = "User.findByUserType", query = "SELECT u FROM UserProfile u WHERE u.userType = :userType"),
-    @NamedQuery(name = "User.findByActive", query = "SELECT u FROM UserProfile u WHERE u.active = :active")})
-public class UserProfile extends ObjectBase {
+    @NamedQuery(name = "User.findAll", query = "SELECT u FROM AuxUserProfile u"),
+    @NamedQuery(name = "User.findById", query = "SELECT u FROM AuxUserProfile u WHERE u.id = :id"),
+    @NamedQuery(name = "User.findByLogin", query = "SELECT u FROM AuxUserProfile u WHERE u.authAccount.ssoId = :login"),
+    @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM AuxUserProfile u WHERE u.authAccount.password = :password"),
+    @NamedQuery(name = "User.findByName", query = "SELECT u FROM AuxUserProfile u WHERE u.name = :name"),
+    @NamedQuery(name = "User.findByUserType", query = "SELECT u FROM AuxUserProfile u WHERE u.userType = :userType"),
+    @NamedQuery(name = "User.findByActive", query = "SELECT u FROM AuxUserProfile u WHERE u.active = :active")})
+public class AuxUserProfile extends ObjectBase {
     private static final long serialVersionUID = 1L;
 
     @Basic(optional = false)
@@ -74,10 +74,10 @@ public class UserProfile extends ObjectBase {
 	@JoinColumn(name = "auth_account_id")
 	private AuthenticateAccount authAccount;
 
-    public UserProfile() {
+    public AuxUserProfile() {
     }
 
-    public UserProfile(String login, String password, String name, Boolean active) {
+    public AuxUserProfile(String login, String password, String name, Boolean active) {
     	if (null == this.authAccount) {
     		this.authAccount = new AuthenticateAccount();
     	}
@@ -139,11 +139,11 @@ public class UserProfile extends ObjectBase {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof UserProfile)) {
+        if (!(object instanceof AuxUserProfile)) {
             return false;
         }
 
-        UserProfile other = (UserProfile) object;
+        AuxUserProfile other = (AuxUserProfile) object;
         if ((this.getId() == null && other.getId() != null) || (this.getId() != null && !this.getId().equals(other.getId()))) {
             return false;
         }
@@ -163,3 +163,4 @@ public class UserProfile extends ObjectBase {
 			this.authAccount = authAccount;
 		}
 }
+*/

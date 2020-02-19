@@ -10,7 +10,7 @@ import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
-import net.paramount.service.mailing.Mail;
+import net.paramount.comm.domain.MailMessage;
 
 @Service
 public class MailService {
@@ -20,7 +20,7 @@ public class MailService {
 	@Inject
 	private Configuration freemarkerConfig;
 
-	public void sendEmail(Mail mail) throws Exception {
+	public void sendEmail(MailMessage mail) throws Exception {
 		MimeMessage message = sender.createMimeMessage();
 
 		MimeMessageHelper helper = new MimeMessageHelper(message);
@@ -29,9 +29,9 @@ public class MailService {
 		freemarkerConfig.setClassForTemplateLoading(this.getClass(), "/emailTemplate/auth/");
 
 		Template t = freemarkerConfig.getTemplate("forgotPassword.ftl");
-		String text = FreeMarkerTemplateUtils.processTemplateIntoString(t, mail.getModel());
+		String text = FreeMarkerTemplateUtils.processTemplateIntoString(t, mail.getDefinitions());
 
-		helper.setTo(mail.getMailTo());
+		helper.setTo(mail.getRecipients());
 		helper.setText(text, true);
 		helper.setSubject(mail.getSubject());
 

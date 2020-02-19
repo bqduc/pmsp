@@ -53,7 +53,7 @@ public class GeneralAutoCompletion implements Serializable {
 
 	public List<BusinessUnit> onCompleteBusinessUnit(String keyword) {
 		Page<BusinessUnit> searchResult = businessUnitService.search(keyword);
-		System.out.println("onCompleteBusinessUnit: " + keyword);
+		//System.out.println("onCompleteBusinessUnit: " + keyword);
 		return searchResult.getContent();
 	}
 

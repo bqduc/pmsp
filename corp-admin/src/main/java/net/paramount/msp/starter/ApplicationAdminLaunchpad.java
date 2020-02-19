@@ -34,15 +34,6 @@ import net.paramount.msp.config.BaseConfiguration;
 @SpringBootApplication(scanBasePackages={"net.paramount"})
 @EnableAsync
 public class ApplicationAdminLaunchpad {
-	/*
-	@Inject
-	private FacesUtilities utils;
-
-	@Bean
-	public List<Car> getCars() {
-		return utils.getCars();
-	}
-	*/
 
 	public static void main(String[] args) {
 		ApplicationAdminLaunchpad adminStarterApplication = new ApplicationAdminLaunchpad();

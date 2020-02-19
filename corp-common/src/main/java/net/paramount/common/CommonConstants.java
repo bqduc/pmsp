@@ -21,6 +21,7 @@ public interface CommonConstants {
 	final static String UNDEFINED = "undefined";
 	final static long _sequenceMinValue = 0;
 	final static String ENCODING_NAME_UTF8 = Charset.forName("UTF-8").name();
+	final static String ENCODING_UTF8 = "UTF8";
 
 	final static int DUMMY_LARGE_COUNT = 5000000;
 	final static String TRUE_STRING = Boolean.TRUE.toString();

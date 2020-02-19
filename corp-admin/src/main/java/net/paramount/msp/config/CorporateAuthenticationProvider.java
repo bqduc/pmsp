@@ -1,20 +1,18 @@
 package net.paramount.msp.config;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
-import net.paramount.auth.domain.UserAccountProfile;
+import net.paramount.auth.domain.UserProfile;
+import net.paramount.auth.exception.CorporateAuthenticationException;
 import net.paramount.auth.service.AuthorizationService;
-import net.paramount.common.ListUtility;
+import net.paramount.common.CommonUtility;
+import net.paramount.framework.component.CompCore;
 
 /**
  * Created by aLeXcBa1990 on 24/11/2018.
@@ -22,44 +20,56 @@ import net.paramount.common.ListUtility;
  */
 
 @Component
-public class CorporateAuthenticationProvider implements AuthenticationProvider {
+public class CorporateAuthenticationProvider extends CompCore implements AuthenticationProvider {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -927579610261068085L;
+
 	@Inject 
 	private AuthorizationService authorizationService;
 
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-		Authentication repAuthentication = null;
-		String user = authentication.getName();
-		String password = authentication.getCredentials().toString();
-		UserAccountProfile userAccountProfile = null;
-		try {
-			userAccountProfile = authorizationService.authenticate(user, password);
-			System.out.println("Authenticate result: " + userAccountProfile);
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (authentication.getName().length() < 150) {
+			return authenticateBySsoId(authentication.getName(), authentication.getCredentials().toString());
 		}
 
-		// Here you can add a database connection for your custom login  
-		List<GrantedAuthority> grantedAuthorities = ListUtility.createDataList();
-
-		if (user.equalsIgnoreCase("admin") && password.equalsIgnoreCase("admin")){
-			grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-		} else if (user.equalsIgnoreCase("user") && password.equalsIgnoreCase("user")){
-			grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-		}
-
-		if (grantedAuthorities.size() > 0) {
-			repAuthentication = new UsernamePasswordAuthenticationToken(user, password, grantedAuthorities);
-		}
-			
-		return repAuthentication;
+		return authenticateByToken(authentication.getName());
 	}
 
 	@Override
 	public boolean supports(Class<? extends Object> authentication) {
-
 		return (UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication));
-
 	}
-	
+
+	private Authentication authenticateBySsoId(String ssoId, String password) throws AuthenticationException {
+		CorporateAuthenticationException userAuthenticationException = null;
+		UserProfile userAccountProfile = null;
+		try {
+			userAccountProfile = authorizationService.authenticate(ssoId, password);
+		} catch (AuthenticationException uae) {
+			userAuthenticationException = (CorporateAuthenticationException) uae;
+		}
+
+		if (null != userAccountProfile)
+			return new UsernamePasswordAuthenticationToken(ssoId, password, userAccountProfile.getUserAccount().getAuthorities());			
+
+		throw userAuthenticationException;
+	}
+
+	private Authentication authenticateByToken(String token) throws AuthenticationException {
+		CorporateAuthenticationException userAuthenticationException = null;
+		UserProfile userAccountProfile = null;
+		try {
+			userAccountProfile = authorizationService.authenticate(token);
+		} catch (AuthenticationException uae) {
+			userAuthenticationException = (CorporateAuthenticationException) uae;
+		}
+
+		if (null != userAccountProfile)
+			return new UsernamePasswordAuthenticationToken(token, CommonUtility.STRING_BLANK, userAccountProfile.getUserAccount().getAuthorities());			
+
+		throw userAuthenticationException;
+	}
 }

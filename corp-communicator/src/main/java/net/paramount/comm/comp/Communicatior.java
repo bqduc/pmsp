@@ -1,7 +1,7 @@
 /**
  * 
  */
-package net.paramount.comm.component;
+package net.paramount.comm.comp;
 
 import net.paramount.comm.domain.MailMessage;
 import net.paramount.exceptions.CommunicatorException;
@@ -10,6 +10,6 @@ import net.paramount.exceptions.CommunicatorException;
  * @author ducbq
  *
  */
-public interface CommunicationService {
-	void send(MailMessage mailMessage) throws CommunicatorException;
+public interface Communicatior {
+	void sendEmail(MailMessage mailMessage) throws CommunicatorException;
 }

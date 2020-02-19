@@ -18,7 +18,6 @@ package net.paramount.faces.converter;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.inject.Inject;
 
@@ -26,13 +25,14 @@ import org.springframework.stereotype.Service;
 
 import net.paramount.css.service.org.BusinessUnitService;
 import net.paramount.entity.general.BusinessUnit;
+import net.paramount.faces.base.ConverterBase;
 
 @Service(value="businessUnitConverter")
-public class BusinessUnitConverter implements Converter<BusinessUnit> /* extends ConverterBase<BusinessUnit> */ {
+public class BusinessUnitConverter /*implements Converter<BusinessUnit>*/  extends ConverterBase<BusinessUnit>  {
 	@Inject
 	private BusinessUnitService service;
 
-	public BusinessUnit getAsObject(FacesContext fc, UIComponent uic, String value) {
+	/*public BusinessUnit getAsObject(FacesContext fc, UIComponent uic, String value) {
 		BusinessUnit asObject = null;
 		if (value != null && value.trim().length() > 0) {
 			try {
@@ -41,21 +41,20 @@ public class BusinessUnitConverter implements Converter<BusinessUnit> /* extends
 				throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Conversion Error", "Not a valid generic item."));
 			}
 		} 
-		System.out.println("Selected code: " + asObject.getCode());
+		//System.out.println("Selected code: " + asObject.getCode());
 		return asObject;
 	}
-
+	
 	public String getAsString(FacesContext fc, UIComponent uic, BusinessUnit object) {
 		String objectAsString = null;
 		if (object != null) {
 			objectAsString = String.valueOf(object.getId());//object.toString();
 		} 
-
-		System.out.println("Object string: " + objectAsString);
+	
+		//System.out.println("Object string: " + objectAsString);
 		return objectAsString;
-	}
+	}*/
 
-	/*
 	@Override
 	protected BusinessUnit unmarshallingObject(FacesContext fc, UIComponent uic, String value) {
 		BusinessUnit unmarshalledObject = null;
@@ -77,5 +76,4 @@ public class BusinessUnitConverter implements Converter<BusinessUnit> /* extends
 			return null;
 		}
 	}
-	*/
 }

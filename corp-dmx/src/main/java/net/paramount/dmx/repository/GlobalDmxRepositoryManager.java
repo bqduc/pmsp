@@ -77,7 +77,7 @@ public class GlobalDmxRepositoryManager extends ComponentBase {
 		String archivedResourceName = null;
 		List<String> marshallingObjects = null;
 		try {
-			if (!executionContext.containKey(OSXConstants.MARSHALLING_OBJECTS))
+			if (!executionContext.containsKey(OSXConstants.MARSHALLING_OBJECTS))
 				return executionContext;
 
 			databookIdList = (List<String>)executionContext.get(OSXConstants.PROCESSING_DATABOOK_IDS);
@@ -113,8 +113,6 @@ public class GlobalDmxRepositoryManager extends ComponentBase {
 		}
 		return executionContext;
 	}
-
-
 
 	/**
 	 * Archive resource data to database unit

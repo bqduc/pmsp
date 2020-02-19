@@ -8,7 +8,8 @@ import static com.github.adminfaces.template.util.Assert.has;
 
 import java.io.IOException;
 
-import javax.faces.view.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.flow.FlowScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -27,8 +28,8 @@ import net.paramount.utility.FacesUtilities;
 /**
  * @author ducbq
  */
-@Named(value = "userAccountRegister")
-@ViewScoped
+@Named//(value = "userAccountRegister")
+@FlowScoped("userAccountRegister")
 public class UserAccountRegister extends RootController {
 	/**
 	 * 
@@ -69,24 +70,40 @@ public class UserAccountRegister extends RootController {
 		}
 	}
 
-	public void save() {
+	public void register() {
 		preProcessUserAccount();
 		if (!this.validate()) {
-			utils.addDetailMessage(messageSource.getMessage("msg.userAccountRegisterFailure", new Object[] {this.entity.getEmail()}, super.getCurrentLocale()));
+			utils.addDetailMessage(persistenceMessageSource.getMessage("msg.userAccountRegisterFailure", new Object[] {this.entity.getEmail()}, super.getCurrentLocale()));
+			Faces.getFlash().setKeepMessages(true);
+			FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "register");
+			return;
+		}
+
+		this.entity.setBusinessUnitCode(this.businessUnit.getCode());
+		businessService.registerUserAccount(this.entity);
+		utils.addDetailMessage(persistenceMessageSource.getMessage("msg.userAccountRegisterSuccess", new Object[] {this.entity.getEmail()}, super.getCurrentLocale()));
+		Faces.getFlash().setKeepMessages(true);
+		FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "index");
+	}
+	
+	/*public void save() {
+		preProcessUserAccount();
+		if (!this.validate()) {
+			utils.addDetailMessage(dbMessageSource.getMessage("msg.userAccountRegisterFailure", new Object[] {this.entity.getEmail()}, super.getCurrentLocale()));
 			Faces.getFlash().setKeepMessages(true);
 			return;
 		}
 
 		this.entity.setBusinessUnitCode(this.businessUnit.getCode());
 		businessService.registerUserAccount(this.entity);
-		utils.addDetailMessage(messageSource.getMessage("msg.userAccountRegisterSuccess", new Object[] {this.entity.getEmail()}, super.getCurrentLocale()));
+		utils.addDetailMessage(dbMessageSource.getMessage("msg.userAccountRegisterSuccess", new Object[] {this.entity.getEmail()}, super.getCurrentLocale()));
 		Faces.getFlash().setKeepMessages(true);
 		try {
 			Faces.redirect("index.jsf");
 		} catch (IOException e) {
 			log.error(e);;
 		}
-	}
+	}*/
 
 	private void preProcessUserAccount() {
 		if (null==this.entity.getId()){

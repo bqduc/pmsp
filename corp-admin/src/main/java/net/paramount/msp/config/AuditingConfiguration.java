@@ -5,6 +5,8 @@ package net.paramount.msp.config;
 
 import java.util.Optional;
 
+import javax.inject.Inject;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
@@ -13,6 +15,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 
+import net.paramount.auth.service.AuthorizationService;
+
 /**
  * @author ducbq
  *
@@ -20,6 +24,9 @@ import org.springframework.security.core.userdetails.User;
 @Configuration
 @EnableJpaAuditing
 public class AuditingConfiguration {
+	@Inject 
+	private AuthorizationService authorizationService;
+
 	@Bean
 	public AuditorAware<String> auditorProvider() {
 		return new AuditorAwareImpl();
@@ -28,6 +35,7 @@ public class AuditingConfiguration {
 	class AuditorAwareImpl implements AuditorAware<String> {
 		@Override
 		public Optional<String> getCurrentAuditor() {
+			System.out.println("Authenticated user from security officer component: " + authorizationService.getUserProfile());
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 			if (auth.getPrincipal() instanceof String) {
 				return Optional.of((String)auth.getPrincipal());

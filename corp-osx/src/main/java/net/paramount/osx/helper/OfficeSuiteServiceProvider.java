@@ -102,7 +102,7 @@ public class OfficeSuiteServiceProvider {
 				}
 
 				worksheetIds = (List<String>) sheetIdsMap.get(zipEntry);
-				processingParameters.putAll(executionContextParams.getContext());
+				processingParameters.putAll(executionContextParams.getContextData());
 				processingParameters.remove(OSXConstants.COMPRESSED_FILE);
 				processingParameters.put(OSXConstants.INPUT_STREAM, zipInputStream);
 				processingParameters.put(OSXConstants.PROCESSING_DATASHEET_IDS, worksheetIds);
@@ -130,7 +130,7 @@ public class OfficeSuiteServiceProvider {
 		List<String> workbookIds = null;
 		Map<String, String> passwordMap = null;
 		try {
-			if (executionContextParams.containKey(OSXConstants.MASTER_BUFFER_DATA_BYTES) && Boolean.FALSE.equals(executionContextParams.get(OSXConstants.FROM_ATTACHMENT))) {
+			if (executionContextParams.containsKey(OSXConstants.MASTER_BUFFER_DATA_BYTES) && Boolean.FALSE.equals(executionContextParams.get(OSXConstants.FROM_ATTACHMENT))) {
 				zipFile = CommonUtility.createDataFile((String)executionContextParams.get(OSXConstants.MASTER_ARCHIVED_FILE_NAME), (byte[])executionContextParams.get(OSXConstants.MASTER_BUFFER_DATA_BYTES));
 			} /*else if (executionContextParams.containKey(OSXConstants.MASTER_BUFFER_DATA_BYTES) && executionContextParams.containKey(OSXConstants.MASTER_ARCHIVED_FILE_NAME)) {
 				zipFile = CommonUtility.createDataFile((String)executionContextParams.get(OSXConstants.MASTER_ARCHIVED_FILE_NAME), (byte[])executionContextParams.get(OSXConstants.MASTER_BUFFER_DATA_BYTES));
@@ -140,17 +140,17 @@ public class OfficeSuiteServiceProvider {
 				return bucketContainer;
 			}
 
-			if (executionContextParams.containKey(OSXConstants.ENCRYPTION_KEYS)) {
+			if (executionContextParams.containsKey(OSXConstants.ENCRYPTION_KEYS)) {
 				passwordMap = (Map) executionContextParams.get(OSXConstants.ENCRYPTION_KEYS);
 			}
 
-			if (executionContextParams.containKey(OSXConstants.PROCESSING_DATASHEET_IDS)) {
+			if (executionContextParams.containsKey(OSXConstants.PROCESSING_DATASHEET_IDS)) {
 				sheetIdsMap = (Map) executionContextParams.get(OSXConstants.PROCESSING_DATASHEET_IDS);
-			} else if (executionContextParams.containKey(OSXConstants.MAPPING_DATABOOKS_DATASHEETS)) {
+			} else if (executionContextParams.containsKey(OSXConstants.MAPPING_DATABOOKS_DATASHEETS)) {
 				sheetIdsMap = (Map) executionContextParams.get(OSXConstants.MAPPING_DATABOOKS_DATASHEETS);
 			}
 
-			if (executionContextParams.containKey(OSXConstants.PROCESSING_DATABOOK_IDS)) {
+			if (executionContextParams.containsKey(OSXConstants.PROCESSING_DATABOOK_IDS)) {
 				workbookIds = (List<String>)executionContextParams.get(OSXConstants.PROCESSING_DATABOOK_IDS);
 			}
 			zipInputStreams = CommonUtility.extractZipInputStreams(zipFile, workbookIds);
@@ -165,7 +165,7 @@ public class OfficeSuiteServiceProvider {
 				if (null != sheetIdsMap) {
 					processingParameters.put(OSXConstants.PROCESSING_DATASHEET_IDS, sheetIdsMap.get(zipEntry));
 				}
-				processingParameters.putAll(executionContextParams.getContext());
+				processingParameters.putAll(executionContextParams.getContextData());
 				processingParameters.remove(OSXConstants.COMPRESSED_FILE);
 				processingParameters.put(OSXConstants.INPUT_STREAM, zipInputStream);
 				processingParameters.put(OSXConstants.ENCRYPTION_KEYS, (String) passwordMap.get(zipEntry));

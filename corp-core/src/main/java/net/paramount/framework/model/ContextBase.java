@@ -1,6 +1,6 @@
 /**
  * 
- */
+ *//*
 package net.paramount.framework.model;
 
 import java.io.Serializable;
@@ -8,15 +8,15 @@ import java.util.Map;
 
 import net.paramount.common.ListUtility;
 
-/**
+*//**
  * Base Execution Context
  * @author bqduc
  *
- */
+ *//*
 public abstract class ContextBase implements Serializable{
-	/**
+	*//**
 	 * 
-	 */
+	 *//*
 	private static final long serialVersionUID = 2220727579730517981L;
 
 	private Map<String, Object> context = ListUtility.createMap();
@@ -55,3 +55,4 @@ public abstract class ContextBase implements Serializable{
 		return this;
 	}
 }
+*/

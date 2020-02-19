@@ -83,6 +83,7 @@
 		<module>corp-edbx</module>
 		<module>corp-communicator</module>
 		<module>corp-dispatcher</module>
+		<!-- <module>corp-admin-template</module> -->
 		<module>corp-admin</module>
     </modules>
 

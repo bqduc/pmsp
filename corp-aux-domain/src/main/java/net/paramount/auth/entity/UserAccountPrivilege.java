@@ -8,8 +8,7 @@ import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
-import net.paramount.framework.entity.Auditable;
-import net.paramount.framework.entity.ObjectBase;
+import net.paramount.framework.entity.AuditableObject;
 
 /**
  * 
@@ -20,7 +19,7 @@ import net.paramount.framework.entity.ObjectBase;
 @NoArgsConstructor
 @Entity
 @Table(name = "aux_user_account_privilege")
-public class UserAccountPrivilege extends Auditable<String> {
+public class UserAccountPrivilege extends AuditableObject {
 	private static final long serialVersionUID = 5170711397284237619L;
 
 	@ManyToOne

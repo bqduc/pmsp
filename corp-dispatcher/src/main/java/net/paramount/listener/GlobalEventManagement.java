@@ -17,7 +17,7 @@ import net.paramount.framework.component.ComponentBase;
  *
  */
 @Component
-public class GlobalAppEventManagement extends ComponentBase {
+public class GlobalEventManagement extends ComponentBase {
 
 	/**
 	 * 

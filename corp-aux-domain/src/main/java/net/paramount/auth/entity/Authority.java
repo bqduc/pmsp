@@ -29,10 +29,6 @@ import net.paramount.framework.entity.ObjectBase;
 @Builder
 @Entity
 @Table(name = "aux_authority")
-@NamedQueries({ @NamedQuery(name = "Role.findAll", query = "SELECT u FROM UserProfile u"),
-		@NamedQuery(name = "Role.findById", query = "SELECT u FROM UserProfile u WHERE u.id = :id"),
-		@NamedQuery(name = "Role.findByName", query = "SELECT u FROM UserProfile u WHERE u.name = :name"),
-		@NamedQuery(name = "Role.findByActive", query = "SELECT u FROM UserProfile u WHERE u.active = :active") })
 public class Authority extends ObjectBase implements GrantedAuthority {
 	private static final long serialVersionUID = 1L;
 

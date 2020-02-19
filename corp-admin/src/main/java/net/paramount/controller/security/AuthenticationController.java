@@ -4,7 +4,6 @@
 package net.paramount.controller.security;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Base64;
 import java.util.Calendar;
@@ -17,23 +16,18 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.InputStreamSource;
 import org.springframework.util.ResourceUtils;
 
 import com.github.adminfaces.template.config.AdminConfig;
 
 import net.paramount.auth.entity.UserAccount;
-import net.paramount.comm.component.CommunicationService;
-import net.paramount.comm.component.MailServiceHelper;
+import net.paramount.comm.comp.Communicatior;
+import net.paramount.comm.comp.CommunicatorServiceHelper;
 import net.paramount.comm.domain.MailMessage;
-import net.paramount.common.CommonUtility;
 import net.paramount.common.DateTimeUtility;
 import net.paramount.exceptions.CommunicatorException;
 import net.paramount.framework.controller.RootController;
 import net.paramount.msp.util.Constants;
-import net.paramount.service.mailing.Mail;
 
 /**
  * @author ducbq
@@ -54,10 +48,10 @@ public class AuthenticationController extends RootController {
 	private MailService mailService;*/
 	
 	@Inject
-	private CommunicationService communicationService;
+	private Communicatior communicationService;
 
 	@Inject
-	private MailServiceHelper mailServiceHelper;
+	private CommunicatorServiceHelper mailServiceHelper;
 	
 	private String requestEmail;
 
@@ -81,7 +75,7 @@ public class AuthenticationController extends RootController {
 	public void handleRegister() {
 		DateTimeUtility.getTimezones();
 		try {
-			communicationService.send(MailMessage.builder().build());
+			communicationService.sendEmail(MailMessage.builder().build());
 		} catch (CommunicatorException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -91,9 +85,9 @@ public class AuthenticationController extends RootController {
 	}
 
 	private void onHandleForgotPassword() {
-		Mail mail = new Mail();
-		mail.setMailFrom("javabycode@gmail.com");
-		mail.setMailTo("ducbuiquy@gmail.com");
+		MailMessage mail = new MailMessage();
+		mail.setFrom("javabycode@gmail.com");
+		mail.setRecipients(new String[] {requestEmail /*"ducbuiquy@gmail.com"*/});
 		mail.setSubject("Spring Boot - Email with FreeMarker template");
  
 		Map<String, Object> model = new HashMap<String, Object>();
@@ -101,7 +95,7 @@ public class AuthenticationController extends RootController {
 		model.put("lastName", "Bui Quy");
 		model.put("location", "Columbus");
 		model.put("signature", "www.javabycode.com");
-		mail.setModel(model);
+		mail.setDefinitions(model);
  
 		try {
 			mailServiceHelper.sendEmail(mail);
@@ -113,9 +107,9 @@ public class AuthenticationController extends RootController {
 	}
 	
 	private void onHandleRegister() {
-		Mail mail = new Mail();
-		mail.setMailFrom("javabycode@gmail.com");
-		mail.setMailTo("duc.buiquy@vn.bosch.com");
+		MailMessage mail = new MailMessage();
+		mail.setFrom("javabycode@gmail.com");
+		mail.setRecipients(new String[] {"duc.buiquy@vn.bosch.com"});
 		mail.setSubject("Admin-Spring Boot - Email with FreeMarker template");
  
 		Map<String, Object> model = new HashMap<String, Object>();
@@ -151,7 +145,7 @@ public class AuthenticationController extends RootController {
 			model.put("imgAsBase64", imageSource);*/
 			
 			//model.put("imageSpec", img);
-			mail.setModel(model);
+			mail.setDefinitions(model);
 
 			mailServiceHelper.setEmailTemplateLoadingDir("/template/");
 			//mailServiceHelper.sendEmail(mail, "/auth/register.ftl");

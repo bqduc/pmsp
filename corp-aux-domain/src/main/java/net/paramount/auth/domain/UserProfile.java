@@ -13,15 +13,15 @@ import net.paramount.auth.entity.UserAccount;
  *
  */
 @Builder
-public class UserAccountProfile implements Serializable{
-	/**
-	 * 
-	 */
+public class UserProfile implements Serializable{
 	private static final long serialVersionUID = 319145167472878337L;
 
 	private UserAccount userAccount;
-
 	private String displayName;
+
+	public boolean isPresentUserAccount() {
+		return (null != this.userAccount);
+	}
 
 	public UserAccount getUserAccount() {
 		return userAccount;
@@ -32,6 +32,9 @@ public class UserAccountProfile implements Serializable{
 	}
 
 	public String getDisplayName() {
+		if (null != this.userAccount)
+			return this.userAccount.getDisplayName();
+
 		return displayName;
 	}
 

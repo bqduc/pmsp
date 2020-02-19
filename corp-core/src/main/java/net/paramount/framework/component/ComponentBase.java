@@ -3,17 +3,11 @@
  */
 package net.paramount.framework.component;
 
-import java.io.Serializable;
-
-import javax.inject.Inject;
-
-import net.paramount.framework.logging.LogService;
-
 /**
  * @author bqduc
  *
  */
-public abstract class ComponentBase implements Serializable {
+public abstract class ComponentBase extends CompCore {
 	/**
 	 * 
 	 */
@@ -21,9 +15,6 @@ public abstract class ComponentBase implements Serializable {
 
 	protected static final String LOG_ENTRY_ENTER = "Enter";
 	protected static final String LOG_ENTRY_LEAVE = "Leave";
-
-	@Inject
-	protected LogService log;
 
 	protected static final String PACKAGE_PREFIX = "net.paramount.";
 }

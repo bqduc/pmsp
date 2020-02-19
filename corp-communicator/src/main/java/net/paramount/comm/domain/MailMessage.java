@@ -1,31 +1,28 @@
 package net.paramount.comm.domain;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
+import net.paramount.comm.global.CommunicatorConstants;
 
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class MailMessage {
-	private String mailFrom;
-
-	private String[] mailTo;
-
-	private String[] mailCc;
-
-	private String[] mailBcc;
-
-	private String mailSubject;
-
-	private String mailContent;
+	private String from;
+	private String[] recipients;
+	private String[] recipientsCc;
+	private String[] recipientsBcc;
+	private String subject;
+	private String body;
 
 	@Builder.Default
-	private String contentType = "text/html;charset=UTF-8";//"text/plain";//;
-
+	private String contentType = CommunicatorConstants.ContentTypes_TEXT_HTML_UTF8;
 	private List<EmailAttachment> attachments;
-
-	private Map<String, Object> model;
+	private Map<String, Object> definitions;
 
 	public String getContentType() {
 		return contentType;
@@ -33,58 +30,6 @@ public class MailMessage {
 
 	public void setContentType(String contentType) {
 		this.contentType = contentType;
-	}
-
-	public String[] getMailBcc() {
-		return mailBcc;
-	}
-
-	public void setMailBcc(String[] mailBcc) {
-		this.mailBcc = mailBcc;
-	}
-
-	public String[] getMailCc() {
-		return mailCc;
-	}
-
-	public void setMailCc(String[] mailCc) {
-		this.mailCc = mailCc;
-	}
-
-	public String getMailFrom() {
-		return mailFrom;
-	}
-
-	public void setMailFrom(String mailFrom) {
-		this.mailFrom = mailFrom;
-	}
-
-	public String getSubject() {
-		return mailSubject;
-	}
-
-	public void setSubject(String mailSubject) {
-		this.mailSubject = mailSubject;
-	}
-
-	public String[] getMailTo() {
-		return mailTo;
-	}
-
-	public void setMailTo(String[] mailTo) {
-		this.mailTo = mailTo;
-	}
-
-	public Date getMailSendDate() {
-		return new Date();
-	}
-
-	public String getMessageBody() {
-		return mailContent;
-	}
-
-	public void setMessageBody(String mailContent) {
-		this.mailContent = mailContent;
 	}
 
 	public List<EmailAttachment> getAttachments() {
@@ -103,12 +48,60 @@ public class MailMessage {
 		}
 	}
 
-	public Map<String, Object> getModel() {
-		return model;
+	public String getFrom() {
+		return from;
 	}
 
-	public void setModel(Map<String, Object> model) {
-		this.model = model;
+	public void setFrom(String from) {
+		this.from = from;
+	}
+
+	public String[] getRecipients() {
+		return recipients;
+	}
+
+	public void setRecipients(String[] recipients) {
+		this.recipients = recipients;
+	}
+
+	public String[] getRecipientsCc() {
+		return recipientsCc;
+	}
+
+	public void setRecipientsCc(String[] recipientsCc) {
+		this.recipientsCc = recipientsCc;
+	}
+
+	public String[] getRecipientsBcc() {
+		return recipientsBcc;
+	}
+
+	public void setRecipientsBcc(String[] recipientsBcc) {
+		this.recipientsBcc = recipientsBcc;
+	}
+
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+
+	public String getBody() {
+		return body;
+	}
+
+	public void setBody(String body) {
+		this.body = body;
+	}
+
+	public Map<String, Object> getDefinitions() {
+		return definitions;
+	}
+
+	public void setDefinitions(Map<String, Object> definitions) {
+		this.definitions = definitions;
 	}
 
 }

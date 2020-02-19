@@ -1116,7 +1116,7 @@ public class CommonUtility implements CommonConstants {
 	}
 
 	public static boolean isEmailAddreess(String email){
-		System.out.println("Checking isEmailAddreess is valid email address or not. ");
+		//System.out.println("Checking isEmailAddreess is valid email address or not. ");
 		String regex = "^(.+)@(.+)$";
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(email);

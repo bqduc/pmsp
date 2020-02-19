@@ -134,7 +134,7 @@ public class MultiplePropertiesResourceBundle extends ResourceBundle {
 	private String[] packageNames;
 
 	@Inject
-	private MessageSource dbMessageSource;
+	private MessageSource persistenceMessageSource;
 
 	/**
 	 * A Map containing the combined resources of all parts building this
@@ -209,13 +209,15 @@ public class MultiplePropertiesResourceBundle extends ResourceBundle {
 		if (CommonUtility.isEmpty(this.localMessages)) {
 			//Load all messages from database
 			loadPersistenceMessages();
-		} else {
+		} /*else {
 			if (!this.localMessages.containsKey(key)) {
 				// Load the message from database and update to the local messages map
+				System.out.println("Invalid key: " + key);
 			}
-		}
+			}*/
 
 		if (!this.localMessages.containsKey(key)) {
+			System.out.println("Invalid key: " + key);
 			// Actually did not contain the message with the key in database
 			return key;
 		}
@@ -226,12 +228,12 @@ public class MultiplePropertiesResourceBundle extends ResourceBundle {
 	private MessageSource getMessageSource() {
 		ExternalContext externalContext = null;
     ServletContext servletContext = null;
-		if (this.dbMessageSource==null) {
+		if (this.persistenceMessageSource==null) {
 			externalContext = FacesContext.getCurrentInstance().getExternalContext();
       servletContext = (ServletContext) externalContext.getContext();
-      this.dbMessageSource = WebApplicationContextUtils.getWebApplicationContext(servletContext).getAutowireCapableBeanFactory().createBean(DatabaseMessageServiceImpl.class);
+      this.persistenceMessageSource = WebApplicationContextUtils.getWebApplicationContext(servletContext).getAutowireCapableBeanFactory().createBean(DatabaseMessageServiceImpl.class);
 		}
-		return this.dbMessageSource;
+		return this.persistenceMessageSource;
 	}
 
 	private void loadPersistenceMessages() {
@@ -247,13 +249,13 @@ public class MultiplePropertiesResourceBundle extends ResourceBundle {
 			return;
 		}
 
-		if (this.dbMessageSource==null) {
+		if (this.persistenceMessageSource==null) {
 			ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
       ServletContext servletContext = (ServletContext) externalContext.getContext();
-      this.dbMessageSource = WebApplicationContextUtils.getWebApplicationContext(servletContext).getAutowireCapableBeanFactory().createBean(DatabaseMessageServiceImpl.class);
+      this.persistenceMessageSource = WebApplicationContextUtils.getWebApplicationContext(servletContext).getAutowireCapableBeanFactory().createBean(DatabaseMessageServiceImpl.class);
 		}
 
-		if (this.dbMessageSource==null) {
+		if (this.persistenceMessageSource==null) {
 			LOG.log(Level.SEVERE, CLASS, "The dbMessageSource object is empty. ");
 			return;
 		}

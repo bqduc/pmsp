@@ -1,5 +1,5 @@
 /*
-* Copyright 2017, Bui Quy Duc
+\* Copyright 2017, Bui Quy Duc
 * by the @authors tag. See the LICENCE in the distribution for a
 * full listing of individual contributors.
 *
@@ -17,8 +17,7 @@ package net.paramount.auth.entity;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -27,15 +26,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import lombok.AllArgsConstructor;
@@ -43,8 +40,6 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import net.paramount.auth.model.CryptoAlgorithm;
-import net.paramount.common.CommonUtility;
 import net.paramount.common.DateTimeUtility;
 import net.paramount.common.ListUtility;
 import net.paramount.entity.Attachment;
@@ -63,7 +58,7 @@ import net.paramount.model.DateTimePatterns;
 @NoArgsConstructor
 @Entity
 @Table(name = "aux_user_account")
-@ToString(exclude = { "authorities" })
+@ToString(exclude = { "privileges" })
 @EqualsAndHashCode(callSuper = true)
 public class UserAccount extends SsoEntityBase implements AuthAccount {
 	/**
@@ -97,16 +92,6 @@ public class UserAccount extends SsoEntityBase implements AuthAccount {
 	@Column(name = "business_unit_code", length=GlobalConstants.SIZE_SERIAL)
 	private String businessUnitCode;
 
-	@ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-	//@formatter:off
-	@JoinTable(
-			name = "aux_granted_user_authority", 
-			inverseJoinColumns = {@JoinColumn(name = "authority_id")},
-			joinColumns = {@JoinColumn(name = "account_id")}
-	)
-	//@formatter:on
-	private Set<Authority> authorities;
-
 	@ManyToOne(targetEntity=Attachment.class, fetch=FetchType.EAGER)
 	@JoinColumn(name = "attachment_id")
 	private Attachment attachment;
@@ -117,6 +102,10 @@ public class UserAccount extends SsoEntityBase implements AuthAccount {
 	@Transient
 	@Builder.Default
 	private Map<String, Authority> authorityMap = new HashMap<>();
+
+	@Builder.Default
+  @OneToMany(mappedBy="userAccount", cascade=CascadeType.ALL, fetch=FetchType.LAZY, orphanRemoval=true)
+  private List<UserAccountPrivilege> privileges = ListUtility.createDataList();
 
 	public String getFirstName() {
 		return firstName;
@@ -132,10 +121,6 @@ public class UserAccount extends SsoEntityBase implements AuthAccount {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
-	}
-
-	public void setAuthorities(Set<Authority> authorities) {
-		this.authorities = authorities;
 	}
 
 	public UserDetails getUserDetails() {
@@ -164,71 +149,12 @@ public class UserAccount extends SsoEntityBase implements AuthAccount {
 		return DateTimeUtility.dateToString(this.getIssueDate(), DateTimePatterns.ddMMyyyy_SLASH.getDateTimePattern());
 	}
 
-	public static UserAccount createInstance(String email, String firstName, String lastName, String login, String password, Set<Authority> authorities) {
-		UserAccount instance = UserAccount.builder()
-		.firstName(firstName)
-		.lastName(lastName)
-		.authorities(authorities)
-		.build();
-
-		instance.setEncryptAlgorithm(CryptoAlgorithm.BASIC.getAlgorithm());
-		instance.setIssueDate(DateTimeUtility.getSystemDateTime());
-		instance.setEmail(email);
-		instance.setSsoId(login);
-		instance.setPassword(password);
-		return instance;
-	}
-
 	public Attachment getAttachment() {
 		return attachment;
 	}
 
 	public void setAttachment(Attachment attachment) {
 		this.attachment = attachment;
-	}
-
-	@Override
-	public String getUsername() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return false;
-	}
-
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		Iterator<Authority> itr = null;
-		Authority authority = null;
-		Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-		if (CommonUtility.isNotEmpty(this.authorities)) {
-			itr = this.authorities.iterator();
-			while (itr.hasNext()) {
-				authority = itr.next();
-				grantedAuthorities.add(new SimpleGrantedAuthority(authority.getName()));
-			}
-		}
-		return grantedAuthorities;
 	}
 
 	public String getCompanyName() {
@@ -279,11 +205,33 @@ public class UserAccount extends SsoEntityBase implements AuthAccount {
 		this.businessUnitCode = businessUnitCode;
 	}
 
-	public UserAccount addAuthority(Authority grantedAuthority) {
-		if (null==this.authorities)
-			this.authorities = ListUtility.createHashSet();
-
-		this.authorities.add(grantedAuthority);
+	public UserAccount addPrivilege(UserAccountPrivilege userAccountPrivilege) {
+		this.privileges.add(userAccountPrivilege);
 		return this;
+	}
+
+	public UserAccount addPrivilege(Authority authority) {
+		this.privileges.add(UserAccountPrivilege.builder()
+				.authority(authority)
+				.userAccount(this)
+				.build());
+		return this;
+	}
+
+	public List<UserAccountPrivilege> getPrivileges() {
+		return privileges;
+	}
+
+	public void setPrivileges(List<UserAccountPrivilege> privileges) {
+		this.privileges = privileges;
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		Set<GrantedAuthority> authorities = ListUtility.createHashSet();
+		for (UserAccountPrivilege userAccountPrivilege :this.privileges) {
+			authorities.add(userAccountPrivilege.getAuthority());
+		}
+		return authorities;
 	}
 }

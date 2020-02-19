@@ -25,8 +25,7 @@
             <p:focus context="@form"/>
             <p:panel styleClass="box-primary card">
                     <div id="main-buttons" class="hidden-sm hidden-xs">
-                        <p:commandButton value="#{messages['lbl.general.save']}" action="#{userAccountRegister.save}" update="@form" icon="fa fa-check"
-                                         styleClass="btn-primary"/>
+                        <p:commandButton value="#{messages['lbl.register']}" action="#{userAccountRegister.register}" update="@form" icon="fa fa-check" styleClass="btn-primary"/>
                         <p:spacer width="5" rendered="#{userAccountRegister.isNew()}"/>
                         <p:commandButton value="#{messages['lbl.general.clear']}" action="#{userAccountRegister.clear}" process="@this"
                                          icon="fa fa-refresh" styleClass="btn-success" update="@form"
@@ -55,7 +54,7 @@
                             <p:confirm header="#{messages['lbl.general.confirmation']}" message="#{messages['lbl.general.areYouSure']}" icon="ui-icon-danger"/>
                         </p:menuitem>
                         <p:separator/>
-                        <p:menuitem value="#{messages['lbl.general.back']}" action="/index?faces-redirect=true" process="@this"
+                        <p:menuitem value="#{messages['lbl.general.goBack']}" action="/index?faces-redirect=true" process="@this"
                                     immediate="true" styleClass="btn-default" icon="fa fa-reply"/>
                     </p:splitButton>
                     <p:separator/>
@@ -110,7 +109,7 @@
                             </div>
                             <div class="ui-sm-12 ui-g-11">
                                 <p:autoComplete id="businessUnit" maxResults="10" converter="#{businessUnitConverter}"  value="#{userAccountRegister.businessUnit}" 
-                                	completeMethod="#{generalAutoCompletion.onCompleteBusinessUnit}" minQueryLength="3" dropdown="true" required="true" 
+                                	completeMethod="#{generalAutoCompletion.onCompleteBusinessUnit}" minQueryLength="3" dropdown="true" required="false" 
                                 	requiredMessage="Talk is required." var="currEntity" itemLabel="#{currEntity.name}" itemValue="#{currEntity}">
                                 	<p:ajax event="itemSelect" listener="#{userAccountRegister.handleBusinessUnitSelect}" />
 								    <f:facet name="itemtip">

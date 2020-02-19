@@ -98,7 +98,7 @@ public class ResourcesStorageServiceHelper {
 		String masterDataFileName = null;
 		Optional<Configuration> archivedConfigChecker = null;
 		try {
-			if (!(executionContextParams.containKey(OSXConstants.MASTER_BUFFER_DATA_BYTES) || executionContextParams.containKey(OSXConstants.MASTER_ARCHIVED_FILE_NAME)))
+			if (!(executionContextParams.containsKey(OSXConstants.MASTER_BUFFER_DATA_BYTES) || executionContextParams.containsKey(OSXConstants.MASTER_ARCHIVED_FILE_NAME)))
 				throw new MspDataException("There is no archiving file!");
 
 			masterDataFileName = (String)executionContextParams.get(OSXConstants.MASTER_ARCHIVED_FILE_NAME);

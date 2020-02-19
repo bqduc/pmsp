@@ -40,7 +40,7 @@ public class BusinessUnitServiceImpl extends GenericServiceImpl<BusinessUnit, Lo
 	@Override
 	protected Page<BusinessUnit> performSearch(String keyword, Pageable pageable) {
 		Page<BusinessUnit> fetchedResult = repository.find(keyword, pageable);
-		log.info("Fetched results: " + fetchedResult.getSize());
+		//log.info("Fetched results: " + fetchedResult.getSize());
 		return fetchedResult;
 	}
 

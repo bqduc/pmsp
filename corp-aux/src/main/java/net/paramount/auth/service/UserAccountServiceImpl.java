@@ -18,22 +18,19 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import net.paramount.auth.component.SimplePasswordEncoder;
 import net.paramount.auth.entity.Authority;
 import net.paramount.auth.entity.UserAccount;
-import net.paramount.auth.entity.UserAccountPrivilege;
-import net.paramount.auth.exception.UserAuthenticationException;
-import net.paramount.auth.model.AuthenticationCode;
+import net.paramount.auth.exception.CorporateAuthenticationException;
 import net.paramount.auth.model.AuthorityGroup;
-import net.paramount.auth.model.MasterUserGroup;
-import net.paramount.auth.repository.UserAccountPrivilegeRepository;
 import net.paramount.auth.repository.UserAccountRepository;
+import net.paramount.comm.comp.Communicatior;
 import net.paramount.common.CommonUtility;
 import net.paramount.exceptions.AccountNotActivatedException;
-import net.paramount.exceptions.AuthenticationException;
+import net.paramount.exceptions.CorpAuthenticationException;
 import net.paramount.exceptions.ObjectNotFoundException;
 import net.paramount.framework.repository.BaseRepository;
 import net.paramount.framework.service.GenericServiceImpl;
+import net.paramount.model.AuthenticationStage;
 
 
 @Service
@@ -50,13 +47,10 @@ public class UserAccountServiceImpl extends GenericServiceImpl<UserAccount, Long
   private UserAccountRepository repository;
 
 	@Inject
-	private SimplePasswordEncoder virtualEncoder;
-	
-	@Inject
 	private PasswordEncoder virtualPasswordEncoder;
 
 	@Inject
-	private UserAccountPrivilegeRepository userAccountPrivilegeRepository;
+	private Communicatior emailCommunicatior;
 
 	@Override
   protected BaseRepository<UserAccount, Long> getRepository() {
@@ -69,13 +63,13 @@ public class UserAccountServiceImpl extends GenericServiceImpl<UserAccount, Long
 	}
 
 	@Override
-	public UserDetails loadUserByUsername(String login) throws AuthenticationException {
+	public UserDetails loadUserByUsername(String login) throws CorpAuthenticationException {
 		log.debug("Authenticating {}", login);
 		String lowercaseLogin = login;//.toLowerCase();
 		UserAccount userFromDatabase = repository.findBySsoId(login);
 
 		if (null==userFromDatabase)
-			throw new UserAuthenticationException(AuthenticationCode.INVALID_USER, String.format("User %s was not found in the database", lowercaseLogin));
+			throw new CorporateAuthenticationException(AuthenticationStage.INVALID_USER, String.format("User %s was not found in the database", lowercaseLogin));
 
 		if (Boolean.FALSE.equals(userFromDatabase.isActivated()))
 			throw new AccountNotActivatedException(String.format("User %s is not activated", lowercaseLogin));
@@ -106,28 +100,29 @@ public class UserAccountServiceImpl extends GenericServiceImpl<UserAccount, Long
 		if (!hasBeenEncoded(userAccount.getPassword())) {
 			userAccount.setPassword(virtualPasswordEncoder.encode(userAccount.getPassword()));
 		}
+
 		Authority minimumAuthority = authorityService.getMinimumUserAuthority();
-		userAccount.addAuthority(minimumAuthority);
+		userAccount.addPrivilege(minimumAuthority);
 		this.repository.saveAndFlush(userAccount);
 
-		this.userAccountPrivilegeRepository.saveAndFlush(
+		
+		/*this.userAccountPrivilegeRepository.saveAndFlush(
 				UserAccountPrivilege.builder()
 				.userAccount(userAccount)
 				.authority(minimumAuthority)
 				.build()
-		);
+		);*/
 	}
 
 	private boolean hasBeenEncoded(String password) {
-		boolean haveBeanEncoded = false;
 		final Pattern BCRYPT_PATTERN = Pattern.compile("\\A\\$2a?\\$\\d\\d\\$[./0-9A-Za-z] {53}");
 
-		if (BCRYPT_PATTERN.matcher(password).matches()){
-			haveBeanEncoded = true;
-		}
+		if (BCRYPT_PATTERN.matcher(password).matches())
+			return true;
 
-		return haveBeanEncoded;
+		return false;
 	}
+
 	@Override
 	public void updateUser(UserAccount user) {
 		this.repository.saveAndFlush(user);
@@ -173,7 +168,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<UserAccount, Long
 	}
 
 	@Override
-	public UserAccount authenticate(String loginId, String password) throws AuthenticationException {
+	public UserAccount getUserAccount(String loginId, String password) throws CorpAuthenticationException {
 		UserAccount authenticatedUser = null;
 		UserDetails userDetails = null;
 		UserAccount repositoryUser = null;
@@ -184,13 +179,13 @@ public class UserAccountServiceImpl extends GenericServiceImpl<UserAccount, Long
 		}
 
 		if (null == repositoryUser)
-			throw new AuthenticationException(AuthenticationException.ERROR_INVALID_PRINCIPAL, "Could not get the user information base on [" + loginId + "]");
+			throw new CorpAuthenticationException(CorpAuthenticationException.ERROR_INVALID_PRINCIPAL, "Could not get the user information base on [" + loginId + "]");
 
 		if (false==this.virtualPasswordEncoder.matches(password, repositoryUser.getPassword()))
-			throw new AuthenticationException(AuthenticationException.ERROR_INVALID_CREDENTIAL, "Invalid password of the user information base on [" + loginId + "]");
+			throw new CorpAuthenticationException(CorpAuthenticationException.ERROR_INVALID_CREDENTIAL, "Invalid password of the user information base on [" + loginId + "]");
 
 		if (!Boolean.TRUE.equals(repositoryUser.isActivated()))
-			throw new AuthenticationException(AuthenticationException.ERROR_INACTIVE, "Login information is fine but this account did not activated yet. ");
+			throw new CorpAuthenticationException(CorpAuthenticationException.ERROR_INACTIVE, "Login information is fine but this account did not activated yet. ");
 
 		userDetails = buildUserDetails(repositoryUser);
 		authenticatedUser = repositoryUser;
@@ -199,7 +194,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<UserAccount, Long
 	}
 
 	@Override
-	public UserAccount authenticate(String userToken) throws AuthenticationException {
+	public UserAccount getUserAccount(String userToken) throws CorpAuthenticationException {
 		UserAccount repositoryUser = null;
 		if (CommonUtility.isEmailAddreess(userToken)){
 			repositoryUser = repository.findByEmail(userToken);
@@ -208,15 +203,15 @@ public class UserAccountServiceImpl extends GenericServiceImpl<UserAccount, Long
 		}
 
 		if (null==repositoryUser){
-			throw new AuthenticationException(AuthenticationException.ERROR_INVALID_PRINCIPAL, "Could not get the user information base on [" + userToken + "]");
+			throw new CorpAuthenticationException(CorpAuthenticationException.ERROR_INVALID_PRINCIPAL, "Could not get the user information base on [" + userToken + "]");
 		}
 
 		return repositoryUser;
 	}
 
 	@Override
-	public void initializeMasterData() throws AuthenticationException {
-		UserAccount adminUser = null, clientUser = null, user = null;
+	public void initializeMasterData() throws CorpAuthenticationException {
+		//UserAccount adminUser = null, clientUser = null, user = null;
 		Authority clientRoleEntity = null, userRoleEntity = null, adminRoleEntity = null;
 		//Setup authorities/roles
 		try {
@@ -249,6 +244,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<UserAccount, Long
 			Set<Authority> userAuthorities = new HashSet<>();
 			userAuthorities.add(userRoleEntity);
 
+			/*
 			if (null==repository.findBySsoId(MasterUserGroup.Administrator.getLogin())){
 				//adminUser = User.createInstance("administrator@gmail.com", "Administrator", "System", MasterUserGroup.Administrator.getLogin(), passwordEncoder.encode("P@dministr@t0r"), adminAuthorities);
 				adminUser = UserAccount.createInstance(
@@ -295,17 +291,17 @@ public class UserAccountServiceImpl extends GenericServiceImpl<UserAccount, Long
 
 				adminUser.setAuthorities(userAuthorities);
 				repository.save(user);
-			}
+			}*/
 		} catch (Exception e) {
-			throw new AuthenticationException(e);
+			throw new CorpAuthenticationException(e);
 		}
 	}
 
 	@Override
-	public UserAccount confirm(String confirmedEmail) throws AuthenticationException {
+	public UserAccount confirm(String confirmedEmail) throws CorpAuthenticationException {
 		UserAccount confirmUser = repository.findByEmail(confirmedEmail);
 		if (null == confirmUser)
-			throw new AuthenticationException("The email not found in database: " + confirmedEmail);
+			throw new CorpAuthenticationException("The email not found in database: " + confirmedEmail);
 
 		confirmUser.setActivated(true);
 		repository.save(confirmUser);

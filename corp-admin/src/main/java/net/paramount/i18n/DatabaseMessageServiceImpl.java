@@ -13,14 +13,16 @@ import org.springframework.context.MessageSourceResolvable;
 import org.springframework.context.NoSuchMessageException;
 import org.springframework.stereotype.Component;
 
+import com.ibm.icu.text.MessageFormat;
+
+import net.paramount.common.CommonUtility;
 import net.paramount.common.ListUtility;
 
 /**
  * @author ducbq
  *
  */
-//@ManagedBean(eager = true, name = "dbMessageSource")
-@Component("dbMessageSource")
+@Component("persistenceMessageSource")
 public class DatabaseMessageServiceImpl implements PersistenceMessageService/*MessageSource */{
 	@Inject
 	private LanguageEntityRepository messageSourceRepository;
@@ -49,7 +51,11 @@ public class DatabaseMessageServiceImpl implements PersistenceMessageService/*Me
 
 	private String resolveMessage(String code, Object[] args, Locale locale) {
 		MessageSourceEntity messageSourceEntity = messageSourceRepository.findByKeyAndLocale(code, getProcessingLocaleString(locale));
-		return (messageSourceEntity==null)?code:messageSourceEntity.getContent(); 
+		String resolvedMessage = (null != messageSourceEntity)?messageSourceEntity.getContent():code;
+		if (CommonUtility.isNotEmpty(args)) {
+			resolvedMessage = MessageFormat.format(messageSourceEntity.getContent(), args);
+		}
+		return resolvedMessage; 
 	}
 
 	@Override

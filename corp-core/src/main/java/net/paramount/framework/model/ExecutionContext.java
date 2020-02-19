@@ -10,7 +10,7 @@ import lombok.Builder;
  *
  */
 @Builder
-public class ExecutionContext extends ContextBase {
+public class ExecutionContext extends Context {
 	/**
 	 * 
 	 */

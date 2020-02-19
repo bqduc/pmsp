@@ -1,4 +1,4 @@
-package net.paramount.msp.faces.converter;
+/*package net.paramount.msp.faces.converter;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -9,16 +9,16 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
 
-import net.paramount.auth.entity.UserProfile;
+import net.paramount.auth.entity.AuxUserProfile;
 import net.paramount.repository.UserFacade;
 import net.paramount.utility.JsfUtil;
 
-/**
+*//**
  * 
  * @author MOHAMMED BOUNAGA
  * 
  * github.com/medbounaga
- */
+ *//*
 
 @FacesConverter(value = "userConverter")
 public class UserConverter implements Converter {
@@ -52,13 +52,14 @@ public class UserConverter implements Converter {
                 || (object instanceof String && ((String) object).length() == 0)) {
             return null;
         }
-        if (object instanceof UserProfile) {
-            UserProfile o = (UserProfile) object;
+        if (object instanceof AuxUserProfile) {
+            AuxUserProfile o = (AuxUserProfile) object;
             return getStringKey(o.getId());
         } else {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), UserProfile.class.getName()});
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), AuxUserProfile.class.getName()});
             return null;
         }
     }
 
 }
+*/

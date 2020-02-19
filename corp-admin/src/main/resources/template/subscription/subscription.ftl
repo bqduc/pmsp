@@ -147,7 +147,7 @@
 	<td style="font-family:Trebuchet MS, Verdana, Arial; font-size:12px;">
 	<br />
 	{!contact_address}<br />
-	<a href="{!remove_web}">Unsubscribe </a>
+	<a href="{!remove_web}">Unsubscribe all service emails</a>
 	</td>
 </tr>
 </table>

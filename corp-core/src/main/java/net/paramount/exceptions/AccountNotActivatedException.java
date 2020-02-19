@@ -21,7 +21,7 @@ package net.paramount.exceptions;
  * 
  * @author Bui Quy Duc
  */
-public class AccountNotActivatedException extends AuthenticationException/*AuthenticationException */{
+public class AccountNotActivatedException extends CorpAuthenticationException/*AuthenticationException */{
 
 	private static final long serialVersionUID = 8415982426813000504L;
 

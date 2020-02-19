@@ -1,11 +1,10 @@
-package net.paramount.comm.component;
+package net.paramount.comm.comp;
 
 import java.nio.charset.StandardCharsets;
 
 import javax.inject.Inject;
 import javax.mail.internet.MimeMessage;
 
-import org.springframework.core.io.InputStreamSource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
@@ -13,17 +12,15 @@ import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
+import net.paramount.comm.domain.CommunicatorContext;
+import net.paramount.comm.domain.MailMessage;
 import net.paramount.comm.global.CommunicatorConstants;
 import net.paramount.common.CommonUtility;
 import net.paramount.exceptions.CommunicatorException;
 import net.paramount.framework.component.ComponentBase;
-import net.paramount.service.mailing.Mail;
 
 @Component
-public class MailServiceHelper extends ComponentBase {
-	/**
-	 * 
-	 */
+public class CommunicatorServiceHelper extends ComponentBase {
 	private static final long serialVersionUID = -7426015807103285508L;
 
 	@Inject
@@ -31,14 +28,17 @@ public class MailServiceHelper extends ComponentBase {
 
 	@Inject
 	private Configuration freemarkerConfig;
-	
+
+	@Inject 
+	private EmailTemplateHelper emailTemplateHelper;
+
 	private String emailTemplateLoadingDir;
 
 	public void init() {
 		//Maybe fetch all configuration entries from database or something like that
 	}
 
-	public void sendEmail(Mail mail) throws Exception {
+	public void sendEmail(MailMessage mail) throws Exception {
 		MimeMessage message = mailSender.createMimeMessage();
 
 		MimeMessageHelper helper = new MimeMessageHelper(message);
@@ -47,9 +47,9 @@ public class MailServiceHelper extends ComponentBase {
 		freemarkerConfig.setClassForTemplateLoading(this.getClass(), getEmailTemplateLoadingDir());
 
 		Template t = freemarkerConfig.getTemplate("/auth/forgotPassword.ftl");
-		String text = FreeMarkerTemplateUtils.processTemplateIntoString(t, mail.getModel());
+		String text = FreeMarkerTemplateUtils.processTemplateIntoString(t, mail.getDefinitions());
 
-		helper.setTo(mail.getMailTo());
+		helper.setTo(mail.getRecipients());
 		helper.setText(text, true);
 		helper.setSubject(mail.getSubject());
 
@@ -64,7 +64,27 @@ public class MailServiceHelper extends ComponentBase {
 		this.emailTemplateLoadingDir = emailTemplateLoadingDir;
 	}
 
-	public void sendEmail(Mail mail, String templateId) throws CommunicatorException {
+	public void sendEmail(CommunicatorContext context) throws CommunicatorException {
+		try {
+			MailMessage mail = (MailMessage)context.get(CommunicatorConstants.CTX_MAIL_MESSAGE);
+			String templateId = (String)context.get(CommunicatorConstants.CTX_MAIL_TEMPLATE_ID);
+
+			MimeMessage message = mailSender.createMimeMessage();
+      MimeMessageHelper helper = new MimeMessageHelper(message, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED, StandardCharsets.UTF_8.name());
+
+      String messageText = this.emailTemplateHelper.getEmailMessageText(templateId, mail.getDefinitions());
+
+			helper.setSubject(mail.getSubject());
+			helper.setTo(mail.getRecipients());
+			helper.setText(messageText, true);
+
+			mailSender.send(message);
+		} catch (Exception e) {
+			throw new CommunicatorException(e);
+		}
+	}
+
+	public void sendEmail(MailMessage mail, String templateId) throws CommunicatorException {
 		try {
 			MimeMessage message = mailSender.createMimeMessage();
       MimeMessageHelper helper = new MimeMessageHelper(message,
@@ -77,12 +97,13 @@ public class MailServiceHelper extends ComponentBase {
 				emailTemplateDir = CommunicatorConstants.DEFAULT_LOADING_TEMPLATE_DIRECTORY;
 				log.info("The loading email template directory is empty, using the default email loading template: " + CommunicatorConstants.DEFAULT_LOADING_TEMPLATE_DIRECTORY);
 			}
+
 			freemarkerConfig.setClassForTemplateLoading(this.getClass(), emailTemplateDir);
 			Template template = freemarkerConfig.getTemplate(templateId);
 
 			helper.setSubject(mail.getSubject());
-			helper.setTo(mail.getMailTo());
-			String messageText = FreeMarkerTemplateUtils.processTemplateIntoString(template, mail.getModel());
+			helper.setTo(mail.getRecipients());
+			String messageText = FreeMarkerTemplateUtils.processTemplateIntoString(template, mail.getDefinitions());
 			helper.setText(messageText, true);
 
 			/*StringWriter textWriter = new StringWriter();

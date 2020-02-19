@@ -1,15 +1,20 @@
 package net.paramount.framework.entity;
 
+import java.util.Collection;
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
+import org.springframework.security.core.GrantedAuthority;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import net.paramount.common.ListUtility;
 
 @MappedSuperclass
 public abstract class SsoEntityBase extends BizObjectBase {
-
 	/**
 	 * 
 	 */
@@ -181,4 +186,33 @@ public abstract class SsoEntityBase extends BizObjectBase {
 		else
 			return 0;
 	}
+	
+	//For the 
+	public String getUsername() {
+		return this.ssoId;
+	}
+
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean isEnabled() {
+		return this.isActivated();
+	}
+
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return null;
+	}
+	
 }
