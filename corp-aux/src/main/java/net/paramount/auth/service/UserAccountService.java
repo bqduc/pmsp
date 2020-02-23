@@ -4,7 +4,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import net.paramount.auth.entity.UserAccount;
-import net.paramount.exceptions.CorpAuthenticationException;
+import net.paramount.exceptions.CorporateAuthException;
 import net.paramount.exceptions.ObjectNotFoundException;
 import net.paramount.framework.service.GenericService;
 
@@ -56,10 +56,10 @@ public interface UserAccountService extends GenericService<UserAccount, Long>, U
 
 	UserDetails loadUserByEmail(final String email);
 	UserAccount save(UserAccount user);
-	UserAccount getUserAccount(String loginId, String password) throws CorpAuthenticationException;
-	UserAccount getUserAccount(String userToken) throws CorpAuthenticationException;
-	UserAccount confirm(String confirmedEmail) throws CorpAuthenticationException;
-	void initializeMasterData() throws CorpAuthenticationException;
+	UserAccount getUserAccount(String loginId, String password) throws CorporateAuthException;
+	UserAccount getUserAccount(String userToken) throws CorporateAuthException;
+	UserAccount confirm(String confirmedEmail) throws CorporateAuthException;
+	void initializeMasterData() throws CorporateAuthException;
 
 	
 }

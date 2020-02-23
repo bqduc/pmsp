@@ -1,20 +1,18 @@
 /**
  * 
  */
-package net.paramount.security;
+package net.paramount.security.base;
 
 import javax.crypto.spec.SecretKeySpec;
 
 import net.paramount.exceptions.CryptographyException;
-import net.paramount.framework.component.CompCore;
+import net.paramount.security.SecretAlgorithm;
 
 /**
  * @author ducbq
  *
  */
-public abstract class CryptographyBase extends CompCore {
-	private static final long serialVersionUID = -8623665991128374797L;
-
+public abstract class CryptographyBase {
 	protected static byte[] privateSecretKeyRaw = { 
 			(byte) 0xA5, (byte) 0x01, (byte) 0x7B, (byte) 0xE5,
 			(byte) 0x23, (byte) 0xCA, (byte) 0xD4, (byte) 0xD2,
@@ -38,6 +36,14 @@ public abstract class CryptographyBase extends CompCore {
 			return buffer.substring(SALT_PREFIX.length(), buffer.length() - SALT_POSFIX.length());
 
 		return buffer;
+	}
+
+	protected String  doEncode(String message, String secretKey) throws CryptographyException {
+		throw new CryptographyException("Not implemented!");
+	}
+
+	protected String  doDecode(String  message, String secretKey) throws CryptographyException {
+		throw new CryptographyException("Not implemented!");
 	}
 
 	public byte[] encode(String plainText) throws CryptographyException {
@@ -70,5 +76,13 @@ public abstract class CryptographyBase extends CompCore {
 
 	protected String performStringDecode(String encodedBuffer) throws CryptographyException {
 		throw new CryptographyException("Not implemented!");
+	}
+
+	public String encode(String message, String secretKey) throws CryptographyException {
+		return doEncode(message, secretKey);
+	}
+
+	public String decode(String message, String secretKey) throws CryptographyException {
+		return doDecode(message, secretKey);
 	}
 }

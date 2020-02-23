@@ -7,7 +7,8 @@ import java.util.Base64;
 
 import lombok.Builder;
 import net.paramount.exceptions.CryptographyException;
-import net.paramount.framework.security.Cryptographer;
+import net.paramount.security.base.Cryptographer;
+import net.paramount.security.base.CryptographyBase;
 
 /**
  * 
@@ -15,7 +16,7 @@ import net.paramount.framework.security.Cryptographer;
  *
  */
 @Builder
-public class MediumCryptographer extends CryptographyBase implements Cryptographer {
+public class BasicCryptographer extends CryptographyBase implements Cryptographer {
 	private static final long serialVersionUID = 2263410453350168100L;
 
 	protected String performStringEncode(String plainText) throws CryptographyException {

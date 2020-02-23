@@ -23,10 +23,10 @@ import net.paramount.auth.entity.UserAccount;
 import net.paramount.auth.exception.CorporateAuthenticationException;
 import net.paramount.auth.model.AuthorityGroup;
 import net.paramount.auth.repository.UserAccountRepository;
-import net.paramount.comm.comp.Communicatior;
+import net.paramount.comm.comp.Communicator;
 import net.paramount.common.CommonUtility;
 import net.paramount.exceptions.AccountNotActivatedException;
-import net.paramount.exceptions.CorpAuthenticationException;
+import net.paramount.exceptions.CorporateAuthException;
 import net.paramount.exceptions.ObjectNotFoundException;
 import net.paramount.framework.repository.BaseRepository;
 import net.paramount.framework.service.GenericServiceImpl;
@@ -50,7 +50,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<UserAccount, Long
 	private PasswordEncoder virtualPasswordEncoder;
 
 	@Inject
-	private Communicatior emailCommunicatior;
+	private Communicator emailCommunicatior;
 
 	@Override
   protected BaseRepository<UserAccount, Long> getRepository() {
@@ -63,7 +63,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<UserAccount, Long
 	}
 
 	@Override
-	public UserDetails loadUserByUsername(String login) throws CorpAuthenticationException {
+	public UserDetails loadUserByUsername(String login) throws CorporateAuthException {
 		log.debug("Authenticating {}", login);
 		String lowercaseLogin = login;//.toLowerCase();
 		UserAccount userFromDatabase = repository.findBySsoId(login);
@@ -168,7 +168,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<UserAccount, Long
 	}
 
 	@Override
-	public UserAccount getUserAccount(String loginId, String password) throws CorpAuthenticationException {
+	public UserAccount getUserAccount(String loginId, String password) throws CorporateAuthException {
 		UserAccount authenticatedUser = null;
 		UserDetails userDetails = null;
 		UserAccount repositoryUser = null;
@@ -179,13 +179,13 @@ public class UserAccountServiceImpl extends GenericServiceImpl<UserAccount, Long
 		}
 
 		if (null == repositoryUser)
-			throw new CorpAuthenticationException(CorpAuthenticationException.ERROR_INVALID_PRINCIPAL, "Could not get the user information base on [" + loginId + "]");
+			throw new CorporateAuthException(CorporateAuthException.ERROR_INVALID_PRINCIPAL, "Could not get the user information base on [" + loginId + "]");
 
 		if (false==this.virtualPasswordEncoder.matches(password, repositoryUser.getPassword()))
-			throw new CorpAuthenticationException(CorpAuthenticationException.ERROR_INVALID_CREDENTIAL, "Invalid password of the user information base on [" + loginId + "]");
+			throw new CorporateAuthException(CorporateAuthException.ERROR_INVALID_CREDENTIAL, "Invalid password of the user information base on [" + loginId + "]");
 
 		if (!Boolean.TRUE.equals(repositoryUser.isActivated()))
-			throw new CorpAuthenticationException(CorpAuthenticationException.ERROR_INACTIVE, "Login information is fine but this account did not activated yet. ");
+			throw new CorporateAuthException(CorporateAuthException.ERROR_INACTIVE, "Login information is fine but this account did not activated yet. ");
 
 		userDetails = buildUserDetails(repositoryUser);
 		authenticatedUser = repositoryUser;
@@ -194,7 +194,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<UserAccount, Long
 	}
 
 	@Override
-	public UserAccount getUserAccount(String userToken) throws CorpAuthenticationException {
+	public UserAccount getUserAccount(String userToken) throws CorporateAuthException {
 		UserAccount repositoryUser = null;
 		if (CommonUtility.isEmailAddreess(userToken)){
 			repositoryUser = repository.findByEmail(userToken);
@@ -203,14 +203,14 @@ public class UserAccountServiceImpl extends GenericServiceImpl<UserAccount, Long
 		}
 
 		if (null==repositoryUser){
-			throw new CorpAuthenticationException(CorpAuthenticationException.ERROR_INVALID_PRINCIPAL, "Could not get the user information base on [" + userToken + "]");
+			throw new CorporateAuthException(CorporateAuthException.ERROR_INVALID_PRINCIPAL, "Could not get the user information base on [" + userToken + "]");
 		}
 
 		return repositoryUser;
 	}
 
 	@Override
-	public void initializeMasterData() throws CorpAuthenticationException {
+	public void initializeMasterData() throws CorporateAuthException {
 		//UserAccount adminUser = null, clientUser = null, user = null;
 		Authority clientRoleEntity = null, userRoleEntity = null, adminRoleEntity = null;
 		//Setup authorities/roles
@@ -293,15 +293,15 @@ public class UserAccountServiceImpl extends GenericServiceImpl<UserAccount, Long
 				repository.save(user);
 			}*/
 		} catch (Exception e) {
-			throw new CorpAuthenticationException(e);
+			throw new CorporateAuthException(e);
 		}
 	}
 
 	@Override
-	public UserAccount confirm(String confirmedEmail) throws CorpAuthenticationException {
+	public UserAccount confirm(String confirmedEmail) throws CorporateAuthException {
 		UserAccount confirmUser = repository.findByEmail(confirmedEmail);
 		if (null == confirmUser)
-			throw new CorpAuthenticationException("The email not found in database: " + confirmedEmail);
+			throw new CorporateAuthException("The email not found in database: " + confirmedEmail);
 
 		confirmUser.setActivated(true);
 		repository.save(confirmUser);

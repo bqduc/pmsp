@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -16,12 +17,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import net.paramount.autx.SecurityServiceContextHelper;
 import net.paramount.common.CommonBeanUtils;
 import net.paramount.common.CommonConstants;
 import net.paramount.common.CommonUtility;
@@ -43,6 +44,9 @@ import net.paramount.framework.specification.DefaultSpecification;
 public abstract class GenericServiceImpl<ClassType extends ObjectBase, Key extends Serializable> extends BaseServiceImpl<ClassType, Key> implements GenericService<ClassType, Key>{
 	private static final long serialVersionUID = 7066816485194481124L;
 
+	@Inject 
+	private SecurityServiceContextHelper securityServiceContextHelper;
+
 	protected abstract BaseRepository<ClassType, Key> getRepository();
 	//protected abstract BrillianceRepository<EntityType, Key> getRepository();
 
@@ -59,7 +63,7 @@ public abstract class GenericServiceImpl<ClassType extends ObjectBase, Key exten
 
   protected String getLoggedInUsername() {
   	String loggedInUsername = null;
-  	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+  	Object principal = securityServiceContextHelper.getAuthenticationPrincipal();
   	if (principal instanceof UserDetails) {
   		loggedInUsername = ((UserDetails)principal).getUsername();
   	} else {

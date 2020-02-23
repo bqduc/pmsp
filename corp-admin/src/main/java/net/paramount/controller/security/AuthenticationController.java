@@ -21,9 +21,9 @@ import org.springframework.util.ResourceUtils;
 import com.github.adminfaces.template.config.AdminConfig;
 
 import net.paramount.auth.entity.UserAccount;
-import net.paramount.comm.comp.Communicatior;
+import net.paramount.comm.comp.Communicator;
 import net.paramount.comm.comp.CommunicatorServiceHelper;
-import net.paramount.comm.domain.MailMessage;
+import net.paramount.comm.domain.CorpMimeMessage;
 import net.paramount.common.DateTimeUtility;
 import net.paramount.exceptions.CommunicatorException;
 import net.paramount.framework.controller.RootController;
@@ -48,7 +48,7 @@ public class AuthenticationController extends RootController {
 	private MailService mailService;*/
 	
 	@Inject
-	private Communicatior communicationService;
+	private Communicator communicationService;
 
 	@Inject
 	private CommunicatorServiceHelper mailServiceHelper;
@@ -75,7 +75,7 @@ public class AuthenticationController extends RootController {
 	public void handleRegister() {
 		DateTimeUtility.getTimezones();
 		try {
-			communicationService.sendEmail(MailMessage.builder().build());
+			communicationService.sendEmail(CorpMimeMessage.builder().build());
 		} catch (CommunicatorException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -85,7 +85,7 @@ public class AuthenticationController extends RootController {
 	}
 
 	private void onHandleForgotPassword() {
-		MailMessage mail = new MailMessage();
+		CorpMimeMessage mail = new CorpMimeMessage();
 		mail.setFrom("javabycode@gmail.com");
 		mail.setRecipients(new String[] {requestEmail /*"ducbuiquy@gmail.com"*/});
 		mail.setSubject("Spring Boot - Email with FreeMarker template");
@@ -107,7 +107,7 @@ public class AuthenticationController extends RootController {
 	}
 	
 	private void onHandleRegister() {
-		MailMessage mail = new MailMessage();
+		CorpMimeMessage mail = new CorpMimeMessage();
 		mail.setFrom("javabycode@gmail.com");
 		mail.setRecipients(new String[] {"duc.buiquy@vn.bosch.com"});
 		mail.setSubject("Admin-Spring Boot - Email with FreeMarker template");

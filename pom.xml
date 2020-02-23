@@ -51,7 +51,7 @@
 		
 		<version.commons-io>2.6</version.commons-io>
 		
-		<joinfaces.version>4.1.1</joinfaces.version>
+		<version.joinfaces-dependencies>4.1.4</version.joinfaces-dependencies>
 		<version.admin-template>1.1.0</version.admin-template><!-- 1.0.2 -->
 		<version.admin-theme>1.1.0</version.admin-theme>
 		<version.primefaces>7.0</version.primefaces>
@@ -66,6 +66,7 @@
 		<!-- <module>admin-template-1.1.0</module> -->
 	
 		<module>corp-common</module>
+		<module>corp-codec</module>
 		<module>corp-core</module>
 		<module>corp-core-eux</module>
 		<module>corp-lingual</module>

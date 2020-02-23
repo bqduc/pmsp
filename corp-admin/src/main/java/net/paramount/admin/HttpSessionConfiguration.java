@@ -4,7 +4,6 @@
 package net.paramount.admin;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Enumeration;
@@ -20,10 +19,9 @@ import javax.servlet.http.HttpSessionListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.SerializationUtils;
 
-import net.paramount.bean.SecurityOfficer;
+import net.paramount.autx.SecurityServiceContextHelper;
 import net.paramount.common.ListUtility;
 import net.paramount.framework.component.CompCore;
 
@@ -42,6 +40,8 @@ public class HttpSessionConfiguration extends CompCore {
 	
 	static final Set<HttpSession> activeSessions = Collections.synchronizedSet(new HashSet<HttpSession>());
 
+	@Inject 
+	private SecurityServiceContextHelper securityServiceContextHelper;
 	public List<HttpSession> getActiveSessions() {
 		return ListUtility.createDataList(activeSessions);
 	}
@@ -125,7 +125,7 @@ public class HttpSessionConfiguration extends CompCore {
 	 * 
 	 */
 	private String getUserAssociatedWithCurrentSession() {
-		Authentication userAuthentication = SecurityContextHolder.getContext().getAuthentication();
+		Authentication userAuthentication = securityServiceContextHelper.getAuthentication();
 		return userAuthentication == null ? "*Anonymous*" : userAuthentication.getName();
 	}
 }

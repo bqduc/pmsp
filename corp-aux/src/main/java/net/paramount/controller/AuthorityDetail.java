@@ -1,7 +1,7 @@
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
- */
+ 
 package net.paramount.controller;
 
 import java.io.IOException;
@@ -21,15 +21,15 @@ import net.paramount.auth.entity.Authority;
 import net.paramount.auth.service.AuthorityService;
 import net.paramount.utility.FacesUtilities;
 
-/**
+*//**
  * @author ducbq
- */
+ *//*
 @Named(value = "authorityDetail")
 @ViewScoped
 public class AuthorityDetail implements Serializable {
-	/**
+	*//**
 	 * 
-	 */
+	 *//*
 	private static final long serialVersionUID = 6209572587305925873L;
 
 	@Inject
@@ -111,3 +111,4 @@ public class AuthorityDetail implements Serializable {
 		this.bizEntity = bizEntity;
 	}
 }
+*/

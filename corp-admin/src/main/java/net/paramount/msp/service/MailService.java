@@ -10,8 +10,9 @@ import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
-import net.paramount.comm.domain.MailMessage;
+import net.paramount.comm.domain.CorpMimeMessage;
 
+/*
 @Service
 public class MailService {
 	@Inject
@@ -20,7 +21,7 @@ public class MailService {
 	@Inject
 	private Configuration freemarkerConfig;
 
-	public void sendEmail(MailMessage mail) throws Exception {
+	public void sendEmail(MimeMessage mail) throws Exception {
 		MimeMessage message = sender.createMimeMessage();
 
 		MimeMessageHelper helper = new MimeMessageHelper(message);
@@ -38,3 +39,4 @@ public class MailService {
 		sender.send(message);
 	}
 }
+*/

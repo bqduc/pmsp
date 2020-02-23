@@ -15,8 +15,8 @@ import java.util.Base64;
 import javax.crypto.Cipher;
 
 import lombok.Builder;
-import net.paramount.framework.security.Cryptographer;
-import net.paramount.security.CryptographyBase;
+import net.paramount.security.base.Cryptographer;
+import net.paramount.security.base.CryptographyBase;
 
 /**
  * 
@@ -25,8 +25,6 @@ import net.paramount.security.CryptographyBase;
  */
 @Builder
 public class RSACryptographer extends CryptographyBase implements Cryptographer {
-	private static final long serialVersionUID = 2263410453350168100L;
-
   public static PrivateKey getPrivateKey() throws Exception {
     byte[] keyBytes = Files.readAllBytes(new File(RSAKeyGenerator.PRIVATE_KEY_FILE).toPath());
     PKCS8EncodedKeySpec spec = new PKCS8EncodedKeySpec(keyBytes);

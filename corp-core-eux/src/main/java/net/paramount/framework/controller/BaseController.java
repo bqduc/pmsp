@@ -11,9 +11,11 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.core.task.TaskExecutor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.ui.Model;
@@ -53,6 +55,14 @@ public abstract class BaseController extends RootController {
 	protected static final String PAGE_POSTFIX_SHOW = "Show";
 	protected static final String PAGE_POSTFIX_EDIT = "Edit";
 	protected static final String REDIRECT = "redirect:/";
+
+	/*@Inject
+	@Qualifier("taskExecutor")
+	private TaskExecutor taskExecutor;*/
+  
+
+	@Inject
+	protected TaskExecutor taskScheduler;
 
 	protected void doPostConstruct() throws ExecutionContextException {
 		throw new ExecutionContextException("Not implemented yet!");

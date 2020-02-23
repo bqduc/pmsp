@@ -1,7 +1,7 @@
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
- */
+ 
 package net.paramount.controller;
 
 import java.io.IOException;
@@ -21,15 +21,15 @@ import net.paramount.auth.service.ModuleService;
 import net.paramount.framework.controller.RootController;
 import net.paramount.utility.FacesUtilities;
 
-/**
+*//**
  * @author ducbq
- */
+ *//*
 @Named(value = "moduleDetail")
 @ViewScoped
 public class ModuleDetail extends RootController {
-	/**
+	*//**
 	 * 
-	 */
+	 *//*
 	private static final long serialVersionUID = 4399160648177432766L;
 
 	@Inject
@@ -111,3 +111,4 @@ public class ModuleDetail extends RootController {
 		this.bizEntity = bizEntity;
 	}
 }
+*/

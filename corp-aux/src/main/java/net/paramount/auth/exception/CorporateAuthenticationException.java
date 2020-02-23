@@ -3,14 +3,14 @@
  */
 package net.paramount.auth.exception;
 
-import net.paramount.exceptions.CorpAuthenticationException;
+import net.paramount.exceptions.CorporateAuthException;
 import net.paramount.model.AuthenticationStage;
 
 /**
  * @author bqduc
  *
  */
-public class CorporateAuthenticationException extends CorpAuthenticationException /*AuthenticationException*/ {
+public class CorporateAuthenticationException extends CorporateAuthException /*AuthenticationException*/ {
 	/**
 	 * 
 	 */

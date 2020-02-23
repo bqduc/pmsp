@@ -18,7 +18,6 @@ import org.omnifaces.util.Messages;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.core.task.TaskExecutor;
 import org.springframework.util.FileCopyUtils;
 
 import com.github.adminfaces.template.exception.BusinessException;
@@ -54,9 +53,6 @@ public class CatalogueController extends BaseController {
 
 	@Inject
 	private ApplicationContext applicationContext;
-
-	@Inject
-	private TaskExecutor asyncExecutor;
 
 	@Inject
 	private GlobalDmxRepositoryManager globalDmxRepository;
@@ -180,7 +176,7 @@ public class CatalogueController extends BaseController {
 			executionContext.context("AA", "xx").context("DD", "ss");
 
 			asyncExtendedDataLoader = applicationContext.getBean(AsyncExtendedDataLoader.class, executionContext);
-			this.asyncExecutor.execute(asyncExtendedDataLoader);
+			this.taskScheduler.execute(asyncExtendedDataLoader);
 		} catch (Exception e) {
 			// log.error(e.getMessage());
 		}

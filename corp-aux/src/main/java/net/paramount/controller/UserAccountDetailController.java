@@ -1,7 +1,7 @@
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
- */
+ 
 package net.paramount.controller;
 
 import java.io.IOException;
@@ -21,15 +21,15 @@ import net.paramount.auth.entity.UserAccount;
 import net.paramount.auth.service.UserAccountService;
 import net.paramount.utility.FacesUtilities;
 
-/**
+*//**
  * @author ducbq
- */
+ *//*
 @Named(value = "userAccountDetail")
 @ViewScoped
 public class UserAccountDetailController implements Serializable {
-	/**
+	*//**
 	 * 
-	 */
+	 *//*
 	private static final long serialVersionUID = 1654144183269646576L;
 
 	@Inject
@@ -102,11 +102,12 @@ public class UserAccountDetailController implements Serializable {
 	}
 
 	public void handleParentSelect(SelectEvent event) { 
-		/*Object item = event.getObject(); 
+		Object item = event.getObject(); 
 		if (item instanceof UserAccount) {
 			this.parent = (UserAccount)item;
-		}*/
+		}
 		//FacesMessage msg = new FacesMessage("Selected", "Item:" + item); 
 	}
 
 }
+*/

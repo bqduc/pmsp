@@ -4,7 +4,7 @@
 package net.paramount.security;
 
 import lombok.Builder;
-import net.paramount.framework.security.Cryptographer;
+import net.paramount.security.base.Cryptographer;
 
 /**
  * @author ducbq
@@ -28,6 +28,9 @@ public class GlobalCryptogramRepository {
 		if (CryptographyAlgorithm.PRIVATE_MEDIUM.equals(algorithm))
 			return MediumCryptographer.builder().build();
 
-		return PrivateLowCryptographer.builder().build();
+		if (CryptographyAlgorithm.PRIVATE_MEDIUM.equals(algorithm))
+			return PrivateLowCryptographer.builder().build();
+
+		return BasicCryptographer.builder().build();
 	}
 }

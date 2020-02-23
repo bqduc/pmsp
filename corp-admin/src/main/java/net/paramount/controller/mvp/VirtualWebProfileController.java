@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Random;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -16,7 +17,6 @@ import javax.inject.Named;
 import org.omnifaces.util.Messages;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.core.task.TaskExecutor;
 
 import com.github.adminfaces.template.exception.BusinessException;
 
@@ -46,9 +46,6 @@ public class VirtualWebProfileController extends BaseController {
   	private ApplicationContext applicationContext;
 
   	@Inject
-  	private TaskExecutor asyncExecutor;
-    
-  	@Inject
   	private GlobalDmxRepositoryManager globalDmxRepository;
 
   	@Inject
@@ -73,8 +70,16 @@ public class VirtualWebProfileController extends BaseController {
         allTalks.sort(Comparator.naturalOrder());
         
         //Build information of user's profile
-        String remoteUser = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
-        this.userAccountProfile = this.auxServiceHelper.getUserAccountProfile(remoteUser);
+        try {
+        	if (null != FacesContext.getCurrentInstance()) {
+          	ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+          	if (null != externalContext) {
+              this.userAccountProfile = this.auxServiceHelper.getUserAccountProfile(externalContext.getRemoteUser());
+          	}
+        	}
+				} catch (Exception e) {
+					log.error(e);
+				}
   	}
 
     public void clear() {

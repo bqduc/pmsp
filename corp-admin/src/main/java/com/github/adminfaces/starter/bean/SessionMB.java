@@ -4,19 +4,23 @@ import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.springframework.security.core.context.SecurityContextHolder;
+import net.paramount.autx.SecurityServiceContextHelper;
 
 @Named
 @ViewScoped
 public class SessionMB implements Serializable {
 
 	private String currentUser;
+	
+	@Inject 
+	private SecurityServiceContextHelper securityServiceContextHelper;
 
 	@PostConstruct
 	public void init() {
-		currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+		currentUser = securityServiceContextHelper.getAuthenticationName();
 	}
 
 	public String getCurrentUser() {

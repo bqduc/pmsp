@@ -132,7 +132,7 @@
                                 <p:outputLabel for="cities" value="#{messages['lbl.general.city']}"/>
                             </div>
                             <div class="ui-sm-12 ui-g-11">
-                                <p:selectCheckboxMenu id="cities" label="Cities" multiple="true" filter="true" filterMatchMode="contains">
+                                <p:selectCheckboxMenu id="cities" label="Cities" multiple="true" filter="true" filterMatchMode="contains" >
                                     <f:selectItems value="#{generalPageView.cities}" var="city" itemLabel="#{city}" itemValue="#{city}"/>
                                 </p:selectCheckboxMenu>
                                 <span class="help-block"> 

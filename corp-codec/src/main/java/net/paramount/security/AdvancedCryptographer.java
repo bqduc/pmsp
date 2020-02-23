@@ -20,7 +20,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import net.paramount.common.CommonUtility;
 import net.paramount.exceptions.CryptographyException;
-import net.paramount.framework.security.Cryptographer;
+import net.paramount.security.base.Cryptographer;
+import net.paramount.security.base.CryptographyBase;
 
 /**
  * 

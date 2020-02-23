@@ -4,7 +4,8 @@
 package net.paramount.security;
 
 import lombok.Builder;
-import net.paramount.framework.security.Cryptographer;
+import net.paramount.security.base.Cryptographer;
+import net.paramount.security.base.CryptographyBase;
 
 /**
  * @author ducbq

@@ -13,13 +13,15 @@ import java.security.NoSuchProviderException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 
-import org.springframework.stereotype.Component;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 
 /**
  * @author ducbq
  *
  */
-@Component
+@Builder
+@AllArgsConstructor
 public class RSAKeyGenerator {
 	private static final String rsaKeyDir = "d:/";
 	public static final String PUBLIC_KEY_FILE = rsaKeyDir + "rsa_keypair/publicKey";

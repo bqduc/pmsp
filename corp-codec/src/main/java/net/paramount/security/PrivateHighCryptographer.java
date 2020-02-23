@@ -15,7 +15,8 @@ import javax.crypto.spec.SecretKeySpec;
 
 import lombok.Builder;
 import net.paramount.exceptions.CryptographyException;
-import net.paramount.framework.security.Cryptographer;
+import net.paramount.security.base.Cryptographer;
+import net.paramount.security.base.CryptographyBase;
 
 /**
  * 

@@ -12,12 +12,12 @@ import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
-import net.paramount.comm.domain.CommunicatorContext;
-import net.paramount.comm.domain.MailMessage;
+import net.paramount.comm.domain.CorpMimeMessage;
 import net.paramount.comm.global.CommunicatorConstants;
 import net.paramount.common.CommonUtility;
 import net.paramount.exceptions.CommunicatorException;
 import net.paramount.framework.component.ComponentBase;
+import net.paramount.framework.model.ExecutionContext;
 
 @Component
 public class CommunicatorServiceHelper extends ComponentBase {
@@ -38,7 +38,7 @@ public class CommunicatorServiceHelper extends ComponentBase {
 		//Maybe fetch all configuration entries from database or something like that
 	}
 
-	public void sendEmail(MailMessage mail) throws Exception {
+	public void sendEmail(CorpMimeMessage mail) throws Exception {
 		MimeMessage message = mailSender.createMimeMessage();
 
 		MimeMessageHelper helper = new MimeMessageHelper(message);
@@ -64,27 +64,34 @@ public class CommunicatorServiceHelper extends ComponentBase {
 		this.emailTemplateLoadingDir = emailTemplateLoadingDir;
 	}
 
-	public void sendEmail(CommunicatorContext context) throws CommunicatorException {
+	public void sendEmail(ExecutionContext context) throws CommunicatorException {
+		CorpMimeMessage corpMimeMessage = null;
+		MimeMessage mimeMessage = null;
+    MimeMessageHelper helper = null;
+    String templateId = null, messageText = null;
 		try {
-			MailMessage mail = (MailMessage)context.get(CommunicatorConstants.CTX_MAIL_MESSAGE);
-			String templateId = (String)context.get(CommunicatorConstants.CTX_MAIL_TEMPLATE_ID);
+			corpMimeMessage = (CorpMimeMessage)context.get(CommunicatorConstants.CTX_MIME_MESSAGE);
+			templateId = (String)context.get(CommunicatorConstants.CTX_MAIL_TEMPLATE_ID);
 
-			MimeMessage message = mailSender.createMimeMessage();
-      MimeMessageHelper helper = new MimeMessageHelper(message, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED, StandardCharsets.UTF_8.name());
+			mimeMessage = mailSender.createMimeMessage();
+      helper = new MimeMessageHelper(mimeMessage, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED, StandardCharsets.UTF_8.name());
 
-      String messageText = this.emailTemplateHelper.getEmailMessageText(templateId, mail.getDefinitions());
+      if (CommonUtility.isNotEmpty(context.get(CommunicatorConstants.CTX_MAIL_TEMPLATE_DIR))) {
+      	this.emailTemplateHelper.setEmailTemplateLoadingDir((String)context.get(CommunicatorConstants.CTX_MAIL_TEMPLATE_DIR));
+      }
+      messageText = this.emailTemplateHelper.getEmailMessageText(templateId, corpMimeMessage.getDefinitions());
 
-			helper.setSubject(mail.getSubject());
-			helper.setTo(mail.getRecipients());
+			helper.setSubject(corpMimeMessage.getSubject());
+			helper.setTo(corpMimeMessage.getRecipients());
 			helper.setText(messageText, true);
 
-			mailSender.send(message);
+			mailSender.send(mimeMessage);
 		} catch (Exception e) {
 			throw new CommunicatorException(e);
 		}
 	}
 
-	public void sendEmail(MailMessage mail, String templateId) throws CommunicatorException {
+	public void sendEmail(CorpMimeMessage mail, String templateId) throws CommunicatorException {
 		try {
 			MimeMessage message = mailSender.createMimeMessage();
       MimeMessageHelper helper = new MimeMessageHelper(message,

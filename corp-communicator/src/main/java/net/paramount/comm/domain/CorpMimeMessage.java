@@ -11,7 +11,7 @@ import net.paramount.comm.global.CommunicatorConstants;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class MailMessage {
+public class CorpMimeMessage {
 	private String from;
 	private String[] recipients;
 	private String[] recipientsCc;

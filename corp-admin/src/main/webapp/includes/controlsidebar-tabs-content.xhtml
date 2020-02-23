@@ -3,8 +3,14 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui">
-
-    <div class="tab-pane" id="control-sidebar-home-tab">
+    <ui:fragment>
+        <script type="text/javascript">
+            $(document).ready(function () {
+            	//$("#control-sidebar-theme-demo-options-tab").remove(); 
+            });
+        </script>
+    </ui:fragment>
+    <div class="tab-pane active" id="control-sidebar-home-tab" tabindex="0">
         <h3 class="control-sidebar-heading">#{messages['general.recentActivity']}</h3>
         <ul class="control-sidebar-menu">
             <li>
@@ -168,5 +174,4 @@
             </div>
         </form>
     </div>
-
 </ui:composition>

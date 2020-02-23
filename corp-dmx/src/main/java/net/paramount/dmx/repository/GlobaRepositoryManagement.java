@@ -21,9 +21,6 @@ public class GlobaRepositoryManagement extends ComponentBase {
 	 */
 	private static final long serialVersionUID = 4395890941278552748L;
 
-	/*@Inject
-	private TaskExecutor asyncExecutor;*/
-
 	@Inject
 	private GlobalDataServiceHelper globalDataServiceHelper;
 

@@ -44,12 +44,11 @@
 			<version>${version.primefaces}</version>
 		</dependency>
 
-    <dependency>
+    <!-- <dependency>
         <groupId>com.github.adminfaces</groupId>
         <artifactId>admin-template</artifactId>
-        <!-- <version>1.0.2</version> -->
         <version>${version.admin-template}</version>
-    </dependency>
+    </dependency> -->
 
     <dependency>
 			<groupId>joda-time</groupId>

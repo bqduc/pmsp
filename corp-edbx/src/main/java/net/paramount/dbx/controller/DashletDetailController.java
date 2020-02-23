@@ -15,7 +15,7 @@ import org.omnifaces.util.Faces;
 import org.primefaces.event.SelectEvent;
 import org.springframework.security.access.AccessDeniedException;
 
-import com.github.adminfaces.template.util.Assert;
+//import com.github.adminfaces.template.util.Assert;
 
 import net.paramount.dbx.entity.Dashboard;
 import net.paramount.dbx.service.DashboardService;
@@ -46,11 +46,11 @@ public class DashletDetailController implements Serializable {
 		if (Faces.isAjaxRequest()) {
 			return;
 		}
-		if (Assert.has(id)) {
+		/*if (Assert.has(id)) {
 			businessObject = businessService.getObject(id);
 		} else {
 			businessObject = new Dashboard();
-		}
+		}*/
 	}
 
 	public Long getId() {
@@ -73,12 +73,12 @@ public class DashletDetailController implements Serializable {
 		if (!facesUtilities.isUserInRole("ROLE_ADMIN")) {
 			throw new AccessDeniedException("User not authorized! Only role <b>admin</b> can remove cars.");
 		}
-		if (Assert.has(businessObject) && Assert.has(businessObject.getId())) {
+		/*if (Assert.has(businessObject) && Assert.has(businessObject.getId())) {
 			businessService.remove(businessObject);
 			facesUtilities.addDetailMessage("Business object " + businessObject.getName() + " removed successfully");
 			Faces.getFlash().setKeepMessages(true);
 			Faces.redirect("user/car-list.jsf");
-		}
+		}*/
 	}
 
 	public void save() {

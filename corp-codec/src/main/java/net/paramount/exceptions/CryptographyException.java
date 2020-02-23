@@ -1,15 +1,11 @@
 package net.paramount.exceptions;
 
-import java.text.MessageFormat;
-
-import org.springframework.security.core.AuthenticationException;
-
 /**
- * The class {@code AuthException} and its subclasses are a form of
+ * The class {@code CryptographyException} and its subclasses are a form of
  * {@code Throwable} that indicates conditions that a reasonable
  * application might want to catch.
  *
- * <p>The class {@code AuthException} and any subclasses that are not also
+ * <p>The class {@code CryptographyException} and any subclasses that are not also
  * subclasses of {@link RuntimeException} are <em>checked
  * exceptions</em>.  Checked exceptions need to be declared in a
  * method or constructor's {@code throws} clause if they can be thrown
@@ -18,35 +14,20 @@ import org.springframework.security.core.AuthenticationException;
  *
  * @author bqduc
  */
-public class CorpAuthenticationException extends AuthenticationException/*RuntimeException*/ {
-	public final static int ERROR_NONE = -1;
-	public final static int ERROR_INVALID_PRINCIPAL = 0;
-	public final static int ERROR_INVALID_CREDENTIAL = 1;
-	public final static int ERROR_INACTIVE = 2;
-	public final static int ERROR_INVALID_PERMISSION = 3;
+public class CryptographyException extends Exception {
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 2027543779433269666L;
-
-	private int errorCode;
-	/**
-   * Constructs a new exception with {@code null} as its detail message.
-   * The cause is not initialized, and may subsequently be initialized by a
-   * call to {@link #initCause}.
-   */
-  public CorpAuthenticationException() {
-      super("Default exception!");
-  }
+	private static final long serialVersionUID = -8981488572296297267L;
 
 	/**
    * Constructs a new exception with {@code null} as its detail message.
    * The cause is not initialized, and may subsequently be initialized by a
    * call to {@link #initCause}.
    */
-  public CorpAuthenticationException(int errorCode) {
-  	super(MessageFormat.format("Default exception with error code: {0}", errorCode));
-  	this.errorCode = errorCode;
+  public CryptographyException() {
+      super();
   }
 
   /**
@@ -57,21 +38,8 @@ public class CorpAuthenticationException extends AuthenticationException/*Runtim
    * @param   message   the detail message. The detail message is saved for
    *          later retrieval by the {@link #getMessage()} method.
    */
-  public CorpAuthenticationException(String message) {
+  public CryptographyException(String message) {
       super(message);
-  }
-
-  /**
-   * Constructs a new exception with the specified detail message.  The
-   * cause is not initialized, and may subsequently be initialized by
-   * a call to {@link #initCause}.
-   *
-   * @param   message   the detail message. The detail message is saved for
-   *          later retrieval by the {@link #getMessage()} method.
-   */
-  public CorpAuthenticationException(int errorCode, String message) {
-      super(message);
-    	this.errorCode = errorCode;
   }
 
   /**
@@ -88,7 +56,7 @@ public class CorpAuthenticationException extends AuthenticationException/*Runtim
    *         unknown.)
    * @since  1.4
    */
-  public CorpAuthenticationException(String message, Throwable cause) {
+  public CryptographyException(String message, Throwable cause) {
       super(message, cause);
   }
 
@@ -106,8 +74,8 @@ public class CorpAuthenticationException extends AuthenticationException/*Runtim
    *         unknown.)
    * @since  1.4
    */
-  public CorpAuthenticationException(Throwable cause) {
-      super("", cause);
+  public CryptographyException(Throwable cause) {
+      super(cause);
   }
 
   /**
@@ -124,18 +92,9 @@ public class CorpAuthenticationException extends AuthenticationException/*Runtim
    *                           be writable
    * @since 1.7
    */
-  protected CorpAuthenticationException(String message, Throwable cause,
+  protected CryptographyException(String message, Throwable cause,
                       boolean enableSuppression,
                       boolean writableStackTrace) {
-      //super(message, cause, enableSuppression, writableStackTrace);
-  	super(message, cause);
+      super(message, cause, enableSuppression, writableStackTrace);
   }
-
-	public int getErrorCode() {
-		return errorCode;
-	}
-
-	public void setErrorCode(int errorCode) {
-		this.errorCode = errorCode;
-	}
 }

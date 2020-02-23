@@ -6,23 +6,35 @@ package net.paramount.controller.paux;
 
 import static com.github.adminfaces.template.util.Assert.has;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.Base64;
+import java.util.Map;
 
 import javax.faces.context.FacesContext;
 import javax.faces.flow.FlowScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.mail.internet.MimeMessage;
 
+import org.apache.commons.io.FileUtils;
 import org.omnifaces.util.Faces;
 import org.primefaces.event.SelectEvent;
+import org.springframework.util.ResourceUtils;
 
 import com.github.adminfaces.template.exception.AccessDeniedException;
 
 import net.paramount.auth.entity.UserAccount;
+import net.paramount.auth.service.AuthorizationService;
 import net.paramount.auth.service.UserAccountService;
+import net.paramount.comm.domain.CorpMimeMessage;
+import net.paramount.comm.global.CommunicatorConstants;
 import net.paramount.common.CommonConstants;
+import net.paramount.common.ListUtility;
 import net.paramount.entity.general.BusinessUnit;
 import net.paramount.framework.controller.RootController;
+import net.paramount.framework.model.Context;
+import net.paramount.framework.model.ExecutionContext;
 import net.paramount.utility.FacesUtilities;
 
 /**
@@ -41,6 +53,9 @@ public class UserAccountRegister extends RootController {
 
 	@Inject
 	private FacesUtilities utils;
+
+	@Inject 
+	private AuthorizationService authorizationService;
 
 	private Long id;
 
@@ -72,15 +87,32 @@ public class UserAccountRegister extends RootController {
 
 	public void register() {
 		preProcessUserAccount();
+		/*
 		if (!this.validate()) {
 			utils.addDetailMessage(persistenceMessageSource.getMessage("msg.userAccountRegisterFailure", new Object[] {this.entity.getEmail()}, super.getCurrentLocale()));
 			Faces.getFlash().setKeepMessages(true);
 			FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "register");
 			return;
 		}
+		*/
+
+		if (this.businessUnit != null) {
+			this.entity.setCompanyName(this.businessUnit.getName());
+		}
+		
+		this.entity.setStateProvince("Sài Gòn");
 
 		this.entity.setBusinessUnitCode(this.businessUnit.getCode());
-		businessService.registerUserAccount(this.entity);
+
+		ExecutionContext context = ExecutionContext.builder().build();
+		
+		context.put(CommunicatorConstants.CTX_MAIL_TEMPLATE_DIR, "/template/");
+		context.put(CommunicatorConstants.CTX_MAIL_TEMPLATE_ID, "/auth/register.ftl");
+		context.put(CommunicatorConstants.CTX_USER_ACCOUNT, this.entity);
+		this.buildRegistrationMimeMessageContext(context);
+
+		this.authorizationService.register(context);
+		//businessService.registerUserAccount(this.entity);
 		utils.addDetailMessage(persistenceMessageSource.getMessage("msg.userAccountRegisterSuccess", new Object[] {this.entity.getEmail()}, super.getCurrentLocale()));
 		Faces.getFlash().setKeepMessages(true);
 		FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "index");
@@ -144,6 +176,7 @@ public class UserAccountRegister extends RootController {
 		Object selectedObject = event.getObject(); 
 		if (selectedObject instanceof BusinessUnit) {
 			this.setBusinessUnit((BusinessUnit)selectedObject);
+			this.entity.setCompanyName(this.businessUnit.getName());
 			this.entity.setBusinessUnitCode(this.businessUnit.getCode());
 		}
 		//FacesMessage msg = new FacesMessage("Selected", "Item:" + item); 
@@ -162,5 +195,53 @@ public class UserAccountRegister extends RootController {
 			return false;
 
 		return true;
+	}
+
+	private void buildRegistrationMimeMessageContext(Context context) {
+		CorpMimeMessage corpMimeMessage = CorpMimeMessage.builder()
+				.from("ducbuiquy@gmail.com")
+				.subject(CommunicatorConstants.CTX_DEFAULT_REGISTRATION_SUBJECT) //Should get data from resource bundle for localization
+				.build();
+
+		UserAccount userAccount = (UserAccount)context.get(CommunicatorConstants.CTX_USER_ACCOUNT);
+		Map<String, Object> definitions = ListUtility.createMap();
+		definitions.put("userContact", userAccount);
+		definitions.put("location", "Binh Dinh-Sai Gon");
+		definitions.put("signature", "www.mekongparadise.com");
+
+		try {
+			File imageFile = ResourceUtils.getFile("classpath:template/images/marker-icon.png");
+			byte[] fileContent = FileUtils.readFileToByteArray(imageFile);
+			String encodedfile = new String(Base64.getEncoder().encode(fileContent), "UTF-8");
+
+			String imgAsBase64 = "data:image/png;base64," + encodedfile;
+			definitions.put("imgAsBase64", imgAsBase64);
+			
+			definitions.put("firstName", userAccount.getFirstName());
+			definitions.put("lastName", userAccount.getLastName());
+			/*
+			
+			File img = ResourceUtils.getFile("classpath:template/subscription/images/marker-icon.png");
+			fileContent = FileUtils.readFileToByteArray(img);
+			encodedString = Base64.getEncoder().encodeToString(fileContent);
+			encodedfile = new String(Base64.getEncoder().encode(fileContent), "UTF-8");
+			
+			byte[] imgBytes = IOUtils.toByteArray(new FileInputStream(img));
+			byte[] imgBytesAsBase64 = Base64.getEncoder().encode(imgBytes);
+			String imgDataAsBase64 = new String(imgBytesAsBase64);
+			imgAsBase64 = "data:image/png;base64," + imgDataAsBase64;
+			
+			
+			InputStreamSource imageSource = new ByteArrayResource(IOUtils.toByteArray(getClass().getResourceAsStream("/template/subscription/images/marker-icon.png")));
+			
+			model.put("imgAsBase64", imageSource);*/
+			
+			//model.put("imageSpec", img);
+			corpMimeMessage.setDefinitions(definitions);
+
+			context.put(CommunicatorConstants.CTX_MIME_MESSAGE, corpMimeMessage);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

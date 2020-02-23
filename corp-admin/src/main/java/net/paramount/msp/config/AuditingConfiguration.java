@@ -12,10 +12,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 
 import net.paramount.auth.service.AuthorizationService;
+import net.paramount.autx.SecurityServiceContextHelper;
 
 /**
  * @author ducbq
@@ -26,6 +26,9 @@ import net.paramount.auth.service.AuthorizationService;
 public class AuditingConfiguration {
 	@Inject 
 	private AuthorizationService authorizationService;
+	
+	@Inject
+	private SecurityServiceContextHelper securityContextHolderServiceHelper;
 
 	@Bean
 	public AuditorAware<String> auditorProvider() {
@@ -36,7 +39,7 @@ public class AuditingConfiguration {
 		@Override
 		public Optional<String> getCurrentAuditor() {
 			System.out.println("Authenticated user from security officer component: " + authorizationService.getUserProfile());
-			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			Authentication auth = securityContextHolderServiceHelper.getAuthentication();
 			if (auth.getPrincipal() instanceof String) {
 				return Optional.of((String)auth.getPrincipal());
 			}
@@ -53,7 +56,7 @@ public class AuditingConfiguration {
 		}
 
 		private Optional<User> getCurrentLoggedInUser() {
-			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			Authentication auth = securityContextHolderServiceHelper.getAuthentication();
 			if (null != auth) {
 				return Optional.of((User)auth.getPrincipal());
 			}
