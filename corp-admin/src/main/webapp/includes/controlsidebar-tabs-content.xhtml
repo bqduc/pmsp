@@ -6,7 +6,9 @@
     <ui:fragment>
         <script type="text/javascript">
             $(document).ready(function () {
-            	//$("#control-sidebar-theme-demo-options-tab").remove(); 
+            	$("#sidebar-collapsed-label").replaceWith( "New heading" );
+            	$( "input[name='q']" ).val( "#{messages['menu.search.placeholder']}" );
+            	$('input[name="q"]').attr('placeholder', "#{messages['menu.search.placeholder']}")//Search menu items...
             });
         </script>
     </ui:fragment>

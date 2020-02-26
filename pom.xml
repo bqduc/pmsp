@@ -4,12 +4,17 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-	<parent>
+	<!-- <parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.2.4.RELEASE</version>
 		<relativePath />
-	</parent>	
+	</parent>	 -->
+<parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.3.0.M2</version>
+</parent>	
 	
 	<groupId>net.pmsp</groupId>
 	<artifactId>pmsp</artifactId>
@@ -60,6 +65,7 @@
 		<version.javax.faces>2.3.3</version.javax.faces>
 		<version.javax.faces-api>2.3</version.javax.faces-api>
 		<version.omnifaces>1.14.1</version.omnifaces>
+		
 	</properties>
  
     <modules>
@@ -84,7 +90,6 @@
 		<module>corp-edbx</module>
 		<module>corp-communicator</module>
 		<module>corp-dispatcher</module>
-		<!-- <module>corp-admin-template</module> -->
 		<module>corp-admin</module>
     </modules>
 
@@ -113,5 +118,36 @@
         </configuration>
       </plugin>
     </plugins>
-  </build> 
+  </build>
+  
+	<repositories>
+		<repository>
+			<id>spring-milestones</id>
+			<name>Spring Milestones</name>
+			<url>https://repo.spring.io/milestone</url>
+		</repository>
+		<repository>
+			<id>spring-snapshots</id>
+			<name>Spring Snapshots</name>
+			<url>https://repo.spring.io/snapshot</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>spring-milestones</id>
+			<name>Spring Milestones</name>
+			<url>https://repo.spring.io/milestone</url>
+		</pluginRepository>
+		<pluginRepository>
+			<id>spring-snapshots</id>
+			<name>Spring Snapshots</name>
+			<url>https://repo.spring.io/snapshot</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>   
 </project>

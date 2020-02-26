@@ -26,7 +26,7 @@ import net.paramount.common.CommonUtility;
 @EnableCaching
 @Configuration
 @EnableJpaRepositories(basePackages = { "net.paramount" })
-@ComponentScan(basePackages = { "net.paramount"/*, "com.github" */})
+@ComponentScan(basePackages = { "net.paramount"})
 @EntityScan(basePackages = { "net.paramount" })
 @EnableTransactionManagement
 @Import(value = { AuditingConfiguration.class, SecurityConfig.class, MspQuartzConfig.class })

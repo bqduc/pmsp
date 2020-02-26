@@ -1,4 +1,4 @@
-package com.github.adminfaces.starter.infra.converter;
+package net.paramount.faces.converter;
 
 
 import javax.faces.component.UIComponent;
