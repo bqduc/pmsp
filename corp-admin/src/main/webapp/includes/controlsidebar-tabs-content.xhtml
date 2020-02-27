@@ -3,9 +3,11 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui">
+
     <ui:fragment>
         <script type="text/javascript">
             $(document).ready(function () {
+            	console.log('PARK!!!!!');
             	$("#sidebar-collapsed-label").replaceWith( "New heading" );
             	$("input[name='q']" ).val( "#{messages['menu.search.placeholder']}" );
             	$('input[name="q"]').attr('placeholder', "#{messages['menu.search.placeholder']}")//Search menu items...
@@ -13,10 +15,13 @@
             	$("#toggle-menu-layout-label").replaceWith( "#{messages['controlsidebar.label.menu-horientation']}" );
 
             	$('h4.control-sidebar-heading:contains("Layout Options")').replaceWith("<h4>#{messages['controlsidebar.header']}</h4>");
+
+            	$('h4.control-sidebar-heading:contains("Skins")').replaceWith("<h4>#{messages['controlsidebar.header.skins']}</h4>");
             });
         </script>
     </ui:fragment>
-    <div class="tab-pane active" id="control-sidebar-home-tab" tabindex="0">
+
+    <div class="tab-pane" id="control-sidebar-home-tab">
         <h3 class="control-sidebar-heading">#{messages['general.recentActivity']}</h3>
         <ul class="control-sidebar-menu">
             <li>
@@ -180,4 +185,5 @@
             </div>
         </form>
     </div>
+
 </ui:composition>

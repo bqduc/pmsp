@@ -16,3 +16,4 @@ insert into message_source_entry (key, content, locale)values('controlsidebar.la
 insert into message_source_entry (key, content, locale)values('controlsidebar.txt.sidebar-slide', 'Nếu thanh bên điều khiển được kiểm tra sẽ được cố định trên trang.', 'vi');
 insert into message_source_entry (key, content, locale)values('controlsidebar.label.sidebar-skin', 'Lớp bọc thanh điều khiển tối', 'vi');
 insert into message_source_entry (key, content, locale)values('controlsidebar.txt.sidebar-skin', 'Nếu được chọn <b class \ = "sidebar-bold"> lớp bọc tối </ b> sẽ được sử dụng cho thanh bên điều khiển, nếu không thì <b class \ = "sidebar-bold"> lớp bọc sáng </ b > sẽ được sử dụng.', 'vi');
+insert into message_source_entry (key, content, locale)values('controlsidebar.header.skins', 'Lớp bọc', 'vi');
