@@ -209,12 +209,14 @@ public class MultiplePropertiesResourceBundle extends ResourceBundle {
 		if (CommonUtility.isEmpty(this.localMessages)) {
 			//Load all messages from database
 			loadPersistenceMessages();
-		} /*else {
-			if (!this.localMessages.containsKey(key)) {
-				// Load the message from database and update to the local messages map
-				System.out.println("Invalid key: " + key);
+		} else if (!this.localMessages.containsKey(key)) {
+			PersistenceMessageService persistenceMessageService = (PersistenceMessageService)this.getMessageSource();
+			String message = persistenceMessageService.getMessage(key, null, locale);
+			if (CommonUtility.isNotEmpty(message)) {
+				this.localMessages.put(key, message);
 			}
-			}*/
+			return message;
+		} 
 
 		if (!this.localMessages.containsKey(key)) {
 			System.out.println("Invalid key: " + key);

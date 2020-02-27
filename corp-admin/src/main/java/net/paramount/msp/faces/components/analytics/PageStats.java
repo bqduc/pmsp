@@ -1,16 +1,24 @@
 package net.paramount.msp.faces.components.analytics;
 
-import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import static com.github.adminfaces.template.util.Assert.has;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by rmpestano on 01/05/17.
  */
-public class PageStats {
+public class PageStats implements Serializable{
 
-    private String viewId;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 8635727590701380246L;
+		private String viewId;
     private List<PageView> pageViews = new ArrayList<>();
     private boolean showVisitorsInfo;
     private Map<String, Map<String, List<PageView>>> pageViewsByCountryAndCity;//first map key is country, second key is city
