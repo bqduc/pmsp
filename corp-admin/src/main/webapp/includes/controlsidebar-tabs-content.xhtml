@@ -7,16 +7,51 @@
     <ui:fragment>
         <script type="text/javascript">
             $(document).ready(function () {
-            	console.log('PARK!!!!!');
-            	$("#sidebar-collapsed-label").replaceWith( "New heading" );
+            	$('label:contains("Restore defaults")').text("#{messages['controlsidebar.label.restore-defaults']}");
             	$("input[name='q']" ).val( "#{messages['menu.search.placeholder']}" );
             	$('input[name="q"]').attr('placeholder', "#{messages['menu.search.placeholder']}")//Search menu items...
 
-            	$("#toggle-menu-layout-label").replaceWith( "#{messages['controlsidebar.label.menu-horientation']}" );
+            	$("#toggle-menu-layout-label").text( "#{messages['controlsidebar.label.menu-horientation']}" );
 
-            	$('h4.control-sidebar-heading:contains("Layout Options")').replaceWith("<h4>#{messages['controlsidebar.header']}</h4>");
+            	$('h4.control-sidebar-heading:contains("Layout Options")').text("#{messages['controlsidebar.header']}");
 
-            	$('h4.control-sidebar-heading:contains("Skins")').replaceWith("<h4>#{messages['controlsidebar.header.skins']}</h4>");
+            	$('h4.control-sidebar-heading:contains("Skins")').text("#{messages['controlsidebar.header.skins']}");
+            	
+            	$('p:contains("Toggle menu orientation between")').replaceWith($.parseHTML('#{messages["controlsidebar.txt.menu-horientation"]}'));
+
+            	$("#fixed-layout-label").text("#{messages['controlsidebar.label.fixed-layout']}");
+            	$('p:contains("Activate the fixed layout, if checked the top bar will be fixed on the page.")').text("#{messages['controlsidebar.txt.fixed-layout']}");
+            	
+            	
+            	$("#boxed-layout-label").text("#{messages['controlsidebar.label.boxed-layout']}");
+            	$('p:contains("Activate the boxed layout.")').text("#{messages['controlsidebar.txt.boxed-layout']}");
+            	
+            	$("#sidebar-collapsed-label").text("#{messages['controlsidebar.label.sidebar-collapsed']}");
+            	$('p:contains("If checked the sidebar menu will be collapsed.")').text("#{messages['controlsidebar.txt.sidebar-collapsed']}");
+            	
+            	$("#sidebar-expand-hover-label").text("#{messages['controlsidebar.label.sidebar-expand-hover']}");
+            	$('p:contains("If checked the left sidebar will expand on hover.")').text("#{messages['controlsidebar.txt.sidebar-expand-hover']}");
+            
+            	$("#control-sidebar-toggle-label").text("#{messages['controlsidebar.label.sidebar-slide']}");
+            	$('p:contains("If checked control sidebar will be fixed on the page.")').text("#{messages['controlsidebar.txt.sidebar-slide']}");
+            	
+            	$("[for=sidebar-skin_input]").text("#{messages['controlsidebar.label.sidebar-skin']}");
+            	$('p:contains("If checked"):contains("skin will be used for control sidebar, otherwise"):contains("skin will be used.")').text("#{messages['controlsidebar.txt.sidebar-skin']}");
+            	
+            	$('p:contains("Blue")').text("#{messages['controlsidebar.skin.Blue']}");
+            	$('p:contains("Black")').text("#{messages['controlsidebar.skin.Black']}");
+            	$('p:contains("Purple")').text("#{messages['controlsidebar.skin.Purple']}");
+            	$('p:contains("Green")').text("#{messages['controlsidebar.skin.Green']}");
+            	$('p:contains("Red")').text("#{messages['controlsidebar.skin.Red']}");
+            	$('p:contains("Yellow")').text("#{messages['controlsidebar.skin.Yellow']}");
+            	$('p:contains("Teal")').text("#{messages['controlsidebar.skin.Teal']}");
+            	$('p:contains("Blue Light")').text("#{messages['controlsidebar.skin.BlueLight']}");
+            	$('p:contains("Black Light")').text("#{messages['controlsidebar.skin.BlackLight']}");
+            	$('p:contains("Purple Light")').text("#{messages['controlsidebar.skin.PurpleLight']}");
+            	$('p:contains("Red Light")').text("#{messages['controlsidebar.skin.RedLight']}");
+            	$('p:contains("Green Light")').text("#{messages['controlsidebar.skin.GreenLight']}");
+            	$('p:contains("Yellow Light")').text("#{messages['controlsidebar.skin.YellowLight']}");
+            	$('p:contains("Teal Light")').text("#{messages['controlsidebar.skin.TealLight']}");
             });
         </script>
     </ui:fragment>
