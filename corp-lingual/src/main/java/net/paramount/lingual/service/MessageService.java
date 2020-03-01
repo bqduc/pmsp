@@ -2,7 +2,7 @@ package net.paramount.lingual.service;
 
 import java.util.List;
 
-import net.paramount.entity.general.Language;
+import net.paramount.domain.entity.general.Language;
 import net.paramount.exceptions.ObjectNotFoundException;
 import net.paramount.framework.service.GenericService;
 import net.paramount.lingual.entity.Label;

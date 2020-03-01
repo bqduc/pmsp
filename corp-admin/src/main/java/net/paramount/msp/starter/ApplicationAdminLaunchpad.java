@@ -23,8 +23,8 @@ import org.springframework.context.annotation.Import;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 import lombok.extern.slf4j.Slf4j;
+import net.paramount.config.BaseConfiguration;
 import net.paramount.exceptions.CryptographyException;
-import net.paramount.msp.config.BaseConfiguration;
 import net.paramount.security.CryptographyAlgorithm;
 import net.paramount.security.GlobalCryptogramRepository;
 import net.paramount.security.base.Cryptographer;
@@ -32,6 +32,7 @@ import net.paramount.security.base.Cryptographer;
 /**
  * @author ducbq
  */
+/*
 @Slf4j
 //@Import(value = { BaseConfiguration.class, SecurityConfig.class, MspQuartzConfig.class })
 @Import(value = { BaseConfiguration.class})
@@ -70,3 +71,4 @@ public class ApplicationAdminLaunchpad {
 
 	}
 }
+*/

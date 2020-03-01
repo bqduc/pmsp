@@ -50,7 +50,7 @@ import lombok.Builder;
 import lombok.NoArgsConstructor;
 import net.paramount.entity.general.BusinessUnit;
 import net.paramount.entity.general.Catalogue;
-import net.paramount.entity.general.Item;
+import net.paramount.entity.general.GeneralItem;
 import net.paramount.entity.general.MeasureUnit;
 import net.paramount.entity.general.Money;
 import net.paramount.entity.general.MoneySet;
@@ -231,11 +231,11 @@ public class Product extends AuditBase {
 
 	@ManyToOne
 	@JoinColumn(name = "ref_active_ingredient_id", foreignKey = @ForeignKey(name = "FK_active_ingredient"))
-	private Item activeIngredient;
+	private GeneralItem activeIngredient;
 
 	@ManyToOne
 	@JoinColumn(name = "ref_usage_direction_id", foreignKey = @ForeignKey(name = "fk_usage_direction"))
-	private Item usageDirection;
+	private GeneralItem usageDirection;
 
 	@ManyToOne
 	@JoinColumn(name = "ref_servicing_business_unit_id", foreignKey = @ForeignKey(name = "fk_servicing_business_unit_id"))
@@ -1067,19 +1067,19 @@ public class Product extends AuditBase {
 		this.imageDefault = imageDefault;
 	}
 
-	public Item getActiveIngredient() {
+	public GeneralItem getActiveIngredient() {
 		return activeIngredient;
 	}
 
-	public void setActiveIngredient(Item activeIngredient) {
+	public void setActiveIngredient(GeneralItem activeIngredient) {
 		this.activeIngredient = activeIngredient;
 	}
 
-	public Item getUsageDirection() {
+	public GeneralItem getUsageDirection() {
 		return usageDirection;
 	}
 
-	public void setUsageDirection(Item usageDirection) {
+	public void setUsageDirection(GeneralItem usageDirection) {
 		this.usageDirection = usageDirection;
 	}
 

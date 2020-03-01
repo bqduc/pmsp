@@ -13,7 +13,7 @@ import net.paramount.common.CommonUtility;
 import net.paramount.common.ListUtility;
 import net.paramount.dbx.entity.Dashboard;
 import net.paramount.dbx.service.DashboardService;
-import net.paramount.model.Filter;
+import net.paramount.domain.model.Filter;
 
 /**
  * @author ducbq

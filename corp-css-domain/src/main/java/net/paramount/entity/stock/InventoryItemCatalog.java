@@ -36,7 +36,7 @@ import net.paramount.entity.contact.ContactAddress;
 import net.paramount.entity.contact.ContactTeam;
 import net.paramount.entity.general.BusinessUnit;
 import net.paramount.entity.general.Catalogue;
-import net.paramount.entity.general.Item;
+import net.paramount.entity.general.GeneralItem;
 import net.paramount.framework.entity.BizObjectBase;
 import net.paramount.model.ContactType;
 import net.paramount.model.GenderType;

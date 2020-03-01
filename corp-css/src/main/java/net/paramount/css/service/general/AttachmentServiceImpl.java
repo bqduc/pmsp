@@ -8,7 +8,7 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import net.paramount.css.repository.general.AttachmentRepository;
-import net.paramount.entity.Attachment;
+import net.paramount.domain.entity.Attachment;
 import net.paramount.framework.repository.BaseRepository;
 import net.paramount.framework.service.GenericServiceImpl;
 

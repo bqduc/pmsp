@@ -18,10 +18,8 @@ import net.paramount.framework.repository.BaseDAO;
  */
 
 @Component // @Stateless
-public class AccountFacade extends BaseDAO {
-	/**
-	 * 
-	 */
+@SuppressWarnings({"unchecked", "rawtypes"})
+public class AccountFacade extends BaseDAO<EnterpriseAccount, Long> {
 	private static final long serialVersionUID = -7086317564136002833L;
 
 	@Transactional
@@ -47,9 +45,7 @@ public class AccountFacade extends BaseDAO {
 	}
 
 	public List<EnterpriseAccount> findByType(String type) {
-		List result = em.createNamedQuery("Account.findByType").setParameter("type", type).getResultList();
-
-		return result;
+		return em.createNamedQuery("Account.findByType").setParameter("type", type).getResultList();
 	}
 
 	public List<EnterpriseAccount> findByName(String name) {

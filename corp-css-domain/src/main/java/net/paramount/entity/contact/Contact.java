@@ -52,7 +52,7 @@ import net.paramount.common.CommonUtility;
 import net.paramount.common.ListUtility;
 import net.paramount.embeddable.Phone;
 import net.paramount.entity.general.BusinessUnit;
-import net.paramount.entity.general.Item;
+import net.paramount.entity.general.GeneralItem;
 import net.paramount.framework.entity.BizObjectBase;
 import net.paramount.global.GlobalConstants;
 import net.paramount.model.ContactType;
@@ -149,11 +149,11 @@ public class Contact extends BizObjectBase {
 
 	@ManyToOne
 	@JoinColumn(name = "sms_opt_in_id")
-	private Item smsOptIn;
+	private GeneralItem smsOptIn;
 
 	@ManyToOne
 	@JoinColumn(name = "lead_source_id")
-	private Item leadSource;
+	private GeneralItem leadSource;
 
 	@Column(name="fax", length=20)
 	private String fax;
@@ -207,7 +207,7 @@ public class Contact extends BizObjectBase {
 
 	@ManyToOne
 	@JoinColumn(name = "job_info_id")
-	private Item jobInfo;
+	private GeneralItem jobInfo;
 
 	@Builder.Default
 	@Column(name = "sync_contact")
@@ -343,19 +343,19 @@ public class Contact extends BizObjectBase {
 		this.emailInvalid = emailInvalid;
 	}
 
-	public Item getSmsOptIn() {
+	public GeneralItem getSmsOptIn() {
 		return smsOptIn;
 	}
 
-	public void setSmsOptIn(Item smsOptIn) {
+	public void setSmsOptIn(GeneralItem smsOptIn) {
 		this.smsOptIn = smsOptIn;
 	}
 
-	public Item getLeadSource() {
+	public GeneralItem getLeadSource() {
 		return leadSource;
 	}
 
-	public void setLeadSource(Item leadSource) {
+	public void setLeadSource(GeneralItem leadSource) {
 		this.leadSource = leadSource;
 	}
 
@@ -553,11 +553,11 @@ public class Contact extends BizObjectBase {
 		this.businessUnit = businessUnit;
 	}
 
-	public Item getJobInfo() {
+	public GeneralItem getJobInfo() {
 		return jobInfo;
 	}
 
-	public void setJobInfo(Item jobInfo) {
+	public void setJobInfo(GeneralItem jobInfo) {
 		this.jobInfo = jobInfo;
 	}
 

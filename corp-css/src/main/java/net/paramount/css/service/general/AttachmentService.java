@@ -6,7 +6,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.data.domain.Page;
 
-import net.paramount.entity.Attachment;
+import net.paramount.domain.entity.Attachment;
 import net.paramount.framework.model.SearchParameter;
 import net.paramount.framework.service.GenericService;
 

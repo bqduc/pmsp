@@ -18,9 +18,9 @@ import net.paramount.common.ListUtility;
 import net.paramount.css.service.config.ConfigurationService;
 import net.paramount.css.service.general.AttachmentService;
 import net.paramount.dmx.helper.ResourcesStorageServiceHelper;
-import net.paramount.entity.Attachment;
+import net.paramount.domain.entity.Attachment;
 import net.paramount.entity.config.Configuration;
-import net.paramount.entity.general.Item;
+import net.paramount.entity.general.GeneralItem;
 import net.paramount.exceptions.DataLoadingException;
 import net.paramount.exceptions.MspDataException;
 import net.paramount.framework.component.ComponentBase;
@@ -199,8 +199,8 @@ public class GlobalDmxRepositoryManager extends ComponentBase {
 		return contacts;
 	}
 
-	protected List<Item> marshallItems(){
-		List<Item> marshalledList = ListUtility.createDataList();
+	protected List<GeneralItem> marshallItems(){
+		List<GeneralItem> marshalledList = ListUtility.createDataList();
 		
 		return marshalledList;
 	}

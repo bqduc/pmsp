@@ -13,7 +13,7 @@ import net.paramount.auth.entity.Authority;
 import net.paramount.auth.service.AuthorityService;
 import net.paramount.common.CommonUtility;
 import net.paramount.common.ListUtility;
-import net.paramount.model.Filter;
+import net.paramount.domain.model.Filter;
 
 /**
  * @author ducbq

@@ -12,8 +12,8 @@ import javax.inject.Named;
 import net.paramount.common.CommonUtility;
 import net.paramount.common.ListUtility;
 import net.paramount.css.service.general.ItemTypeService;
+import net.paramount.domain.model.Filter;
 import net.paramount.entity.general.ItemType;
-import net.paramount.model.Filter;
 import net.paramount.utility.FacesUtilities;
 
 /**

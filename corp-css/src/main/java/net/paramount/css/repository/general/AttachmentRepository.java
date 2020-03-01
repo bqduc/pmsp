@@ -7,7 +7,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
-import net.paramount.entity.Attachment;
+import net.paramount.domain.entity.Attachment;
 import net.paramount.framework.repository.BaseRepository;
 
 /**

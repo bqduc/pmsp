@@ -82,7 +82,7 @@ public class CatalogueSubtype extends BizObjectBase {
 	
 	@ManyToOne
 	@JoinColumn(name = "level_id")
-	private Item level;
+	private GeneralItem level;
 
 	/**
 	 * 10: sub type for local level of catalog

@@ -9,12 +9,12 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
 import net.paramount.common.ListUtility;
-import net.paramount.controller.GlobalWebConstants;
 import net.paramount.css.service.config.ConfigurationService;
 import net.paramount.dmx.helper.DmxCollaborator;
 import net.paramount.dmx.repository.GlobalDmxRepositoryManager;
 import net.paramount.framework.component.ComponentBase;
 import net.paramount.framework.model.ExecutionContext;
+import net.paramount.global.GlobalWebConstants;
 import net.paramount.osx.model.MarshallingObjects;
 import net.paramount.osx.model.OSXConstants;
 
@@ -22,12 +22,9 @@ import net.paramount.osx.model.OSXConstants;
  * @author ducbq
  *
  */
+/**
 @Component
 public class MvpDataManager extends ComponentBase {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 7930754988017731873L;
 
 	@Inject 
@@ -67,10 +64,11 @@ public class MvpDataManager extends ComponentBase {
 			for (Object sheetId :dataWorkbook.getKeys()) {
 				dataWorksheet = dataWorkbook.getWorksheet(sheetId);
 				System.out.println(dataWorksheet);
-			}*/
+			}*//*
 		} catch (Exception e) {
 			log.error(e);
 		}
 		return GlobalWebConstants.ACTION_SUCCESS;
 	}
 }
+*/

@@ -2,7 +2,6 @@ package net.paramount.framework.entity;
 
 import java.util.Collection;
 import java.util.Date;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
@@ -11,13 +10,8 @@ import org.springframework.security.core.GrantedAuthority;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import net.paramount.common.ListUtility;
-
 @MappedSuperclass
 public abstract class SsoEntityBase extends BizObjectBase {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 8261894944163751162L;
 
 	//@Pattern(regexp = "^[a-z0-9]*$|(anonymousUser)")

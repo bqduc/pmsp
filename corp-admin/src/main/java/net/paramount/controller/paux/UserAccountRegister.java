@@ -15,7 +15,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.flow.FlowScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.mail.internet.MimeMessage;
 
 import org.apache.commons.io.FileUtils;
 import org.omnifaces.util.Faces;

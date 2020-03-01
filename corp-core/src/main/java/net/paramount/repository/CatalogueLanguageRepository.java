@@ -9,9 +9,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import net.paramount.entity.general.CatalogueItem;
-import net.paramount.entity.general.CatalogueLanguage;
-import net.paramount.entity.general.Language;
+import net.paramount.domain.entity.general.CatalogueItem;
+import net.paramount.domain.entity.general.CatalogueLanguage;
+import net.paramount.domain.entity.general.Language;
 import net.paramount.framework.repository.BaseRepository;
 
 /**

@@ -43,7 +43,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import net.paramount.common.ListUtility;
 import net.paramount.entity.general.Catalogue;
-import net.paramount.entity.general.Item;
+import net.paramount.entity.general.GeneralItem;
 import net.paramount.entity.general.MeasureUnit;
 import net.paramount.entity.trade.Tax;
 import net.paramount.framework.entity.BizObjectBase;
@@ -162,11 +162,11 @@ public class InventoryItem extends BizObjectBase {
 
 	@ManyToOne
 	@JoinColumn(name = "master_usage_direction_id")
-	private Item masterUsageDirection; // Đường dùng
+	private GeneralItem masterUsageDirection; // Đường dùng
 
 	@ManyToOne
 	@JoinColumn(name = "master_generic_drug_id")
-	private Item masterGenericDrug; //Generic drug/Chemical Name//Hoạt chất
+	private GeneralItem masterGenericDrug; //Generic drug/Chemical Name//Hoạt chất
 
 	@Builder.Default
 	@ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
@@ -351,19 +351,19 @@ public class InventoryItem extends BizObjectBase {
 		this.manufacturerId = manufacturerId;
 	}
 
-	public Item getMasterUsageDirection() {
+	public GeneralItem getMasterUsageDirection() {
 		return masterUsageDirection;
 	}
 
-	public void setMasterUsageDirection(Item masterUsageDirection) {
+	public void setMasterUsageDirection(GeneralItem masterUsageDirection) {
 		this.masterUsageDirection = masterUsageDirection;
 	}
 
-	public Item getMasterGenericDrug() {
+	public GeneralItem getMasterGenericDrug() {
 		return masterGenericDrug;
 	}
 
-	public void setMasterGenericDrug(Item masterGenericDrug) {
+	public void setMasterGenericDrug(GeneralItem masterGenericDrug) {
 		this.masterGenericDrug = masterGenericDrug;
 	}
 

@@ -48,4 +48,13 @@ public abstract class Context implements Serializable{
 		this.contextData.put(key, value);
 		return this;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder buffer = new StringBuilder();
+		for (String key :this.contextData.keySet()) {
+			buffer.append(key).append("\t: ").append(this.contextData.get(key)).append("\n");
+		}
+		return buffer.toString();
+	}
 }

@@ -29,7 +29,7 @@ import org.primefaces.event.SelectEvent;
 
 import net.paramount.common.ListUtility;
 import net.paramount.css.service.config.ItemService;
-import net.paramount.entity.general.Item;
+import net.paramount.entity.general.GeneralItem;
 
 @Named(value="autoCompleteItem")
 @ViewScoped
@@ -39,8 +39,8 @@ public class AutoCompleteItem implements Serializable {
 	*/
 	private static final long serialVersionUID = 1180855013001665329L;
 
-	private Item item;
-	private List<Item> selectedItems;
+	private GeneralItem item;
+	private List<GeneralItem> selectedItems;
 
 	@Inject
 	private ItemService businessService;
@@ -54,12 +54,12 @@ public class AutoCompleteItem implements Serializable {
 		return results;
 	}
 
-	public List<Item> completeItem(String query) {
-		List<Item> allItems = businessService.getObjects();
-		List<Item> filteredItems = ListUtility.createDataList();
+	public List<GeneralItem> completeItem(String query) {
+		List<GeneralItem> allItems = businessService.getObjects();
+		List<GeneralItem> filteredItems = ListUtility.createDataList();
 
 		for (int i = 0; i < allItems.size(); i++) {
-			Item skin = allItems.get(i);
+			GeneralItem skin = allItems.get(i);
 			if (skin.getName().toLowerCase().contains(query.toLowerCase())) {
 				filteredItems.add(skin);
 			}
@@ -68,12 +68,12 @@ public class AutoCompleteItem implements Serializable {
 		return filteredItems;
 	}
 
-	public List<Item> completeItemContains(String query) {
-		List<Item> allItems = businessService.getObjects();
-		List<Item> filteredItems = ListUtility.createDataList();
+	public List<GeneralItem> completeItemContains(String query) {
+		List<GeneralItem> allItems = businessService.getObjects();
+		List<GeneralItem> filteredItems = ListUtility.createDataList();
 
 		for (int i = 0; i < allItems.size(); i++) {
-			Item skin = allItems.get(i);
+			GeneralItem skin = allItems.get(i);
 			if (skin.getName().toLowerCase().contains(query.toLowerCase())) {
 				filteredItems.add(skin);
 			}
@@ -86,23 +86,23 @@ public class AutoCompleteItem implements Serializable {
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Item Selected", event.getObject().toString()));
 	}
 
-	public List<Item> getSelectedItems() {
+	public List<GeneralItem> getSelectedItems() {
 		return selectedItems;
 	}
 
-	public void setSelectedItems(List<Item> selectedItems) {
+	public void setSelectedItems(List<GeneralItem> selectedItems) {
 		this.selectedItems = selectedItems;
 	}
 
-	public char getItemGroup(Item item) {
+	public char getItemGroup(GeneralItem item) {
 		return item.getName().charAt(0);
 	}
 
-	public Item getItem() {
+	public GeneralItem getItem() {
 		return item;
 	}
 
-	public void setItem(Item item) {
+	public void setItem(GeneralItem item) {
 		this.item = item;
 	}
 

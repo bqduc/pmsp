@@ -1,6 +1,6 @@
 package net.paramount.service.general;
 
-import net.paramount.entity.general.CatalogueItem;
+import net.paramount.domain.entity.general.CatalogueItem;
 import net.paramount.exceptions.ObjectNotFoundException;
 import net.paramount.framework.service.GenericService;
 

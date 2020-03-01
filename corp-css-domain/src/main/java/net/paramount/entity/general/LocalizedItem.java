@@ -27,6 +27,7 @@ import org.hibernate.annotations.Type;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import net.paramount.domain.entity.general.Language;
 import net.paramount.framework.entity.BizObjectBase;
 
 /**
@@ -46,7 +47,7 @@ public class LocalizedItem extends BizObjectBase {
 
 	@ManyToOne
 	@JoinColumn(name = "item_id")
-	private Item item;
+	private GeneralItem item;
 
 	@ManyToOne
 	@JoinColumn(name = "language_id")
@@ -70,11 +71,11 @@ public class LocalizedItem extends BizObjectBase {
 		return this;
 	}
 
-	public Item getItem() {
+	public GeneralItem getItem() {
 		return item;
 	}
 
-	public LocalizedItem setItem(Item item) {
+	public LocalizedItem setItem(GeneralItem item) {
 		this.item = item;
 		return this;
 	}

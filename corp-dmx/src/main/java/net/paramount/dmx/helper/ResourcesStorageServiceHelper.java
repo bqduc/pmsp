@@ -24,7 +24,7 @@ import net.paramount.common.SimpleEncryptionEngine;
 import net.paramount.component.helper.ResourcesServicesHelper;
 import net.paramount.css.service.config.ConfigurationService;
 import net.paramount.css.service.general.AttachmentService;
-import net.paramount.entity.Attachment;
+import net.paramount.domain.entity.Attachment;
 import net.paramount.entity.config.Configuration;
 import net.paramount.entity.config.ConfigurationDetail;
 import net.paramount.exceptions.MspDataException;

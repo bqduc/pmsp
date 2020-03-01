@@ -38,7 +38,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import net.paramount.auth.entity.AuthenticateAccount;
 import net.paramount.entity.general.Currency;
-import net.paramount.entity.general.Item;
+import net.paramount.entity.general.GeneralItem;
 import net.paramount.framework.entity.BizObjectBase;
 
 /**
@@ -94,19 +94,19 @@ public class Activity extends BizObjectBase {
 
 	@ManyToOne
 	@JoinColumn(name = "type_id")
-	private Item type;
+	private GeneralItem type;
 
 	@ManyToOne
 	@JoinColumn(name = "priority_id")
-	private Item priority;
+	private GeneralItem priority;
 
 	@ManyToOne
 	@JoinColumn(name = "category_id")
-	private Item category;
+	private GeneralItem category;
 
 	@ManyToOne
 	@JoinColumn(name = "sub_category_id")
-	private Item subCategory;
+	private GeneralItem subCategory;
 
 	@ManyToOne
 	@JoinColumn(name = "owner_id")
@@ -186,35 +186,35 @@ public class Activity extends BizObjectBase {
 		this.dueDate = dueDate;
 	}
 
-	public Item getType() {
+	public GeneralItem getType() {
 		return type;
 	}
 
-	public void setType(Item type) {
+	public void setType(GeneralItem type) {
 		this.type = type;
 	}
 
-	public Item getPriority() {
+	public GeneralItem getPriority() {
 		return priority;
 	}
 
-	public void setPriority(Item priority) {
+	public void setPriority(GeneralItem priority) {
 		this.priority = priority;
 	}
 
-	public Item getCategory() {
+	public GeneralItem getCategory() {
 		return category;
 	}
 
-	public void setCategory(Item category) {
+	public void setCategory(GeneralItem category) {
 		this.category = category;
 	}
 
-	public Item getSubCategory() {
+	public GeneralItem getSubCategory() {
 		return subCategory;
 	}
 
-	public void setSubCategory(Item subCategory) {
+	public void setSubCategory(GeneralItem subCategory) {
 		this.subCategory = subCategory;
 	}
 

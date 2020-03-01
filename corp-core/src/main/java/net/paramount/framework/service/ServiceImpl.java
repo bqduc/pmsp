@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -33,6 +36,9 @@ public abstract class ServiceImpl<EntityType extends ObjectBase, Key extends Ser
 	private static final long serialVersionUID = 7920908481607510076L;
 
 	protected abstract BaseRepository<EntityType, Key> getRepository();
+
+	@PersistenceContext /* (unitName = GlobalConstants.APPLICATION_PERSISTENCE_UNIT) */
+	protected EntityManager em;
 
   /**
    * Get entity with the provided key.

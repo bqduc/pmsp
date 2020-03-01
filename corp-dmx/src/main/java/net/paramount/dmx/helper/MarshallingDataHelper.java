@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 import net.paramount.common.CommonConstants;
 import net.paramount.css.service.config.ItemService;
-import net.paramount.entity.general.Item;
+import net.paramount.entity.general.GeneralItem;
 import net.paramount.entity.general.LocalizedItem;
 
 /**
@@ -24,7 +24,7 @@ public class MarshallingDataHelper {
 	@Inject 
 	private ItemService itemService;
 
-	public Item searchLocalizedItem(String localizedItem, String languageCode) {
+	public GeneralItem searchLocalizedItem(String localizedItem, String languageCode) {
 		PageRequest pageRequest = PageRequest.of(CommonConstants.DEFAULT_PAGE_BEGIN, CommonConstants.DEFAULT_PAGE_SIZE, Sort.Direction.ASC, "id");
 		Page<LocalizedItem> pagedItems = itemService.searchLocalizedItems(localizedItem, languageCode, pageRequest);
 		return pagedItems.getContent().get(0).getItem();

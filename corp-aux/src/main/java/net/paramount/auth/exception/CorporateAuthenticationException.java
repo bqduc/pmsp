@@ -3,8 +3,8 @@
  */
 package net.paramount.auth.exception;
 
+import net.paramount.domain.model.AuthenticationStage;
 import net.paramount.exceptions.CorporateAuthException;
-import net.paramount.model.AuthenticationStage;
 
 /**
  * @author bqduc

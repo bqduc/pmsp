@@ -9,58 +9,61 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import lombok.extern.slf4j.Slf4j;
 import net.paramount.ase.entity.Member;
 import net.paramount.ase.model.FilterRequest;
 import net.paramount.ase.repository.MemberRepository;
 import net.paramount.ase.specification.MemberSpecification;
+import net.paramount.framework.component.CompCore;
 
-@Slf4j
+@SuppressWarnings("unchecked")
 @Service
-public class MemberService {
-    private MemberRepository memberRepository;
-    private MemberSpecification memberSpecification;
+public class MemberService extends CompCore {
+	private static final long serialVersionUID = 4317526877023108285L;
 
-    public MemberService(@Lazy MemberRepository memberRepository, @Lazy MemberSpecification memberSpecification) {
-        this.memberRepository = memberRepository;
-        this.memberSpecification = memberSpecification;
-    }
+	private MemberRepository memberRepository;
+	private MemberSpecification memberSpecification;
 
-    public List<Member> getMembers(FilterRequest filter, String searchString) {
-        return memberRepository.findAll(Specification.where(memberSpecification.hasString(searchString)
-                .or(memberSpecification.hasClasses(searchString)))
-                .and(memberSpecification.getFilter(filter)));
-    }
+	public MemberService(@Lazy MemberRepository memberRepository, @Lazy MemberSpecification memberSpecification) {
+		this.memberRepository = memberRepository;
+		this.memberSpecification = memberSpecification;
+	}
 
-    @Transactional(propagation=Propagation.REQUIRED, readOnly=true)
-    public void memberStats() {
-        List<Member> members = memberRepository.findAll();
+	public List<Member> getMembers(FilterRequest filter, String searchString) {
+		return memberRepository.findAll(Specification
+				.where(memberSpecification.hasString(searchString).or(memberSpecification.hasClasses(searchString)))
+				.and(memberSpecification.getFilter(filter)));
+	}
 
-        int activeCount = 0;
-        int inactiveCount = 0;
-        int registeredForClassesCount = 0;
-        int notRegisteredForClassesCount = 0;
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+	public void memberStats() {
+		List<Member> members = memberRepository.findAll();
 
-        for (Member member : members) {
-            if (member.isActive()) {
-                activeCount++;
+		int activeCount = 0;
+		int inactiveCount = 0;
+		int registeredForClassesCount = 0;
+		int notRegisteredForClassesCount = 0;
 
-                if (CollectionUtils.isNotEmpty(member.getMemberClasses())) {
-                    registeredForClassesCount++;
-                } else {
-                    notRegisteredForClassesCount++;
-                }
-            } else {
-                inactiveCount++;
-            }
-        }
+		for (Member member : members) {
+			if (member.isActive()) {
+				activeCount++;
 
-        /*log.info("Member Statics:");
-        log.info("==============");
-        log.info("Active member count: {}", activeCount);
-        log.info(" - Registered for Classes count: {}", registeredForClassesCount);
-        log.info(" - Not registered for Classes count: {}", notRegisteredForClassesCount);
-        log.info("Inactive member count: {}", inactiveCount);
-        log.info("==========================");*/
-    }
+				if (CollectionUtils.isNotEmpty(member.getMemberClasses())) {
+					registeredForClassesCount++;
+				} else {
+					notRegisteredForClassesCount++;
+				}
+			} else {
+				inactiveCount++;
+			}
+		}
+
+		/*
+		log.info("Member Statics:"); log.info("==============");
+		log.info("Active member count: {}", activeCount);
+		log.info(" - Registered for Classes count: {}", registeredForClassesCount);
+		log.info(" - Not registered for Classes count: {}", notRegisteredForClassesCount); 
+		log.info("Inactive member count: {}", inactiveCount); 
+		log.info("==========================");
+		*/
+	}
 }

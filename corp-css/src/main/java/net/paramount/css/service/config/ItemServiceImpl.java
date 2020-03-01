@@ -14,15 +14,15 @@ import org.springframework.stereotype.Service;
 import net.paramount.common.CommonUtility;
 import net.paramount.css.repository.config.LocalizedItemRepository;
 import net.paramount.css.repository.general.ItemRepository;
-import net.paramount.entity.general.Item;
-import net.paramount.entity.general.Language;
+import net.paramount.domain.entity.general.Language;
+import net.paramount.entity.general.GeneralItem;
 import net.paramount.entity.general.LocalizedItem;
 import net.paramount.exceptions.ObjectNotFoundException;
 import net.paramount.framework.repository.BaseRepository;
 import net.paramount.framework.service.GenericServiceImpl;
 
 @Service
-public class ItemServiceImpl extends GenericServiceImpl<Item, Long> implements ItemService{
+public class ItemServiceImpl extends GenericServiceImpl<GeneralItem, Long> implements ItemService{
 
 	/**
 	 * 
@@ -36,27 +36,27 @@ public class ItemServiceImpl extends GenericServiceImpl<Item, Long> implements I
 	private LocalizedItemRepository localizedRepository;
 
 	@Override
-	protected BaseRepository<Item, Long> getRepository() {
+	protected BaseRepository<GeneralItem, Long> getRepository() {
 		return this.repository;
 	}
 
 	@Override
-	protected Page<Item> performSearch(String keyword, Pageable pageable) {
+	protected Page<GeneralItem> performSearch(String keyword, Pageable pageable) {
 		return this.repository.search(keyword, pageable);
 	}
 
 	@Override
-	public Item getOne(String code) throws ObjectNotFoundException {
+	public GeneralItem getOne(String code) throws ObjectNotFoundException {
 		return this.repository.findByCode(code);
 	}
 
 	@Override
-	public Item getByName(String name) throws ObjectNotFoundException {
+	public GeneralItem getByName(String name) throws ObjectNotFoundException {
 		return this.repository.findByName(name);
 	}
 
 	@Override
-	public LocalizedItem getLocalizedItem(Item item, Language language) {
+	public LocalizedItem getLocalizedItem(GeneralItem item, Language language) {
 		EntityManager em = this.getEntityManager();
 		List results = em.createQuery("select li from LocalizedItem li where li.item = :item and li.language = :language")
 		.setParameter("item", item)

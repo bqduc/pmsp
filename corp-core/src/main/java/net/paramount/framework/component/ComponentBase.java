@@ -3,6 +3,8 @@
  */
 package net.paramount.framework.component;
 
+import net.paramount.global.GlobalConstants;
+
 /**
  * @author bqduc
  *
@@ -16,5 +18,5 @@ public abstract class ComponentBase extends CompCore {
 	protected static final String LOG_ENTRY_ENTER = "Enter";
 	protected static final String LOG_ENTRY_LEAVE = "Leave";
 
-	protected static final String PACKAGE_PREFIX = "net.paramount.";
+	protected static final String PACKAGE_PREFIX = GlobalConstants.QNS_PACKAGE + ".";
 }

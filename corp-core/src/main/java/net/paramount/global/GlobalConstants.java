@@ -10,6 +10,8 @@ import org.apache.commons.lang.StringUtils;
  *
  */
 public interface GlobalConstants {
+	final String QNS_PACKAGE = "net.paramount";
+
 	final static short	SIZE_STRING_TINY = 50;
 
 	final static byte		SIZE_SERIAL = 15;

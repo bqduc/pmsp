@@ -56,11 +56,6 @@ public abstract class BaseController extends RootController {
 	protected static final String PAGE_POSTFIX_EDIT = "Edit";
 	protected static final String REDIRECT = "redirect:/";
 
-	/*@Inject
-	@Qualifier("taskExecutor")
-	private TaskExecutor taskExecutor;*/
-  
-
 	@Inject
 	protected TaskExecutor taskScheduler;
 

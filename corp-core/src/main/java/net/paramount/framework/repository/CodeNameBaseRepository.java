@@ -13,7 +13,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.query.Param;
 
-import net.paramount.entity.general.CatalogueItem;
+import net.paramount.domain.entity.general.CatalogueItem;
 
 /**
  * @author bqduc

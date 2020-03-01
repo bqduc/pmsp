@@ -44,6 +44,14 @@
 			<version>${version.primefaces}</version>
 		</dependency>
 
+<!-- https://mvnrepository.com/artifact/org.omnifaces/omnifaces -->
+<dependency>
+    <groupId>org.omnifaces</groupId>
+    <artifactId>omnifaces</artifactId>
+    <scope>compile</scope>
+    <version>${version.omnifaces}</version>
+</dependency>
+
     <!-- <dependency>
         <groupId>com.github.adminfaces</groupId>
         <artifactId>admin-template</artifactId>

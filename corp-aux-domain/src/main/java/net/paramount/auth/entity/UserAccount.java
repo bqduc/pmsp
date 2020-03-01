@@ -42,7 +42,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import net.paramount.common.DateTimeUtility;
 import net.paramount.common.ListUtility;
-import net.paramount.entity.Attachment;
+import net.paramount.domain.entity.Attachment;
 import net.paramount.framework.entity.SsoEntityBase;
 import net.paramount.framework.entity.auth.AuthAccount;
 import net.paramount.global.GlobalConstants;

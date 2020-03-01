@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import net.paramount.css.service.config.LanguageService;
 import net.paramount.dmx.globe.DmxConstants;
-import net.paramount.entity.general.Language;
+import net.paramount.domain.entity.general.Language;
 import net.paramount.framework.component.ComponentBase;
 import net.paramount.lingual.helper.LingualHelper;
 

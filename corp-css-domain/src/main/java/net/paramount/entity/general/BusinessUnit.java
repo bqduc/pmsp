@@ -14,6 +14,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 import net.paramount.auth.entity.UserAccount;
+import net.paramount.domain.entity.general.CatalogueItem;
 import net.paramount.framework.entity.BizObjectBase;
 import net.paramount.global.GlobalConstants;
 
@@ -75,7 +76,7 @@ public class BusinessUnit extends BizObjectBase {
 
 	@ManyToOne
 	@JoinColumn(name = "level_id")
-	private Item level;
+	private GeneralItem level;
 
 	@ManyToOne
 	@JoinColumn(name = "business_level_id")
@@ -169,11 +170,11 @@ public class BusinessUnit extends BizObjectBase {
 		this.publishedDate = publishedDate;
 	}
 
-	public Item getLevel() {
+	public GeneralItem getLevel() {
 		return level;
 	}
 
-	public void setLevel(Item level) {
+	public void setLevel(GeneralItem level) {
 		this.level = level;
 	}
 

@@ -6,9 +6,9 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
-import net.paramount.entity.general.CatalogueItem;
-import net.paramount.entity.general.CatalogueLanguage;
-import net.paramount.entity.general.Language;
+import net.paramount.domain.entity.general.CatalogueItem;
+import net.paramount.domain.entity.general.CatalogueLanguage;
+import net.paramount.domain.entity.general.Language;
 import net.paramount.exceptions.ObjectNotFoundException;
 import net.paramount.framework.repository.BaseRepository;
 import net.paramount.framework.service.GenericServiceImpl;

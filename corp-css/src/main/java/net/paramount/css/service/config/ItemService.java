@@ -5,13 +5,13 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import net.paramount.entity.general.Item;
-import net.paramount.entity.general.Language;
+import net.paramount.domain.entity.general.Language;
+import net.paramount.entity.general.GeneralItem;
 import net.paramount.entity.general.LocalizedItem;
 import net.paramount.exceptions.ObjectNotFoundException;
 import net.paramount.framework.service.GenericService;
 
-public interface ItemService extends GenericService<Item, Long>{
+public interface ItemService extends GenericService<GeneralItem, Long>{
 
   /**
    * Get one item with the provided code.
@@ -20,7 +20,7 @@ public interface ItemService extends GenericService<Item, Long>{
    * @return The item
    * @throws ObjectNotFoundException If no such account exists.
    */
-	Item getOne(String code) throws ObjectNotFoundException;
+	GeneralItem getOne(String code) throws ObjectNotFoundException;
 
   /**
    * Get one item with the provided code.
@@ -29,11 +29,11 @@ public interface ItemService extends GenericService<Item, Long>{
    * @return The item
    * @throws ObjectNotFoundException If no such account exists.
    */
-	Item getByName(String name) throws ObjectNotFoundException;
+	GeneralItem getByName(String name) throws ObjectNotFoundException;
 
 	Page<LocalizedItem> searchLocalizedItems(String keyword, String languageCode, Pageable pageable);
 
-	LocalizedItem getLocalizedItem(Item item, Language language);
+	LocalizedItem getLocalizedItem(GeneralItem item, Language language);
 
 	LocalizedItem saveLocalizedItem(LocalizedItem localizedItem);
 	

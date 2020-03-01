@@ -23,7 +23,7 @@ import net.paramount.css.service.org.BusinessUnitService;
 import net.paramount.dmx.helper.ResourcesStorageServiceHelper;
 import net.paramount.embeddable.Phone;
 import net.paramount.entity.general.BusinessUnit;
-import net.paramount.entity.general.Item;
+import net.paramount.entity.general.GeneralItem;
 import net.paramount.entity.general.Money;
 import net.paramount.exceptions.DataLoadingException;
 import net.paramount.framework.component.ComponentBase;
@@ -84,8 +84,8 @@ public abstract class DmxRepositoryBase extends ComponentBase {
 
 	protected Map<String, BusinessUnit> businessUnitMap = ListUtility.createMap();
 
-	protected Map<String, Item> itemMap = ListUtility.createMap();
-	protected Map<String, Item> itemNameMap = ListUtility.createMap();
+	protected Map<String, GeneralItem> itemMap = ListUtility.createMap();
+	protected Map<String, GeneralItem> itemNameMap = ListUtility.createMap();
 
 	protected BusinessUnit getBusinessUnit(List<?> contactDataRow) {
 		if (this.businessUnitMap.containsKey(contactDataRow.get(IDX_BUSINESS_UNIT_CODE))) {
@@ -155,18 +155,18 @@ public abstract class DmxRepositoryBase extends ComponentBase {
 		return businessDivision;
 	}
 
-	protected Item parseJobInfo(List<?> contactDataRow) {
+	protected GeneralItem parseJobInfo(List<?> contactDataRow) {
 		return unmarshallItem((String)contactDataRow.get(IDX_JOB_CODE), (String)contactDataRow.get(IDX_JOB_NAME), null, null);
 	}
 
-	protected Item unmarshallItem(String code, String name, String nameExtend, String subtype) {
+	protected GeneralItem unmarshallItem(String code, String name, String nameExtend, String subtype) {
 		if (CommonUtility.isEmpty(code) || CommonUtility.isEmpty(name))
 			return null;
 
 		if (CommonUtility.isNotEmpty(code) && itemMap.containsKey(code))
 			return itemMap.get(code);
 
-		Item fetchedObject = this.itemService.getOne(code);
+		GeneralItem fetchedObject = this.itemService.getOne(code);
 		if (null != fetchedObject) {
 			this.itemMap.put(fetchedObject.getCode(), fetchedObject);
 			this.itemNameMap.put(fetchedObject.getName(), fetchedObject);
@@ -183,7 +183,7 @@ public abstract class DmxRepositoryBase extends ComponentBase {
 			return fetchedObject;
 		}
 
-		fetchedObject = Item.builder()
+		fetchedObject = GeneralItem.builder()
 				.code(code)
 				.name(name)
 				.nameLocal(nameExtend)

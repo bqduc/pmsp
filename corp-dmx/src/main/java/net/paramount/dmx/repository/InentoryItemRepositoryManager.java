@@ -24,7 +24,7 @@ import net.paramount.dmx.repository.base.DmxRepositoryBase;
 import net.paramount.entity.config.ConfigurationDetail;
 import net.paramount.entity.general.BusinessUnit;
 import net.paramount.entity.general.Catalogue;
-import net.paramount.entity.general.Item;
+import net.paramount.entity.general.GeneralItem;
 import net.paramount.entity.general.MeasureUnit;
 import net.paramount.entity.general.Money;
 import net.paramount.entity.general.Quantity;
@@ -153,7 +153,7 @@ public class InentoryItemRepositoryManager extends DmxRepositoryBase {
 	}
 
 	protected Entity unmarshallProduct(List<?> marshallingDataRow) throws DataLoadingException {
-		Item usageDirection = null, activeIngredient = null;
+		GeneralItem usageDirection = null, activeIngredient = null;
 		BusinessUnit servicingBusinessUnit = null;
 		Product marshalledObject = null;
 		Catalogue bindingCategory = null;

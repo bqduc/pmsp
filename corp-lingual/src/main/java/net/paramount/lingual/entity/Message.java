@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
-import net.paramount.entity.general.Language;
+import net.paramount.domain.entity.general.Language;
 import net.paramount.framework.entity.Auditable;
 
 /**

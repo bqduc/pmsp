@@ -17,21 +17,21 @@ public class QuartzSubmitJobs {
 
     @Bean(name = "memberStats")
     public JobDetailFactoryBean jobMemberStats() {
-        return MspQuartzConfig.createJobDetail(MemberStatsJob.class, "Member Statistics Job");
+        return QuartzJobSchedulerConfiguration.createJobDetail(MemberStatsJob.class, "Member Statistics Job");
     }
 
     @Bean(name = "memberStatsTrigger")
     public SimpleTriggerFactoryBean triggerMemberStats(@Qualifier("memberStats") JobDetail jobDetail) {
-        return MspQuartzConfig.createTrigger(jobDetail, 60000, "Member Statistics Trigger");
+        return QuartzJobSchedulerConfiguration.createTrigger(jobDetail, 60000, "Member Statistics Trigger");
     }
 
     @Bean(name = "memberClassStats")
     public JobDetailFactoryBean jobMemberClassStats() {
-        return MspQuartzConfig.createJobDetail(MemberClassStatsJob.class, "Class Statistics Job");
+        return QuartzJobSchedulerConfiguration.createJobDetail(MemberClassStatsJob.class, "Class Statistics Job");
     }
 
     @Bean(name = "memberClassStatsTrigger")
     public CronTriggerFactoryBean triggerMemberClassStats(@Qualifier("memberClassStats") JobDetail jobDetail) {
-        return MspQuartzConfig.createCronTrigger(jobDetail, CRON_EVERY_FIVE_MINUTES, "Class Statistics Trigger");
+        return QuartzJobSchedulerConfiguration.createCronTrigger(jobDetail, CRON_EVERY_FIVE_MINUTES, "Class Statistics Trigger");
     }
 }

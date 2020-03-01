@@ -12,8 +12,8 @@ import net.paramount.auth.entity.Module;
 import net.paramount.auth.service.ModuleService;
 import net.paramount.common.CommonUtility;
 import net.paramount.common.ListUtility;
+import net.paramount.domain.model.Filter;
 import net.paramount.framework.controller.RootController;
-import net.paramount.model.Filter;
 
 /**
  * @author ducbq
