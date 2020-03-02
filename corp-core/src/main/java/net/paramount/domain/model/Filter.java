@@ -9,8 +9,12 @@ import java.util.Map;
  * Created by rmpestano on 9/7/14.
  * class which holds database pagination metadata
  */
-public class Filter<T extends Serializable> {
-    private T entity;
+public class Filter<T extends Serializable> implements Serializable {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 5883454359764597960L;
+		private T entity;
     private int first;
     private int pageSize;
     private String sortField;
@@ -25,7 +29,7 @@ public class Filter<T extends Serializable> {
         this.entity = entity;
     }
 
-    public Filter setFirst(int first) {
+    public Filter<T> setFirst(int first) {
         this.first = first;
         return this;
     }
@@ -34,7 +38,7 @@ public class Filter<T extends Serializable> {
         return first;
     }
 
-    public Filter setPageSize(int pageSize) {
+    public Filter<T> setPageSize(int pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -43,7 +47,7 @@ public class Filter<T extends Serializable> {
         return pageSize;
     }
 
-    public Filter setSortField(String sortField) {
+    public Filter<T> setSortField(String sortField) {
         this.sortField = sortField;
         return this;
     }
@@ -52,7 +56,7 @@ public class Filter<T extends Serializable> {
         return sortField;
     }
 
-    public Filter setSortOrder(SortOrder sortOrder) {
+    public Filter<T> setSortOrder(SortOrder sortOrder) {
         this.sortOrder = sortOrder;
         return this;
     }
@@ -61,7 +65,7 @@ public class Filter<T extends Serializable> {
         return sortOrder;
     }
 
-    public Filter setParams(Map<String, Object> params) {
+    public Filter<T> setParams(Map<String, Object> params) {
         this.params = params;
         return this;
     }
@@ -74,12 +78,12 @@ public class Filter<T extends Serializable> {
         return entity;
     }
 
-    public Filter setEntity(T entity) {
+    public Filter<T> setEntity(T entity) {
         this.entity = entity;
         return this;
     }
 
-    public Filter addParam(String key, Object value) {
+    public Filter<T> addParam(String key, Object value) {
         getParams().put(key, value);
         return this;
     }

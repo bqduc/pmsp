@@ -3,6 +3,8 @@
  */
 package net.paramount.framework.logging;
 
+import java.io.Serializable;
+
 import org.slf4j.Logger;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +17,12 @@ import net.paramount.common.CommonUtility;
  */
 @Slf4j
 @Component
-public class LogService {
+public class LogService implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8926765774281312232L;
+
 	public void info(Logger logger, Throwable throwable) {
 		log.info(CommonUtility.getStackTrace(throwable));
 	}

@@ -24,7 +24,7 @@ import net.paramount.framework.entity.BizEntity;
  * 
  * @author bqduc
  */
-public interface AuthAccount extends UserDetails, BizEntity {
+public interface AuthenticationDetails extends UserDetails, BizEntity {
 	String getSsoId();
 	void setSsoId(String ssoId);
 

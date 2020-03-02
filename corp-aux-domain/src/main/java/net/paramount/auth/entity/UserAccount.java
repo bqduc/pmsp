@@ -44,7 +44,7 @@ import net.paramount.common.DateTimeUtility;
 import net.paramount.common.ListUtility;
 import net.paramount.domain.entity.Attachment;
 import net.paramount.framework.entity.SsoEntityBase;
-import net.paramount.framework.entity.auth.AuthAccount;
+import net.paramount.framework.entity.auth.AuthenticationDetails;
 import net.paramount.global.GlobalConstants;
 import net.paramount.model.DateTimePatterns;
 
@@ -60,7 +60,7 @@ import net.paramount.model.DateTimePatterns;
 @Table(name = "aux_user_account")
 @ToString(exclude = { "privileges" })
 @EqualsAndHashCode(callSuper = true)
-public class UserAccount extends SsoEntityBase implements AuthAccount {
+public class UserAccount extends SsoEntityBase implements AuthenticationDetails {
 	/**
 	 * 
 	 */

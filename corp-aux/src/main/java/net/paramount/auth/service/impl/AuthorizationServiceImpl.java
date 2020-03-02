@@ -9,6 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
+import net.paramount.auth.component.JwtTokenProvider;
 import net.paramount.auth.domain.UserProfile;
 import net.paramount.auth.entity.UserAccount;
 import net.paramount.auth.exception.CorporateAuthenticationException;
@@ -35,6 +36,9 @@ public class AuthorizationServiceImpl implements AuthorizationService {
 
 	@Inject 
 	private SecurityServiceContextHelper securityContextHolderServiceHelper;
+	
+	@Inject
+	private JwtTokenProvider tokenProvider;
 
 	@Override
 	public UserProfile authenticate(String ssoId, String password) throws CorporateAuthenticationException {
@@ -105,7 +109,8 @@ public class AuthorizationServiceImpl implements AuthorizationService {
 			mimeMessage.setRecipients(new String[] {updatedUserAccount.getEmail()});
 
 			context.put(CommunicatorConstants.CTX_MIME_MESSAGE, mimeMessage);
-			
+			String userToken = tokenProvider.generateToken(updatedUserAccount);
+			updatedUserAccount.setActivationKey(userToken);
 			registrationProfile = UserProfile.builder()
 					.displayName(updatedUserAccount.getDisplayName())
 					.userAccount(updatedUserAccount)

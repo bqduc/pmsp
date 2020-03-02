@@ -1,10 +1,12 @@
 package net.paramount.controller;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -18,8 +20,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import net.paramount.auth.component.JwtTokenProvider;
 import net.paramount.domain.model.ServerResponse;
 import net.paramount.domain.model.ServerResponseCode;
+import net.paramount.framework.entity.auth.AuthenticationDetails;
 
 /**
  * @author ducbq
@@ -34,6 +38,9 @@ public class AccountProfileController implements Serializable {
 	private static final long serialVersionUID = -8922161788640253600L;
 
 	@Inject
+	private JwtTokenProvider tokenProvider;
+
+	@Inject
 	private AuthenticationProvider corpAuthenticationProvider;
 	
 	@RequestMapping("confirm")	
@@ -46,14 +53,24 @@ public class AccountProfileController implements Serializable {
 	}
 
 	@RequestMapping(value="unsubscribe")
-	public ModelAndView unschedule(HttpServletRequest request, @RequestParam("jobName") String jobName) {
+	public void unschedule(HttpServletRequest request, HttpServletResponse response, @RequestParam("jobName") String jobName) {
 		System.out.println("JobController.unschedule()");
 		try {
+			AuthenticationDetails userDetails = tokenProvider.getUserDetailsFromJWT(jobName);
+			System.out.println(userDetails);
 			doAutoLogin("administrator", "admin@administrator", request);
 		} catch (Exception e) {
 			//e.printStackTrace();
 		}
-		return new ModelAndView("redirect:/");	
+		try {
+			response.sendRedirect("/index.jsf");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    //response.setHeader("Location", "/index.jsf");
+    //response.setStatus(302);
+		//return new ModelAndView("redirect:/");	
 	}
 
 	private void doAutoLogin(String username, String password, HttpServletRequest request) {

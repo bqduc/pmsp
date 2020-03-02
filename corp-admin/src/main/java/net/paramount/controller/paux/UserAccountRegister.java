@@ -85,36 +85,40 @@ public class UserAccountRegister extends RootController {
 	}
 
 	public void register() {
-		preProcessUserAccount();
-		/*
-		if (!this.validate()) {
-			utils.addDetailMessage(persistenceMessageSource.getMessage("msg.userAccountRegisterFailure", new Object[] {this.entity.getEmail()}, super.getCurrentLocale()));
+		try {
+			preProcessUserAccount();
+			/*
+			if (!this.validate()) {
+				utils.addDetailMessage(persistenceMessageSource.getMessage("msg.userAccountRegisterFailure", new Object[] {this.entity.getEmail()}, super.getCurrentLocale()));
+				Faces.getFlash().setKeepMessages(true);
+				FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "register");
+				return;
+			}
+			*/
+
+			if (this.businessUnit != null) {
+				this.entity.setCompanyName(this.businessUnit.getName());
+			}
+			
+			this.entity.setStateProvince("Sài Gòn");
+
+			this.entity.setBusinessUnitCode(this.businessUnit.getCode());
+
+			ExecutionContext context = ExecutionContext.builder().build();
+			
+			context.put(CommunicatorConstants.CTX_MAIL_TEMPLATE_DIR, "/template/");
+			context.put(CommunicatorConstants.CTX_MAIL_TEMPLATE_ID, "/auth/register.ftl");
+			context.put(CommunicatorConstants.CTX_USER_ACCOUNT, this.entity);
+			this.buildRegistrationContext(context);
+
+			this.authorizationService.register(context);
+			//businessService.registerUserAccount(this.entity);
+			utils.addDetailMessage(persistenceMessageSource.getMessage("msg.userAccountRegisterSuccess", new Object[] {this.entity.getEmail()}, super.getCurrentLocale()));
 			Faces.getFlash().setKeepMessages(true);
-			FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "register");
-			return;
+			FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "index");
+		} catch (Exception e) {
+			log.error(e);
 		}
-		*/
-
-		if (this.businessUnit != null) {
-			this.entity.setCompanyName(this.businessUnit.getName());
-		}
-		
-		this.entity.setStateProvince("Sài Gòn");
-
-		this.entity.setBusinessUnitCode(this.businessUnit.getCode());
-
-		ExecutionContext context = ExecutionContext.builder().build();
-		
-		context.put(CommunicatorConstants.CTX_MAIL_TEMPLATE_DIR, "/template/");
-		context.put(CommunicatorConstants.CTX_MAIL_TEMPLATE_ID, "/auth/register.ftl");
-		context.put(CommunicatorConstants.CTX_USER_ACCOUNT, this.entity);
-		this.buildRegistrationMimeMessageContext(context);
-
-		this.authorizationService.register(context);
-		//businessService.registerUserAccount(this.entity);
-		utils.addDetailMessage(persistenceMessageSource.getMessage("msg.userAccountRegisterSuccess", new Object[] {this.entity.getEmail()}, super.getCurrentLocale()));
-		Faces.getFlash().setKeepMessages(true);
-		FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "index");
 	}
 	
 	/*public void save() {
@@ -196,7 +200,7 @@ public class UserAccountRegister extends RootController {
 		return true;
 	}
 
-	private void buildRegistrationMimeMessageContext(Context context) {
+	private void buildRegistrationContext(Context context) {
 		CorpMimeMessage corpMimeMessage = CorpMimeMessage.builder()
 				.from("ducbuiquy@gmail.com")
 				.subject(CommunicatorConstants.CTX_DEFAULT_REGISTRATION_SUBJECT) //Should get data from resource bundle for localization

@@ -19,8 +19,8 @@ import org.springframework.stereotype.Component;
 import com.github.adminfaces.template.exception.BusinessException;
 
 import net.paramount.domain.dummy.Car;
-import net.paramount.mvp.infra.model.Filter;
-import net.paramount.mvp.infra.model.SortOrder;
+import net.paramount.domain.model.Filter;
+import net.paramount.domain.model.SortOrder;
 
 /**
  * @author rmpestano

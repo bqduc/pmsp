@@ -17,7 +17,7 @@ import org.primefaces.model.SortOrder;
 import com.github.adminfaces.template.exception.BusinessException;
 
 import net.paramount.domain.dummy.Car;
-import net.paramount.mvp.infra.model.Filter;
+import net.paramount.domain.model.Filter;
 import net.paramount.mvp.service.CarService;
 
 /**
@@ -48,11 +48,11 @@ public class CarListMB implements Serializable {
             public List<Car> load(int first, int pageSize,
                                   String sortField, SortOrder sortOrder,
                                   Map<String, Object> filters) {
-                net.paramount.mvp.infra.model.SortOrder order = null;
+            	net.paramount.domain.model.SortOrder order = null;
                 if (sortOrder != null) {
-                    order = sortOrder.equals(SortOrder.ASCENDING) ? net.paramount.mvp.infra.model.SortOrder.ASCENDING
-                            : sortOrder.equals(SortOrder.DESCENDING) ? net.paramount.mvp.infra.model.SortOrder.DESCENDING
-                            : net.paramount.mvp.infra.model.SortOrder.UNSORTED;
+                    order = sortOrder.equals(SortOrder.ASCENDING) ? net.paramount.domain.model.SortOrder.ASCENDING
+                            : sortOrder.equals(SortOrder.DESCENDING) ? net.paramount.domain.model.SortOrder.DESCENDING
+                            : net.paramount.domain.model.SortOrder.UNSORTED;
                 }
                 filter.setFirst(first).setPageSize(pageSize)
                         .setSortField(sortField).setSortOrder(order)

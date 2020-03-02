@@ -20,7 +20,7 @@ package net.paramount.framework.entity.auth;
  * 
  * @author bqduc
  */
-public interface ClientAccount extends AuthAccount {
+public interface ClientAccount extends AuthenticationDetails {
 	String getFirstName();
 	void setFirstName(String firstName);
 
