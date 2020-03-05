@@ -19,9 +19,8 @@ import net.paramount.framework.component.CompCore;
  * 
  */
 
-@Component(value="corpAuthenticationProvider")
+@Component(value="authenticationProvider")
 public class CorpAuthenticationProvider extends CompCore implements AuthenticationProvider {
-
 	/**
 	 * 
 	 */
