@@ -110,7 +110,7 @@ public class ResourcesStorageServiceHelper {
 			attachment = this.buidAttachment(masterDataFileName, masterDataBuffer, (String)executionContextParams.get(OSXConstants.MASTER_FILE_ENCRYPTION_KEY));
 			this.attachmentService.save(attachment);
 			//Build configuration & dependencies accordingly
-			archivedConfigChecker = this.configurationService.getOne(masterDataFileName);
+			archivedConfigChecker = this.configurationService.getByName(masterDataFileName);
 			if (archivedConfigChecker.isPresent())
 				return;
 

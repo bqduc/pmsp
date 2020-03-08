@@ -13,17 +13,19 @@ import lombok.extern.slf4j.Slf4j;
  *
  */
 @Slf4j
-public class CorpApplicationLaunchpad {
-	protected CorpApplicationLaunchpad() {
+public class ApplicationLaunchpad {
+	protected ApplicationLaunchpad() {
 	}
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		SpringApplication mainApp = null;
+		ConfigurableApplicationContext configAppContext = null;
 		try {
-			SpringApplication mainApp = new SpringApplication(CorpWebAminApplication.class);
-			ConfigurableApplicationContext configAppContext = mainApp.run(args);
+			mainApp = new SpringApplication(WebAminApplication.class);
+			configAppContext = mainApp.run(args);
 			log.info("Configurable application context: {}", configAppContext);
 		} catch (Exception e) {
 			if (e.getClass().getName().contains("SilentExitException")) {

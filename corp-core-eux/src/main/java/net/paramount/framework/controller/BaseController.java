@@ -18,6 +18,13 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -59,8 +66,11 @@ public abstract class BaseController extends RootController {
 	@Inject
 	protected TaskExecutor taskScheduler;
 
+	@Inject
+	private AuthenticationProvider authenticationProvider;
+
 	protected void doPostConstruct() throws ExecutionContextException {
-		throw new ExecutionContextException("Not implemented yet!");
+		//throw new ExecutionContextException("Not implemented yet!");
 	}
 
 	@PostConstruct
@@ -225,6 +235,31 @@ public abstract class BaseController extends RootController {
 		}
 		return isContinuedOther;
 	}
+
+	protected void doAutoLogin(HttpServletRequest request, String ssoId, String password) {
+		try {
+			// Must be called from request filtered by Spring Security, otherwise SecurityContextHolder is not updated
+			UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(ssoId, password);
+			token.setDetails(new WebAuthenticationDetails(request));
+			Authentication authentication = this.authenticationProvider.authenticate(token);
+			log.debug("Logging in with [{}]", authentication.getPrincipal());
+			SecurityContextHolder.getContext().setAuthentication(authentication);
+		} catch (Exception e) {
+			SecurityContextHolder.getContext().setAuthentication(null);
+			log.error("Failure in autoLogin", e);
+		}
+	}	
+
+	protected void remoteLogin(HttpServletRequest request, UserDetails userDetails) {
+		try {
+			UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+			authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+      SecurityContextHolder.getContext().setAuthentication(authentication);
+		} catch (Exception e) {
+			SecurityContextHolder.getContext().setAuthentication(null);
+			log.error("Failure in remote Login", e);
+		}
+	}	
 
 	/*@RequestMapping(method = RequestMethod.GET)
 	public String list(Model model, HttpServletRequest request) {

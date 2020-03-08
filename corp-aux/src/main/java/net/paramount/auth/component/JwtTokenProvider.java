@@ -25,7 +25,7 @@ import net.paramount.framework.entity.auth.AuthenticationDetails;
 public class JwtTokenProvider extends CompCore {
 	private static final long serialVersionUID = -312627269682252483L;
 
-	private final static String TOKEN_SUBJECT_SEPARATOR = "#";
+	private static final String TOKEN_SUBJECT_SEPARATOR = "#";
   // Đoạn JWT_SECRET này là bí mật, chỉ có phía server biết
   private final String JWT_SECRET = "lodaaaaaa";
 

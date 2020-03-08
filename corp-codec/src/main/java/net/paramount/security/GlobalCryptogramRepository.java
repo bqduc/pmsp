@@ -3,15 +3,26 @@
  */
 package net.paramount.security;
 
-import lombok.Builder;
 import net.paramount.security.base.Cryptographer;
 
 /**
  * @author ducbq
  *
  */
-@Builder
 public class GlobalCryptogramRepository {
+	public static final String SECRET_KEY = "noSecret";
+
+	private GlobalCryptogramRepository() {
+	}
+
+	public static GlobalCryptogramRepository getInstance() {
+		return SingletonHolder.INSTANCE;		
+	}
+
+  private static class SingletonHolder {
+    private static final GlobalCryptogramRepository INSTANCE = new GlobalCryptogramRepository();
+  }
+  
 	public Cryptographer getCryptographer(CryptographyAlgorithm algorithm) {
 		if (CryptographyAlgorithm.PLAIN_TEXT.equals(algorithm))
 			return PlainTextCryptographer.builder().build();
@@ -32,5 +43,9 @@ public class GlobalCryptogramRepository {
 			return PrivateLowCryptographer.builder().build();
 
 		return BasicCryptographer.builder().build();
+	}
+
+	public Cryptographer getDefaultCryptographer() {
+		return this.getCryptographer(CryptographyAlgorithm.PRIVATE_MEDIUM);
 	}
 }

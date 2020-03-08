@@ -1,3 +1,5 @@
+//import net.paramount.common.CommonConstants;
+
 /**
  * 
  *//*
@@ -32,8 +34,8 @@ import net.paramount.security.SecretAlgorithm;
  *//*
 public class CoreTestMocker {
 	//Z1qh5aEWcgeVyzy5PUBIBbJ3bbygHe/vHemIVM9ekFYI6uSMNoTcJhEQKrvBJYSyaN0Jq6C7NoIPkFqgWUxvNwVwH0wMQILqH5YoW5R0biw=
-	final static String encodedMessage = "HBzX4hQOCBp/ifGhU8N997Hq/cB/F/GY6m3bdct9jGWRDL92MzS8DhiT7FGbn4WozZb3UfxuGlQXU5DdCJv2NaWFFTE+aULl6PiConA0BVD9HztB71S+e+5z7f/1O+75mFO7CM75XDNFeXbtpuYOdWqSBXcE0Rko7F34ptLOh/OYQpfInCHhg10Va5woXjJ+ifEpbZ8d8saqzxeh0O+iert4PhTaVp6X/gT5lEuiSlovxTMKhEvDAilsPRb11QZvsRJgBe930E/s6ZveEV/R3IgSwJ8omCNzyHJniz60MRU=";
-	final static String message = "Không có dự án nào hoàn thành nếu không có biên bản nghiệm thu tổng thể từ khách hàng. Hầu hết các vấn đề xảy ra đã có kế hoạch giải quyết trong  quản trị rủi ro.";
+	static final String encodedMessage = "HBzX4hQOCBp/ifGhU8N997Hq/cB/F/GY6m3bdct9jGWRDL92MzS8DhiT7FGbn4WozZb3UfxuGlQXU5DdCJv2NaWFFTE+aULl6PiConA0BVD9HztB71S+e+5z7f/1O+75mFO7CM75XDNFeXbtpuYOdWqSBXcE0Rko7F34ptLOh/OYQpfInCHhg10Va5woXjJ+ifEpbZ8d8saqzxeh0O+iert4PhTaVp6X/gT5lEuiSlovxTMKhEvDAilsPRb11QZvsRJgBe930E/s6ZveEV/R3IgSwJ8omCNzyHJniz60MRU=";
+	static final String message = "Không có dự án nào hoàn thành nếu không có biên bản nghiệm thu tổng thể từ khách hàng. Hầu hết các vấn đề xảy ra đã có kế hoạch giải quyết trong  quản trị rủi ro.";
 
 	*//**
 	 * @param args
@@ -156,8 +158,6 @@ public class CoreTestMocker {
   }
 
   protected static void testUnicorn() throws CryptographyException {
-  	System.out.println(Charset.forName("UTF-8").name());
-  	System.out.println(Charset.forName("utf-8").name());
   	Cryptographer cryptographer = GlobalCryptogramRepository.builder().build().getCryptographer(CryptographyAlgorithm.PRIVATE_HIGH);
 		String encoded = cryptographer.stringEncode(message);
 		System.out.println("[" + encoded + "]");
@@ -236,7 +236,7 @@ public class CoreTestMocker {
 		// sun.misc.BASE64Decoder().decodeBuffer(message);
 		final byte[] plainText = decipher.doFinal(message);
 
-		return new String(plainText, "UTF-8");
+		return new String(plainText, CommonConstants.ENCODING_NAME_UTF8);
 	}
 }
 */

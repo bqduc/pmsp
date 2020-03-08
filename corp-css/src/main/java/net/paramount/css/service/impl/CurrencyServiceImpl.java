@@ -1,4 +1,4 @@
-package net.paramount.css.service.general;
+package net.paramount.css.service.impl;
 
 import java.util.Optional;
 
@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import net.paramount.css.repository.general.CurrencyRepository;
+import net.paramount.css.service.general.CurrencyService;
 import net.paramount.css.service.system.SequenceManager;
 import net.paramount.css.specification.CurrencySpecification;
 import net.paramount.entity.general.Currency;

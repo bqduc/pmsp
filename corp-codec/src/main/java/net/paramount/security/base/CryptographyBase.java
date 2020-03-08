@@ -19,11 +19,11 @@ public abstract class CryptographyBase {
 			(byte) 0xC6, (byte) 0x5F, (byte) 0x7D, (byte) 0x8B,
 			(byte) 0x0B, (byte) 0x9A, (byte) 0x3C, (byte) 0xF1 };
 	
-	protected final static String SECRET_KEY_AES = "stackjava.com.if";
+	protected static final String SECRET_KEY_AES = "stackjava.com.if";
 
 
-	protected final static String SALT_PREFIX = "{{";
-	protected final static String SALT_POSFIX = "}}";
+	protected static final String SALT_PREFIX = "{{";
+	protected static final String SALT_POSFIX = "}}";
 
 	protected static final SecretKeySpec skeySpecDES = new SecretKeySpec(SECRET_KEY_AES.getBytes(), SecretAlgorithm.DES.name());
 	

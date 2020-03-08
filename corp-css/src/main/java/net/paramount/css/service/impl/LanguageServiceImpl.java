@@ -1,4 +1,4 @@
-package net.paramount.css.service.config;
+package net.paramount.css.service.impl;
 
 import javax.inject.Inject;
 
@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import net.paramount.css.repository.config.LanguageRepository;
+import net.paramount.css.service.config.LanguageService;
 import net.paramount.domain.entity.general.Language;
 import net.paramount.framework.repository.BaseRepository;
 import net.paramount.framework.service.GenericServiceImpl;

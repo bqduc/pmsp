@@ -1,4 +1,4 @@
-package net.paramount.css.service.contact;
+package net.paramount.css.service.impl;
 
 import java.util.List;
 
@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import net.paramount.css.repository.contact.ContactAddressRepository;
+import net.paramount.css.service.contact.ContactAddressService;
 import net.paramount.css.specification.ContactAddressSpecification;
 import net.paramount.entity.contact.Contact;
 import net.paramount.entity.contact.ContactAddress;

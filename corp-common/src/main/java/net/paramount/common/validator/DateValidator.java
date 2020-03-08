@@ -19,7 +19,7 @@ public class DateValidator {
 
 	private static final String DATE_PATTERN = "(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((19|20)\\d\\d)";
 
-	private final static DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+	private static final DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
 	private DateValidator() {
 		pattern = Pattern.compile(DATE_PATTERN);

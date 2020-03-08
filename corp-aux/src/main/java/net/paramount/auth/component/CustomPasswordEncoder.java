@@ -21,7 +21,7 @@ import net.paramount.common.CommonUtility;
 @Named("virtualEncoder")
 @Component
 public class CustomPasswordEncoder implements SimplePasswordEncoder {
-	private final static String PASSWORD_ENCODER_SALT = "裴达克·奎-裴达克·奎";
+	private static final String PASSWORD_ENCODER_SALT = "裴达克·奎-裴达克·奎";
 
 	@Inject
 	private PasswordEncoder passwordEncoder;

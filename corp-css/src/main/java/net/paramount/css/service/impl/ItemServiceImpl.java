@@ -1,4 +1,4 @@
-package net.paramount.css.service.config;
+package net.paramount.css.service.impl;
 
 import java.util.List;
 
@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import net.paramount.common.CommonUtility;
 import net.paramount.css.repository.config.LocalizedItemRepository;
 import net.paramount.css.repository.general.ItemRepository;
+import net.paramount.css.service.config.ItemService;
 import net.paramount.domain.entity.general.Language;
 import net.paramount.entity.general.GeneralItem;
 import net.paramount.entity.general.LocalizedItem;

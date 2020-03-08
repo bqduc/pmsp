@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Base64;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.faces.context.FacesContext;
 import javax.faces.flow.FlowScoped;
@@ -30,10 +31,14 @@ import net.paramount.comm.domain.CorpMimeMessage;
 import net.paramount.comm.global.CommunicatorConstants;
 import net.paramount.common.CommonConstants;
 import net.paramount.common.ListUtility;
+import net.paramount.css.service.config.ConfigurationService;
+import net.paramount.entity.config.Configuration;
 import net.paramount.entity.general.BusinessUnit;
+import net.paramount.exceptions.MspRuntimeException;
 import net.paramount.framework.controller.RootController;
 import net.paramount.framework.model.Context;
 import net.paramount.framework.model.ExecutionContext;
+import net.paramount.global.GlobalConstants;
 import net.paramount.utility.FacesUtilities;
 
 /**
@@ -55,6 +60,9 @@ public class UserAccountRegister extends RootController {
 
 	@Inject 
 	private AuthorizationService authorizationService;
+
+	@Inject 
+	private ConfigurationService configurationService;
 
 	private Long id;
 
@@ -201,33 +209,44 @@ public class UserAccountRegister extends RootController {
 	}
 
 	private void buildRegistrationContext(Context context) {
+		Configuration configuration = null;
 		CorpMimeMessage corpMimeMessage = CorpMimeMessage.builder()
 				.from("ducbuiquy@gmail.com")
 				.subject(CommunicatorConstants.CTX_DEFAULT_REGISTRATION_SUBJECT) //Should get data from resource bundle for localization
+				.locale(this.getCurrentLocale())
 				.build();
 
 		UserAccount userAccount = (UserAccount)context.get(CommunicatorConstants.CTX_USER_ACCOUNT);
 		Map<String, Object> definitions = ListUtility.createMap();
 		definitions.put("userContact", userAccount);
-		definitions.put("location", "Binh Dinh-Sai Gon");
+		definitions.put("location", "Bình Định-Sài Gòn");
 		definitions.put("signature", "www.mekongparadise.com");
 
 		try {
 			File imageFile = ResourceUtils.getFile("classpath:template/images/marker-icon.png");
 			byte[] fileContent = FileUtils.readFileToByteArray(imageFile);
-			String encodedfile = new String(Base64.getEncoder().encode(fileContent), "UTF-8");
+			String encodedfile = new String(Base64.getEncoder().encode(fileContent), CommonConstants.ENCODING_NAME_UTF8);
 
 			String imgAsBase64 = "data:image/png;base64," + encodedfile;
 			definitions.put("imgAsBase64", imgAsBase64);
 			
-			definitions.put("firstName", userAccount.getFirstName());
 			definitions.put("lastName", userAccount.getLastName());
+			definitions.put("firstName", userAccount.getFirstName());
+
+			Optional<Configuration> opt = configurationService.getByName(GlobalConstants.CONFIG_APP_ACCESS_URL);
+			if (!opt.isPresent())
+				throw new MspRuntimeException("No configuration of application access link!");
+
+			definitions.put(GlobalConstants.CONFIG_APP_ACCESS_URL, new StringBuilder(opt.get().getValue())
+					.append("/protected/accountProfile/confirm/")
+					.toString()
+					);
 			/*
 			
 			File img = ResourceUtils.getFile("classpath:template/subscription/images/marker-icon.png");
 			fileContent = FileUtils.readFileToByteArray(img);
 			encodedString = Base64.getEncoder().encodeToString(fileContent);
-			encodedfile = new String(Base64.getEncoder().encode(fileContent), "UTF-8");
+			encodedfile = new String(Base64.getEncoder().encode(fileContent), CommonConstants.ENCODING_NAME_UTF8);
 			
 			byte[] imgBytes = IOUtils.toByteArray(new FileInputStream(img));
 			byte[] imgBytesAsBase64 = Base64.getEncoder().encode(imgBytes);

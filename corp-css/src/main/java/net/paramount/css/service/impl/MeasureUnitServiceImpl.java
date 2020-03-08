@@ -1,4 +1,4 @@
-package net.paramount.css.service.general;
+package net.paramount.css.service.impl;
 
 import java.util.Optional;
 
@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import net.paramount.css.repository.general.MeasureUnitRepository;
+import net.paramount.css.service.general.MeasureUnitService;
 import net.paramount.css.service.system.SequenceManager;
 import net.paramount.css.service.system.SequenceService;
 import net.paramount.css.specification.MeasureUnitSpecification;

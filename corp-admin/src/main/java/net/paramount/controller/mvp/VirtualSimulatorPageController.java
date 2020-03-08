@@ -291,7 +291,7 @@ public class VirtualSimulatorPageController extends BaseController {
   		ExecutionContext executionContext = null;
   		List<String> marshallingObjects = null;
   		try {
-  			Optional<Configuration> optConfigDataWorkbooks = configurationService.getOne("dataWokbooks");
+  			Optional<Configuration> optConfigDataWorkbooks = configurationService.getByName("dataWokbooks");
   			if (!optConfigDataWorkbooks.isPresent()) {
   				log.info("There is no configuration of data workbooks!");
   				return;

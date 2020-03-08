@@ -45,24 +45,24 @@ public abstract class DmxRepositoryBase extends ComponentBase {
 	 */
 	private static final long serialVersionUID = 5074736014633924681L;
 
-	public final static int IDX_BUSINESS_DIVISION_NAME = 2;
-	public final static int IDX_BUSINESS_UNIT_CODE = 3;
-	public final static int IDX_BUSINESS_UNIT_NAME = 4;
-	public final static int IDX_GENDER = 6;
-	public final static int IDX_STATUS = 7;
-	public final static int IDX_JOB_CODE = 8;
-	public final static int IDX_JOB_NAME = 9;
-	public final static int IDX_PHONE_PRIORITY = 11;
-	public final static int IDX_PHONE_OFFICE = 12;
-	public final static int IDX_PHONE_HOME = 13;
-	public final static int IDX_PHONE_MOBILE = 14;
-	public final static int IDX_FAX = 19;
-	public final static int IDX_PHONE_OTHER = 20;
-	public final static int IDX_EMAIL_WORK = 21;
-	public final static int IDX_EMAIL_PERSONAL = 23;
-	public final static int NUMBER_OF_CATALOGUE_SUBTYPES_GENERATE = 500;
-	public final static int NUMBER_TO_GENERATE = 15000;
-	public final static String DEFAULT_COUNTRY = "Việt Nam";
+	public static final int IDX_BUSINESS_DIVISION_NAME = 2;
+	public static final int IDX_BUSINESS_UNIT_CODE = 3;
+	public static final int IDX_BUSINESS_UNIT_NAME = 4;
+	public static final int IDX_GENDER = 6;
+	public static final int IDX_STATUS = 7;
+	public static final int IDX_JOB_CODE = 8;
+	public static final int IDX_JOB_NAME = 9;
+	public static final int IDX_PHONE_PRIORITY = 11;
+	public static final int IDX_PHONE_OFFICE = 12;
+	public static final int IDX_PHONE_HOME = 13;
+	public static final int IDX_PHONE_MOBILE = 14;
+	public static final int IDX_FAX = 19;
+	public static final int IDX_PHONE_OTHER = 20;
+	public static final int IDX_EMAIL_WORK = 21;
+	public static final int IDX_EMAIL_PERSONAL = 23;
+	public static final int NUMBER_OF_CATALOGUE_SUBTYPES_GENERATE = 500;
+	public static final int NUMBER_TO_GENERATE = 15000;
+	public static final String DEFAULT_COUNTRY = "Việt Nam";
 
 	@Inject
 	protected OfficeSuiteServiceProvider officeSuiteServiceProvider;

@@ -24,6 +24,7 @@ import net.paramount.auth.entity.UserAccount;
 import net.paramount.comm.comp.Communicator;
 import net.paramount.comm.comp.CommunicatorServiceHelper;
 import net.paramount.comm.domain.CorpMimeMessage;
+import net.paramount.common.CommonConstants;
 import net.paramount.common.DateTimeUtility;
 import net.paramount.exceptions.CommunicatorException;
 import net.paramount.framework.controller.RootController;
@@ -111,7 +112,7 @@ public class AuthenticationController extends RootController {
 		mail.setFrom("javabycode@gmail.com");
 		mail.setRecipients(new String[] {"duc.buiquy@vn.bosch.com"});
 		mail.setSubject("Admin-Spring Boot - Email with FreeMarker template");
- 
+		mail.setLocale(this.getCurrentLocale());
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("userContact", getUserAccount());
 		model.put("firstName", "Đức");
@@ -123,7 +124,7 @@ public class AuthenticationController extends RootController {
 			File imageFile = ResourceUtils.getFile("classpath:template/subscription/images/marker-icon.png");
 			byte[] fileContent = FileUtils.readFileToByteArray(imageFile);
 			String encodedString = Base64.getEncoder().encodeToString(fileContent);
-			String encodedfile = new String(Base64.getEncoder().encode(fileContent), "UTF-8");
+			String encodedfile = new String(Base64.getEncoder().encode(fileContent), CommonConstants.ENCODING_NAME_UTF8);
 			
 			String imgAsBase64 = "data:image/png;base64," + encodedfile;
 			model.put("imgAsBase64", imgAsBase64);
@@ -132,7 +133,7 @@ public class AuthenticationController extends RootController {
 			File img = ResourceUtils.getFile("classpath:template/subscription/images/marker-icon.png");
 			fileContent = FileUtils.readFileToByteArray(img);
 			encodedString = Base64.getEncoder().encodeToString(fileContent);
-			encodedfile = new String(Base64.getEncoder().encode(fileContent), "UTF-8");
+			encodedfile = new String(Base64.getEncoder().encode(fileContent), CommonConstants.ENCODING_NAME_UTF8);
 			
 			byte[] imgBytes = IOUtils.toByteArray(new FileInputStream(img));
 			byte[] imgBytesAsBase64 = Base64.getEncoder().encode(imgBytes);

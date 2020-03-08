@@ -4,6 +4,7 @@
 package net.paramount.comm.comp;
 
 import java.io.IOException;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -41,7 +42,7 @@ public class EmailTemplateHelper extends CompCore {
 		this.emailTemplateLoadingDir = emailTemplateLoadingDir;
 	}
 
-	public String getEmailMessageText(String templateId, Object model) throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException {
+	public String getEmailMessageText(String templateId, Locale locale, Object model) throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException {
 		String emailTemplateDir = this.getEmailTemplateLoadingDir();
 		if (CommonUtility.isEmpty(emailTemplateDir)) {
 			emailTemplateDir = CommunicatorConstants.DEFAULT_LOADING_TEMPLATE_DIRECTORY;
@@ -49,7 +50,7 @@ public class EmailTemplateHelper extends CompCore {
 		}
 
 		freemarkerConfig.setClassForTemplateLoading(this.getClass(), emailTemplateDir);
-		Template template = freemarkerConfig.getTemplate(templateId);
+		Template template = freemarkerConfig.getTemplate(templateId, locale);
 		return FreeMarkerTemplateUtils.processTemplateIntoString(template, model);
 	}
 }

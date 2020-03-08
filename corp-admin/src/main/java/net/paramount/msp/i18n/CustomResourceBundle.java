@@ -2,6 +2,8 @@
 
 import org.springframework.stereotype.Component;
 
+import net.paramount.common.CommonConstants;
+
 /**
  * Adds support for UTF-8 based bundles for admin i18n messages
  * 
@@ -14,7 +16,7 @@ public class CustomResourceBundle extends MultiplePropertiesResourceBundle {
 
     protected static final String BUNDLE_NAME = "admin";
     protected static final String BUNDLE_EXTENSION = "properties";
-    protected static final String CHARSET = "UTF-8";
+    protected static final String CHARSET = CommonConstants.ENCODING_NAME_UTF8;
     
     static String i18nMvp = "";
     static {

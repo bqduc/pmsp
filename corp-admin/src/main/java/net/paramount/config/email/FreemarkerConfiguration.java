@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 
+import net.paramount.common.CommonConstants;
+
 /**
  * @author ducbq
  *
@@ -19,7 +21,7 @@ public class FreemarkerConfiguration {
 	public FreeMarkerConfigurer freemarkerConfig() {
 		FreeMarkerConfigurer freeMarkerConfigurer = new FreeMarkerConfigurer();
 		//freeMarkerConfigurer.setTemplateLoaderPath("/emailTemplate/");
-		freeMarkerConfigurer.setDefaultEncoding("UTF-8");
+		freeMarkerConfigurer.setDefaultEncoding(CommonConstants.ENCODING_NAME_UTF8);
 		return freeMarkerConfigurer;
 	}
 

@@ -34,7 +34,7 @@ public abstract class SsoEntityBase extends BizObjectBase {
 	@Column(name = "system_admin")
 	private Boolean systemAdmin = false;
 
-	@Column(name = "activation_key", length=120)
+	@Column(name = "activation_key", length=255)
 	@JsonIgnore
 	private String activationKey;
 

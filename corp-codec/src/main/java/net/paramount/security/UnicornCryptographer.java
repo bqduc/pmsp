@@ -21,6 +21,7 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 import lombok.Builder;
+import net.paramount.common.CommonConstants;
 import net.paramount.common.CommonUtility;
 import net.paramount.exceptions.CryptographyException;
 import net.paramount.security.base.Cryptographer;
@@ -38,7 +39,7 @@ public class UnicornCryptographer extends CryptographyBase implements Cryptograp
 	/*private static Cipher encryptCipher;
 	private static Cipher decryptCipher;*/
 	//private static final String desKey = "0123456789abcdef0123456789abcdef0123456789abcdef"; // value from user
-	private static final String encodingCharset = Charset.forName("UTF-8").name();
+	private static final String encodingCharset = CommonConstants.ENCODING_NAME_UTF8;
 	private static final String digestBuffer = "0987654321HG58YZ3CR91029384756";//"HG58YZ3CR9";
 	private static final String transformationName = "DESede/CBC/PKCS5Padding";
 	private static final String messageDigestAlgorithm = "MD5";

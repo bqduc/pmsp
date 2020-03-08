@@ -25,7 +25,7 @@ public class CountriesProducer {
     @UserLocale
     Locale locale;
 
-    private final static String countries_EN = "{\n"
+    private static final String countries_EN = "{\n"
             + "    \"AF\": \"Afghanistan\",\n"
             + "    \"AL\": \"Albania\",\n"
             + "    \"DZ\": \"Algeria\",\n"

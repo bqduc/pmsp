@@ -1,4 +1,4 @@
-package net.paramount.css.service.general;
+package net.paramount.css.service.impl;
 
 import java.util.Optional;
 
@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import net.paramount.css.repository.general.AttachmentRepository;
+import net.paramount.css.service.general.AttachmentService;
 import net.paramount.domain.entity.Attachment;
 import net.paramount.framework.repository.BaseRepository;
 import net.paramount.framework.service.GenericServiceImpl;

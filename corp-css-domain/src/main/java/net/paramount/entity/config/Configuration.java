@@ -3,9 +3,8 @@
  */
 package net.paramount.entity.config;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,14 +13,19 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 import net.paramount.common.CommonUtility;
+import net.paramount.common.ListUtility;
 import net.paramount.framework.entity.BizObjectBase;
 
 /**
  * @author bqduc
  *
  */
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @Entity
 @Table(name = "configuration")
@@ -47,8 +51,14 @@ public class Configuration extends BizObjectBase {
 	private String info;
 
 	@Builder.Default
-	@OneToMany(mappedBy="configuration", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Set<ConfigurationDetail> configurationDetails = new HashSet<>();
+	//@OneToMany(mappedBy="configuration", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  @OneToMany(
+  		mappedBy="configuration"
+      , cascade = CascadeType.ALL
+      , orphanRemoval = true
+      , fetch = FetchType.EAGER
+  )
+	private List<ConfigurationDetail> configurationDetails = ListUtility.createDataList();
 
 	public String getName() {
 		return name;
@@ -95,12 +105,12 @@ public class Configuration extends BizObjectBase {
 		return this;
 	}
 
-	public Set<ConfigurationDetail> getConfigurationDetails() {
+	public List<ConfigurationDetail> getConfigurationDetails() {
 		return configurationDetails;
 	}
 
-	public Configuration setConfigurationDetails(Set<ConfigurationDetail> configurationDetails) {
-		this.configurationDetails = configurationDetails;
+	public Configuration setConfigurationDetails(List<ConfigurationDetail> configurationDetails) {
+		this.configurationDetails.addAll(configurationDetails);
 		return this;
 	}
 
@@ -108,6 +118,9 @@ public class Configuration extends BizObjectBase {
 		if (CommonUtility.isEmpty(configurationDetails))
 			return this;
 
+		configurationDetails.forEach((configDetail)->{
+			configDetail.setConfiguration(this);
+		});
 		this.configurationDetails.addAll(configurationDetails);
 		return this;
 	}
@@ -121,17 +134,22 @@ public class Configuration extends BizObjectBase {
 		return this;
 	}
 
-	public Configuration() {
+	public Map<Object, Object> getConfigDetailsMap(){
+		Map<Object, Object> fetchedResults = ListUtility.createMap();
+		this.configurationDetails.forEach((configDetail)->{
+			fetchedResults.put(configDetail.getName(), configDetail.getValue());
+		});
+		return fetchedResults;
 	}
 
-	public Configuration(String name, String value, String valueExtended, String group, String info,
-			Set<ConfigurationDetail> configurationDetails) {
+	/*public Configuration(String name, String value, String valueExtended, String group, String info,
+			List<ConfigurationDetail> configurationDetails) {
 		super();
 		this.name = name;
 		this.value = value;
 		this.valueExtended = valueExtended;
 		this.group = group;
 		this.info = info;
-		this.configurationDetails = configurationDetails;
-	}
+		this.configurationDetails.addAll(configurationDetails);
+	}*/
 }

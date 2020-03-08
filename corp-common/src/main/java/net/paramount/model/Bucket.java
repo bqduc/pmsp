@@ -14,12 +14,12 @@ import net.paramount.common.ListUtility;
  *
  */
 public class Bucket {
-	public final static String PARAM_INPUT_RESOURCE_NAME = "inputResourceName";
-	public final static String PARAM_WORK_DATA_SHEET = "workDataSheet";
-	public final static String PARAM_INPUT_STREAM = "sourceInputStream";
-	public final static String PARAM_DATA_SHEETS = "dataSheets";
-	public final static String PARAM_DATA_INDEXES = "dataIndexes";
-	public final static String PARAM_STARTED_ROW_INDEX = "startedRowIndex";
+	public static final String PARAM_INPUT_RESOURCE_NAME = "inputResourceName";
+	public static final String PARAM_WORK_DATA_SHEET = "workDataSheet";
+	public static final String PARAM_INPUT_STREAM = "sourceInputStream";
+	public static final String PARAM_DATA_SHEETS = "dataSheets";
+	public static final String PARAM_DATA_INDEXES = "dataIndexes";
+	public static final String PARAM_STARTED_ROW_INDEX = "startedRowIndex";
 
 	private OfficeSuiteTarget suiteTargeted;
 	private Map<Object, Object> bucketData = null;

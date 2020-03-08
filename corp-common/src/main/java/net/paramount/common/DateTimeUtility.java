@@ -22,8 +22,8 @@ import net.paramount.model.DateTimePatterns;
  */
 public final class DateTimeUtility {
 	private static DateTimeUtility instance = new DateTimeUtility();
-	private final static String DEFAULT_MINIMUM_TIME_PATTERN = "31/12/1970 13:01:01";
-	private final static String DEFAULT_MAXIMUM_TIME_PATTERN = "31/12/4017 13:01:01";
+	private static final String DEFAULT_MINIMUM_TIME_PATTERN = "31/12/1970 13:01:01";
+	private static final String DEFAULT_MAXIMUM_TIME_PATTERN = "31/12/4017 13:01:01";
 
 	//private static final Logger logger = LogManager.getLogger(DateTimeUtility.class);
 

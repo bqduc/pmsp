@@ -21,6 +21,7 @@ import net.paramount.comm.domain.CorpMimeMessage;
 import net.paramount.comm.global.CommunicatorConstants;
 import net.paramount.exceptions.CorporateAuthException;
 import net.paramount.framework.model.ExecutionContext;
+import net.paramount.global.GlobalConstants;
 
 /**
  * @author ducbq
@@ -97,6 +98,10 @@ public class AuthorizationServiceImpl implements AuthorizationService {
 		UserProfile registrationProfile = null;
 		try {
 			updatedUserAccount = (UserAccount)context.get(CommunicatorConstants.CTX_USER_ACCOUNT);
+
+			updatedUserAccount = userAccountService.save(updatedUserAccount);
+			String userToken = tokenProvider.generateToken(updatedUserAccount);
+			updatedUserAccount.setActivationKey(userToken);
 			updatedUserAccount = userAccountService.saveOrUpdate(updatedUserAccount);
 
 			CorpMimeMessage mimeMessage = (CorpMimeMessage)context.get(CommunicatorConstants.CTX_MIME_MESSAGE);
@@ -107,10 +112,12 @@ public class AuthorizationServiceImpl implements AuthorizationService {
 						.build();
 			}
 			mimeMessage.setRecipients(new String[] {updatedUserAccount.getEmail()});
+			mimeMessage.getDefinitions().put(CommunicatorConstants.CTX_USER_TOKEN, updatedUserAccount.getActivationKey());
+
+			String confirmLink = (String)mimeMessage.getDefinitions().get(GlobalConstants.CONFIG_APP_ACCESS_URL);
+			mimeMessage.getDefinitions().put(CommunicatorConstants.CTX_USER_CONFIRM_LINK, new StringBuilder(confirmLink).append(updatedUserAccount.getActivationKey()).toString());
 
 			context.put(CommunicatorConstants.CTX_MIME_MESSAGE, mimeMessage);
-			String userToken = tokenProvider.generateToken(updatedUserAccount);
-			updatedUserAccount.setActivationKey(userToken);
 			registrationProfile = UserProfile.builder()
 					.displayName(updatedUserAccount.getDisplayName())
 					.userAccount(updatedUserAccount)
@@ -121,5 +128,5 @@ public class AuthorizationServiceImpl implements AuthorizationService {
 			throw new CorporateAuthException(e);
 		}
 		return registrationProfile;
-	}	
+	}
 }

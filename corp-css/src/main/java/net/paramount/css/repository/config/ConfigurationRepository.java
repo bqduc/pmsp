@@ -38,4 +38,13 @@ public interface ConfigurationRepository extends BaseRepository<Configuration, L
 	Page<Configuration> search(@Param("keyword") String keyword, Pageable pageable);
 
 	List<Configuration> findByGroup(String group);
+
+	/*@Query("SELECT count(entity.id)>0 FROM #{#entityName} entity "
+			+ "WHERE ("
+			+ " LOWER(entity.group) = LOWER(:group)"
+			+ ")"
+	)*/
+	boolean existsByGroup(String group);
+
+	boolean existsByName(String name);
 }

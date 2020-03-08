@@ -1,4 +1,4 @@
-package net.paramount.css.service.contact;
+package net.paramount.css.service.impl;
 
 import javax.inject.Inject;
 
@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import net.paramount.css.repository.contact.ContactRepository;
+import net.paramount.css.service.contact.ContactService;
 import net.paramount.css.specification.ContactSpecification;
 import net.paramount.entity.contact.Contact;
 import net.paramount.exceptions.ExecutionContextException;

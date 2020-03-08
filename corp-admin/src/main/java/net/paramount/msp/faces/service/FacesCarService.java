@@ -34,9 +34,9 @@ public class FacesCarService implements Serializable {
 	 */
 	private static final long serialVersionUID = 5234087497539497725L;
 
-		private final static String[] colors;
+		private static final String[] colors;
 	
-	private final static String[] brands;
+	private static final String[] brands;
     
     static {
 		colors = new String[10];

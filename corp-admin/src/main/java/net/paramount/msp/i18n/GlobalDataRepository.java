@@ -20,7 +20,7 @@ import net.paramount.common.ListUtility;
  */
 @Builder
 public class GlobalDataRepository {
-	public final static String SESSION_LOCALE = "locale";
+	public static final String SESSION_LOCALE = "locale";
 
 	private static List<Locale> supportedLocales = ListUtility.createArrayList();
 	private static Map<String, Locale> supportedLocaleMap = ListUtility.createMap();

@@ -1,4 +1,4 @@
-package net.paramount.css.service.general;
+package net.paramount.css.service.impl;
 
 import javax.inject.Inject;
 
@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import net.paramount.css.repository.general.ItemTypeRepository;
+import net.paramount.css.service.general.ItemTypeService;
 import net.paramount.entity.general.ItemType;
 import net.paramount.exceptions.ObjectNotFoundException;
 import net.paramount.framework.repository.BaseRepository;

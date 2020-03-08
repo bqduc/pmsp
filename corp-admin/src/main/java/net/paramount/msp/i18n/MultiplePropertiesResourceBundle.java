@@ -115,7 +115,7 @@ import net.paramount.i18n.PersistenceMessageService;
  *
  */
 public class MultiplePropertiesResourceBundle extends ResourceBundle {
-	//private final static String SEPARATOR = ";";
+	//private static final String SEPARATOR = ";";
 	private static final String CLASS = MultiplePropertiesResourceBundle.class.getName();
 
 	/** private Logger instance */

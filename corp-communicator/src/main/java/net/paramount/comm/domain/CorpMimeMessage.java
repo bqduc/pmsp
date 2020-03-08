@@ -1,6 +1,7 @@
 package net.paramount.comm.domain;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import lombok.AllArgsConstructor;
@@ -23,6 +24,7 @@ public class CorpMimeMessage {
 	private String contentType = CommunicatorConstants.ContentTypes_TEXT_HTML_UTF8;
 	private List<EmailAttachment> attachments;
 	private Map<String, Object> definitions;
+	private Locale locale;
 
 	public String getContentType() {
 		return contentType;
@@ -102,6 +104,14 @@ public class CorpMimeMessage {
 
 	public void setDefinitions(Map<String, Object> definitions) {
 		this.definitions = definitions;
+	}
+
+	public Locale getLocale() {
+		return locale;
+	}
+
+	public void setLocale(Locale locale) {
+		this.locale = locale;
 	}
 
 }

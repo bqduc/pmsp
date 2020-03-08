@@ -1,4 +1,4 @@
-package net.paramount.css.service.config;
+package net.paramount.css.service.impl;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import net.paramount.css.repository.config.ConfigurationRepository;
+import net.paramount.css.service.config.ConfigurationService;
 import net.paramount.css.specification.ConfigurationRepoSpecification;
 import net.paramount.entity.config.Configuration;
 import net.paramount.exceptions.MspDataException;
@@ -20,11 +21,8 @@ import net.paramount.framework.service.GenericServiceImpl;
 
 @Service
 public class ConfigurationServiceImpl extends GenericServiceImpl<Configuration, Long> implements ConfigurationService{
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -1435351574637430464L;
+
 	@Inject 
 	private ConfigurationRepository repository;
 	
@@ -33,7 +31,7 @@ public class ConfigurationServiceImpl extends GenericServiceImpl<Configuration, 
 	}
 
 	@Override
-	public Optional<Configuration> getOne(String name) throws ObjectNotFoundException {
+	public Optional<Configuration> getByName(String name) throws ObjectNotFoundException {
 		return repository.findByName(name);
 	}
 
@@ -55,5 +53,15 @@ public class ConfigurationServiceImpl extends GenericServiceImpl<Configuration, 
 	@Override
 	protected Optional<Configuration> fetchBusinessObject(Object key) throws MspDataException {
 		return super.getBizObject("findByName", key);
+	}
+
+	@Override
+	public boolean isExistsByGroup(String group) {
+		return this.repository.existsByGroup(group);
+	}
+
+	@Override
+	public boolean isExistsByName(String name) {
+		return this.repository.existsByName(name);
 	}
 }

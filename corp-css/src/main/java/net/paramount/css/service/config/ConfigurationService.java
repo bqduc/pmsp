@@ -21,7 +21,7 @@ public interface ConfigurationService extends GenericService<Configuration, Long
 	 * @throws ObjectNotFoundException
 	 *             If no such Configuration exists.
 	 */
-	Optional<Configuration> getOne(String name) throws ObjectNotFoundException;
+	Optional<Configuration> getByName(String name) throws ObjectNotFoundException;
 
 	/**
 	 * Get one Configurations with the provided search parameters.
@@ -33,11 +33,29 @@ public interface ConfigurationService extends GenericService<Configuration, Long
 	Page<Configuration> getObjects(SearchParameter searchParameter);
 
 	/**
-	 * Get one Configurations with the provided group.
+	 * Get list of configurations with the provided group.
 	 * 
 	 * @param group
 	 *            The search group
-	 * @return The pageable Configurations
+	 * @return The list of configurations
 	 */
 	List<Configuration> getByGroup(String group);
+
+	/**
+	 * Check if exists of any configurations with the provided group.
+	 * 
+	 * @param group
+	 *            The search group
+	 * @return The status of checking by true of exists at least one configuration
+	 */
+	boolean isExistsByGroup(String group);
+
+	/**
+	 * Check if exists of any configurations with the provided name.
+	 * 
+	 * @param name
+	 *            The search name
+	 * @return The status of checking by true of exists at least one configuration
+	 */
+	boolean isExistsByName(String name);
 }

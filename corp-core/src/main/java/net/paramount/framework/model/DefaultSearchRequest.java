@@ -8,7 +8,7 @@ package net.paramount.framework.model;
  *
  */
 public class DefaultSearchRequest extends SearchSpec{
-	public final static String fieldCode = "code";
+	public static final String fieldCode = "code";
 
 	private String code;
 

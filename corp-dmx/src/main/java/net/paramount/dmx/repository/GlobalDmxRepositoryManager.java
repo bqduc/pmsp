@@ -45,9 +45,9 @@ public class GlobalDmxRepositoryManager extends ComponentBase {
 	 */
 	private static final long serialVersionUID = -759495846609992244L;
 
-	public final static int NUMBER_OF_CATALOGUE_SUBTYPES_GENERATE = 500;
-	public final static int NUMBER_TO_GENERATE = 15000;
-	public final static String DEFAULT_COUNTRY = "Việt Nam";
+	public static final int NUMBER_OF_CATALOGUE_SUBTYPES_GENERATE = 500;
+	public static final int NUMBER_TO_GENERATE = 15000;
+	public static final String DEFAULT_COUNTRY = "Việt Nam";
 
 	@Inject
 	private InentoryItemRepositoryManager itemDmxRepository;
@@ -145,7 +145,7 @@ public class GlobalDmxRepositoryManager extends ComponentBase {
 			if (null==inputStream)
 				return null;
 
-			optConfig = configurationService.getOne(archivedName);
+			optConfig = configurationService.getByName(archivedName);
 			if (optConfig.isPresent()) {
 				defaultExecutionContext = resourcesStorageServiceHelper.syncExecutionContext(optConfig.get(), optAttachment.get().getData());
 			}

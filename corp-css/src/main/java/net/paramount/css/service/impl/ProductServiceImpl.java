@@ -1,4 +1,4 @@
-package net.paramount.css.service.stock;
+package net.paramount.css.service.impl;
 
 import javax.inject.Inject;
 
@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import net.paramount.css.repository.stock.ProductRepository;
+import net.paramount.css.service.stock.ProductService;
 import net.paramount.css.specification.ProductSpecification;
 import net.paramount.entity.stock.Product;
 import net.paramount.exceptions.ExecutionContextException;

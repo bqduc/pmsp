@@ -8,31 +8,31 @@ package net.paramount.osx.model;
  *
  */
 public interface OSXConstants {
-	final static String INPUT_RESOURCE_NAME = "inputResourceName";
-	final static String WORK_DATA_SHEET = "workDataSheet";
-	final static String COMPRESSED_FILE = "compressedFile";
-	final static String ZIP_ENTRY = "zipEntry";
-	final static String INPUT_STREAM = "sourceInputStream";
-	final static String PROCESSING_DATABOOK_IDS = "dataBookIds";
-	final static String PROCESSING_DATASHEET_IDS = "dataSheetIds";
-	final static String MAPPING_DATABOOKS_DATASHEETS = "dataSheetsMap";
-	final static String DATABOOKS_DATASHEETS_MAP = "dataBooksSheetsMap";
-	final static String DATA_INDEXES = "dataIndexes";
-	final static String STARTED_ROW_INDEX = "startedRowIndex";
-	final static String ENCRYPTION_KEYS = "encryptionKeys";
-	final static String LIMITED_COLUMNS = "limitedColumns";
-	final static String LIMITED_ROWS = "limitedRows";
-	final static String OFFICE_EXCEL_MARSHALLING_DATA_METHOD = "excelMarshalType";
+	static final String INPUT_RESOURCE_NAME = "inputResourceName";
+	static final String WORK_DATA_SHEET = "workDataSheet";
+	static final String COMPRESSED_FILE = "compressedFile";
+	static final String ZIP_ENTRY = "zipEntry";
+	static final String INPUT_STREAM = "sourceInputStream";
+	static final String PROCESSING_DATABOOK_IDS = "dataBookIds";
+	static final String PROCESSING_DATASHEET_IDS = "dataSheetIds";
+	static final String MAPPING_DATABOOKS_DATASHEETS = "dataSheetsMap";
+	static final String DATABOOKS_DATASHEETS_MAP = "dataBooksSheetsMap";
+	static final String DATA_INDEXES = "dataIndexes";
+	static final String STARTED_ROW_INDEX = "startedRowIndex";
+	static final String ENCRYPTION_KEYS = "encryptionKeys";
+	static final String LIMITED_COLUMNS = "limitedColumns";
+	static final String LIMITED_ROWS = "limitedRows";
+	static final String OFFICE_EXCEL_MARSHALLING_DATA_METHOD = "excelMarshalType";
 
-	final static String MASTER_FILE = "masterFile";
-	final static String MASTER_FILE_ENCRYPTION_KEY = "masterFileEncryptionKey";
+	static final String MASTER_FILE = "masterFile";
+	static final String MASTER_FILE_ENCRYPTION_KEY = "masterFileEncryptionKey";
 
-	final static String MASTER_BUFFER_DATA_BYTES = "masterBuffer";
-	final static String MASTER_ARCHIVED_FILE_NAME = "masterFileName";
+	static final String MASTER_BUFFER_DATA_BYTES = "masterBuffer";
+	static final String MASTER_ARCHIVED_FILE_NAME = "masterFileName";
 
-	final static String MARSHALLING_OBJECTS = "marshallingObjects";
-	final static String MARSHALLED_CONTAINER = "marshalledContainer";
-	final static String FROM_ATTACHMENT = "fromAttachment";
+	static final String MARSHALLING_OBJECTS = "marshallingObjects";
+	static final String MARSHALLED_CONTAINER = "marshalledContainer";
+	static final String FROM_ATTACHMENT = "fromAttachment";
 
-	final static String CONFIGURATION_ENTRY = "configurationEntry";
+	static final String CONFIGURATION_ENTRY = "configurationEntry";
 }

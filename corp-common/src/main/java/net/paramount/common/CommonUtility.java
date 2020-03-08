@@ -66,7 +66,7 @@ public class CommonUtility implements CommonConstants {
 	private static PhoneNumberUtil globalPhoneNumberUtil = PhoneNumberUtil.getInstance();
 
 	private static final Map<Class<?>, Class<?>> primitiveWrapperMap = new HashMap<Class<?>, Class<?>>();
-	protected final static CommonUtility instance = new CommonUtility();
+	protected static final CommonUtility instance = new CommonUtility();
 	private static List<String> TURN_ON_VALUES = new ArrayList<>();
 	
 	public static final Integer ZERO_INTEGER = new Integer(0);
@@ -1237,7 +1237,7 @@ public class CommonUtility implements CommonConstants {
 
 	public static String encodeURLString(String s) {
 		try {
-			return URLEncoder.encode(s, "UTF-8"); //$NON-NLS-1$
+			return URLEncoder.encode(s, CommonConstants.ENCODING_NAME_UTF8); //$NON-NLS-1$
 		} catch (Exception x) {
 			return s;
 		}

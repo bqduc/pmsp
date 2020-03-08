@@ -21,7 +21,7 @@ import net.paramount.entity.config.ConfigurationDetail;
  */
 @Component
 public class DmxConfigurationHelper {
-	//private final static String configInvtrItem = "load-inventory-items";
+	//private static final String configInvtrItem = "load-inventory-items";
 
 	public static byte idxInvtrItemCode = 1;
 	public static byte idxInvtrItemName = 2;
@@ -40,7 +40,7 @@ public class DmxConfigurationHelper {
 
 	public Map<String, ConfigurationDetail> fetchInventoryItemConfig(String configName) {
 		Map<String, ConfigurationDetail> configDetailMap = ListUtility.createMap();
-		Optional<Configuration> optInventoryItemConfig = configurationSerice.getOne(configName);
+		Optional<Configuration> optInventoryItemConfig = configurationSerice.getByName(configName);
 		if (optInventoryItemConfig.isPresent()) {
 			for (ConfigurationDetail configDetail :optInventoryItemConfig.get().getConfigurationDetails()) {
 				configDetailMap.put(configDetail.getName(), configDetail);

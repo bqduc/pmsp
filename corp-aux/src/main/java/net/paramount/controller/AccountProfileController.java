@@ -1,7 +1,6 @@
 package net.paramount.controller;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.Date;
 
 import javax.inject.Inject;
@@ -9,20 +8,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import net.paramount.auth.component.JwtTokenProvider;
+import net.paramount.auth.entity.UserAccount;
+import net.paramount.auth.service.UserAccountService;
 import net.paramount.domain.model.ServerResponse;
 import net.paramount.domain.model.ServerResponseCode;
+import net.paramount.framework.controller.BaseController;
 import net.paramount.framework.entity.auth.AuthenticationDetails;
 
 /**
@@ -31,7 +30,7 @@ import net.paramount.framework.entity.auth.AuthenticationDetails;
 @RestController
 @Controller
 @RequestMapping(value = "/protected/accountProfile/")
-public class AccountProfileController implements Serializable {
+public class AccountProfileController extends BaseController {
 	/**
 	 * 
 	 */
@@ -40,17 +39,79 @@ public class AccountProfileController implements Serializable {
 	@Inject
 	private JwtTokenProvider tokenProvider;
 
-	@Inject
-	private AuthenticationProvider corpAuthenticationProvider;
+	//@Inject 
+	//private AuthorizationService authorizationService;
 	
-	@RequestMapping("confirm")	
+	@Inject
+	private UserAccountService userAccountService;
+
+	@RequestMapping(
+			value = "/confirm/{token}", 
+			method = RequestMethod.GET)
+	//@ResponseStatus(HttpStatus.NO_CONTENT)
+	public ModelAndView confirm(HttpServletRequest request, HttpServletResponse response, @PathVariable("token") String token){
+		AuthenticationDetails userDetails = null;
+		UserAccount confirnUserAccount = null;
+		try {
+			userDetails = tokenProvider.getUserDetailsFromJWT(token);
+			if (userDetails != null) {
+				confirnUserAccount = userAccountService.get(userDetails.getSsoId());
+			}
+
+			remoteLogin(request, confirnUserAccount);
+
+			//System.out.println(confirnUserAccount);
+      // Getting servlet request URL
+      String url = request.getRequestURL().toString();
+
+      // Getting servlet request query string.
+      String queryString = request.getQueryString();
+
+      // Getting request information without the hostname.
+      String uri = request.getRequestURI();
+
+      // Below we extract information about the request object path information.
+      String scheme = request.getScheme();
+      String serverName = request.getServerName();
+      int portNumber = request.getServerPort();
+      String contextPath = request.getContextPath();
+      String servletPath = request.getServletPath();
+      String pathInfo = request.getPathInfo();
+      String query = request.getQueryString();
+
+      System.out.println("Url: " + url);
+      System.out.println("Uri: " + uri);
+      System.out.println("Scheme: " + scheme);
+      System.out.println("Server Name: " + serverName);
+      System.out.println("Port: " + portNumber);
+      System.out.println("Context Path: " + contextPath);
+      System.out.println("Servlet Path: " + servletPath);
+      System.out.println("Path Info: " + pathInfo);
+      System.out.println("Query: " + query);
+      
+			//Decode password before login
+			//doAutoLogin(request, confirnUserAccount.getSsoId(), confirnUserAccount.getPassword());
+		} catch (Exception e) {
+			log.error(e);
+		}
+
+		/*try {
+			response.sendRedirect("/index.jsf");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+		}*/
+		return new ModelAndView ("redirect:/index.jsf");//getServerResponse(ServerResponseCode.SUCCESS, false);
+	}
+
+	/*@RequestMapping("confirm")	
 	public ServerResponse schedule(@RequestParam("jobName") String jobName, 
 			@RequestParam("jobScheduleTime") @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm") Date jobScheduleTime, 
 			@RequestParam("cronExpression") String cronExpression){
 		System.out.println("JobController.schedule()");
 
 		return getServerResponse(ServerResponseCode.JOB_WITH_SAME_NAME_EXIST, false);
-	}
+	}*/
 
 	@RequestMapping(value="unsubscribe")
 	public void unschedule(HttpServletRequest request, HttpServletResponse response, @RequestParam("jobName") String jobName) {
@@ -58,7 +119,7 @@ public class AccountProfileController implements Serializable {
 		try {
 			AuthenticationDetails userDetails = tokenProvider.getUserDetailsFromJWT(jobName);
 			System.out.println(userDetails);
-			doAutoLogin("administrator", "admin@administrator", request);
+			doAutoLogin(request, "administrator", "admin@administrator");
 		} catch (Exception e) {
 			//e.printStackTrace();
 		}
@@ -72,22 +133,6 @@ public class AccountProfileController implements Serializable {
     //response.setStatus(302);
 		//return new ModelAndView("redirect:/");	
 	}
-
-	private void doAutoLogin(String username, String password, HttpServletRequest request) {
-
-		try {
-			// Must be called from request filtered by Spring Security, otherwise
-			// SecurityContextHolder is not updated
-			UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
-			token.setDetails(new WebAuthenticationDetails(request));
-			Authentication authentication = this.corpAuthenticationProvider.authenticate(token);
-			//logger.debug("Logging in with [{}]", authentication.getPrincipal());
-			SecurityContextHolder.getContext().setAuthentication(authentication);
-		} catch (Exception e) {
-			SecurityContextHolder.getContext().setAuthentication(null);
-			//logger.error("Failure in autoLogin", e);
-		}
-	}	
 
 	@RequestMapping("delete")
 	public ServerResponse delete(@RequestParam("jobName") String jobName) {

@@ -3,6 +3,8 @@
  */
 package net.paramount.comm.config;
 
+import java.util.Map;
+import java.util.Optional;
 import java.util.Properties;
 
 import javax.inject.Inject;
@@ -13,7 +15,15 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Component;
 
-import net.paramount.comm.domain.EmailConfigProperties;
+import net.paramount.comm.comp.EmailConfigurationHelper;
+import net.paramount.comm.exceptions.CommunicationException;
+import net.paramount.common.ListUtility;
+import net.paramount.css.service.config.ConfigurationService;
+import net.paramount.exceptions.CryptographyException;
+import net.paramount.framework.component.CompCore;
+import net.paramount.global.GlobalConstants;
+import net.paramount.security.GlobalCryptogramRepository;
+import net.paramount.security.base.Cryptographer;
 
 /**
  * @author ducbq
@@ -21,12 +31,38 @@ import net.paramount.comm.domain.EmailConfigProperties;
  */
 @Component
 @Configuration
-public class EmailConfiguration {
+public class EmailConfiguration extends CompCore {
+	//@Inject
+	//private EmailConfigProperties emailProperties;
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6405466012616526188L;
+
 	@Inject
-	private EmailConfigProperties emailProperties;
+	private ConfigurationService configurationService;
+	
+	@Inject
+	private EmailConfigurationHelper emailConfigurationHelper;
 
 	@Bean
 	public JavaMailSender getMailSender() {
+		JavaMailSender mailSender = null;
+		try {
+			mailSender = configEmailProfile();
+		} catch (CommunicationException e) {
+			log.error(e);
+		}
+		return mailSender;
+		/*
+		Optional<net.paramount.entity.config.Configuration> optConfig = configurationService.getOne("config.email");
+		Map<Object, Object> configDetailsMap = ListUtility.createMap();
+		if (optConfig.isPresent()) {
+			configDetailsMap = optConfig.get().getConfigDetailsMap();
+			System.out.println(optConfig.get());
+		}
+
 		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 
 		mailSender.setHost(emailProperties.getHost());
@@ -45,24 +81,55 @@ public class EmailConfiguration {
 		javaMailProperties.put("email.smtpStartTlsRequired", emailProperties.getSmtpStartTlsRequired());
 		javaMailProperties.put("email.transportProtocol", emailProperties.getTransportProtocol());
 		javaMailProperties.put("email.encoding", emailProperties.getEncoding());
-/**
-		javaMailProperties.put("mail.smtp.starttls.enable", "true");
-		javaMailProperties.put("mail.smtp.auth", "true");
-		javaMailProperties.put("mail.transport.protocol", "smtp");
-		javaMailProperties.put("mail.debug", "true");
-
-
-		javaMailProperties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
-		javaMailProperties.put("email.smtpStartTlsRequired", "true");
-		javaMailProperties.put("email.transportProtocol", "smtp");
-		javaMailProperties.put("email.encoding", "UTF-8");
-
-*/
-		
-		
-		//mail.smtp.port=25, 
 
 		mailSender.setJavaMailProperties(javaMailProperties);
+		return mailSender;
+		*/
+	}
+
+	private void checkAndConfigureEmailService() {
+		this.emailConfigurationHelper.configureEmailService();
+	}
+
+	private JavaMailSender configEmailProfile() throws CommunicationException {
+		checkAndConfigureEmailService();
+		Optional<net.paramount.entity.config.Configuration> optConfig = configurationService.getByName(GlobalConstants.CONFIG_ENTRY_NAME_EMAIL);
+		Map<Object, Object> configDetailsMap = ListUtility.createMap();
+		if (!optConfig.isPresent()) {
+			throw new CommunicationException("There is no configuration for email!");
+		}
+
+		Properties javaMailProperties = null;
+		JavaMailSenderImpl mailSender = null;
+		GlobalCryptogramRepository globalCryptogramRepository = null;
+		Cryptographer cryptographer = null;
+		try {
+			configDetailsMap = optConfig.get().getConfigDetailsMap();
+
+			mailSender = new JavaMailSenderImpl();
+
+			globalCryptogramRepository = GlobalCryptogramRepository.getInstance();
+			cryptographer = globalCryptogramRepository.getDefaultCryptographer();
+
+			mailSender.setHost((String) configDetailsMap.get(GlobalConstants.CONFIG_EMAIL_HOST));
+			mailSender.setPort(Integer.parseInt((String) configDetailsMap.get(GlobalConstants.CONFIG_EMAIL_PORT)));
+			mailSender.setUsername(cryptographer.decode((String) configDetailsMap.get(GlobalConstants.CONFIG_EMAIL_USER_NAME), GlobalCryptogramRepository.SECRET_KEY));
+			mailSender.setPassword(cryptographer.decode((String) configDetailsMap.get(GlobalConstants.CONFIG_EMAIL_PASSWORD), GlobalCryptogramRepository.SECRET_KEY));
+
+			javaMailProperties = new Properties();
+			javaMailProperties.put(GlobalConstants.CONFIG_EMAIL_START_TLS_ENABLE, configDetailsMap.get(GlobalConstants.CONFIG_EMAIL_START_TLS_ENABLE));
+			javaMailProperties.put(GlobalConstants.CONFIG_EMAIL_AUTH, configDetailsMap.get(GlobalConstants.CONFIG_EMAIL_AUTH));
+			javaMailProperties.put(GlobalConstants.CONFIG_EMAIL_TRANSPORT_PROTOCOL, configDetailsMap.get(GlobalConstants.CONFIG_EMAIL_TRANSPORT_PROTOCOL));
+			javaMailProperties.put(GlobalConstants.CONFIG_EMAIL_DEBUG, configDetailsMap.get(GlobalConstants.CONFIG_EMAIL_DEBUG));
+			javaMailProperties.put(GlobalConstants.CONFIG_EMAIL_SSL_TRUST, configDetailsMap.get(GlobalConstants.CONFIG_EMAIL_SSL_TRUST));
+			javaMailProperties.put(GlobalConstants.CONFIG_EMAIL_START_TLS_REQUIRED, configDetailsMap.get(GlobalConstants.CONFIG_EMAIL_START_TLS_REQUIRED));
+			javaMailProperties.put(GlobalConstants.CONFIG_EMAIL_TRANSPORT_PROTOCOLX, configDetailsMap.get(GlobalConstants.CONFIG_EMAIL_TRANSPORT_PROTOCOLX));
+			javaMailProperties.put(GlobalConstants.CONFIG_EMAIL_ENCODING, configDetailsMap.get(GlobalConstants.CONFIG_EMAIL_ENCODING));
+
+			mailSender.setJavaMailProperties(javaMailProperties);
+		} catch (CryptographyException e) {
+			throw new CommunicationException(e);
+		}
 		return mailSender;
 	}
 }

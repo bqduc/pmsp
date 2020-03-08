@@ -1,4 +1,4 @@
-package net.paramount.css.service.org;
+package net.paramount.css.service.impl;
 
 import java.util.List;
 
@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import net.paramount.css.repository.org.BusinessUnitRepository;
+import net.paramount.css.service.org.BusinessUnitService;
 import net.paramount.css.specification.BusinessUnitSpecification;
 import net.paramount.entity.general.BusinessUnit;
 import net.paramount.exceptions.ObjectNotFoundException;

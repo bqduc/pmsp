@@ -34,9 +34,13 @@ click here</a>.
 Regards,
 
 ${userContact.firstName} ${userContact.lastName}
-${userContact.companyName}
-${userContact.registeredDate?string["dd.MM.yyyy, HH:mm"]}
-${userContact.stateProvince}
+{userContact.companyName}
+{userContact.registeredDate?string["dd.MM.yyyy, HH:mm"]}
+{userContact.stateProvince}
+
+<br />
+<a href="http://localhost:8080/protected/accountProfile/confirm/${token}" target="_blank" rel="noopener noreferrer" data-auth="NotApplicable" class="x_footer-link" style="color:#5a5a5a">Confirm</a>
+<br />
 
 <p>
 <center>

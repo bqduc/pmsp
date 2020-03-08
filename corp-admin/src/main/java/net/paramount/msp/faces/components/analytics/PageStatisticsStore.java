@@ -52,6 +52,7 @@ import org.slf4j.LoggerFactory;
 
 import com.google.api.client.http.FileContent;
 
+import net.paramount.common.CommonConstants;
 import net.paramount.msp.util.FileUtility;
 
 /**
@@ -92,7 +93,7 @@ public class PageStatisticsStore implements Serializable {
             if (!statisticsFile.exists()) {
                 statisticsFile.createNewFile();
             }
-            JsonArray persistedPageStats = Json.createReader(new InputStreamReader(new FileInputStream(statisticsFile), "UTF-8")).readObject().getJsonArray("statistics");
+            JsonArray persistedPageStats = Json.createReader(new InputStreamReader(new FileInputStream(statisticsFile), CommonConstants.ENCODING_NAME_UTF8)).readObject().getJsonArray("statistics");
             for (JsonValue jsonValue : persistedPageStats) {
                 JsonObject jsonObject = (JsonObject) jsonValue;
                 PageStats pageStats = pageStatisticsMap.get(jsonObject.getString("viewId"));
@@ -214,7 +215,7 @@ public class PageStatisticsStore implements Serializable {
                     }
                 }
 
-                FileUtils.writeStringToFile(new File(pagesStatsFilePath), Json.createObjectBuilder().add("statistics", pageStatsJsonArray.build()).build().toString().replaceAll("�", ""), "UTF-8");
+                FileUtils.writeStringToFile(new File(pagesStatsFilePath), Json.createObjectBuilder().add("statistics", pageStatsJsonArray.build()).build().toString().replaceAll("�", ""), CommonConstants.ENCODING_NAME_UTF8);
                 resetStatstistics();
                 updateGeoJsonCache();
             }
@@ -388,16 +389,16 @@ public class PageStatisticsStore implements Serializable {
             connection.setRequestProperty("Content-Type",
                     "application/json");
 
-            connection.setRequestProperty("Accept-Charset", "UTF-8");
+            connection.setRequestProperty("Accept-Charset", CommonConstants.ENCODING_NAME_UTF8);
 
             InputStream is = connection.getInputStream();
-            rd = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+            rd = new BufferedReader(new InputStreamReader(is, CommonConstants.ENCODING_NAME_UTF8));
             StringBuilder json = new StringBuilder();
             String line;
             while ((line = rd.readLine()) != null) {
                 json.append(line);
             }
-            InputStream jsonStream = new ByteArrayInputStream(json.toString().getBytes("UTF-8"));
+            InputStream jsonStream = new ByteArrayInputStream(json.toString().getBytes(CommonConstants.ENCODING_NAME_UTF8));
             JsonObject jsonObject = Json.createReader(jsonStream).readObject();
             if (jsonObject.containsKey("status") && !jsonObject.getString("status").equals("fail")) {
                 pageView.setCountry(jsonObject.getString("country"));

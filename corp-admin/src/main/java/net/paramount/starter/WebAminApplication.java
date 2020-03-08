@@ -35,12 +35,16 @@ import net.paramount.mvp.util.UtilityService;
 @Import(value = { BaseConfiguration.class })
 @SpringBootApplication
 @EnableAsync
-public class CorpWebAminApplication {
+public class WebAminApplication {
 	@Inject
 	private UtilityService utilityService;
 
 	@Bean
 	public List<Car> getCars() {
 		return utilityService.getCars();
+	}
+	
+	public void init() {
+		System.out.println("PARK!!!!");
 	}
 }

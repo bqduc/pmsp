@@ -18,6 +18,7 @@ package net.paramount.config;
 
 import javax.inject.Inject;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -25,6 +26,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * Spring Security Configuration.
@@ -35,14 +38,22 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Inject
-	private AuthenticationProvider corpAuthenticationProvider;
+	private AuthenticationProvider authenticationProvider;
 
 	//@Inject
 	//private CorporateAuthenticationProvider authProvider;
 
 /*	@Inject
 	private AuthenticationEntryPoint authEntryPoint;*/
-	
+
+	@Inject 
+	private PasswordEncoder virtualPasswordEncoder;
+
+  @Bean
+  public PasswordEncoder passwordEncoder() {
+      return virtualPasswordEncoder/*new BCryptPasswordEncoder()*/;
+  }
+
 	@Configuration
 	@Order(1)
 	public static class ApiWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
@@ -55,7 +66,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.authenticationProvider(corpAuthenticationProvider/*authProvider*/);
+		auth.authenticationProvider(authenticationProvider/*authProvider*/);
 	}
 	
 	/*@Override
