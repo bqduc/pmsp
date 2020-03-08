@@ -209,7 +209,6 @@ public class UserAccountRegister extends RootController {
 	}
 
 	private void buildRegistrationContext(Context context) {
-		Configuration configuration = null;
 		CorpMimeMessage corpMimeMessage = CorpMimeMessage.builder()
 				.from("ducbuiquy@gmail.com")
 				.subject(CommunicatorConstants.CTX_DEFAULT_REGISTRATION_SUBJECT) //Should get data from resource bundle for localization

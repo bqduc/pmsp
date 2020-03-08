@@ -106,6 +106,9 @@ public class UserAccount extends SsoEntityBase implements AuthenticationDetails 
 	@Builder.Default
   @OneToMany(mappedBy="userAccount", cascade=CascadeType.ALL, fetch=FetchType.LAZY, orphanRemoval=true)
   private List<UserAccountPrivilege> privileges = ListUtility.createDataList();
+	
+	@Column(name = "info", columnDefinition="text")
+	private String info;
 
 	public String getFirstName() {
 		return firstName;
@@ -233,5 +236,13 @@ public class UserAccount extends SsoEntityBase implements AuthenticationDetails 
 			authorities.add(userAccountPrivilege.getAuthority());
 		}
 		return authorities;
+	}
+
+	public String getInfo() {
+		return info;
+	}
+
+	public void setInfo(String info) {
+		this.info = info;
 	}
 }

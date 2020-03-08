@@ -13,13 +13,17 @@ import net.paramount.auth.component.JwtTokenProvider;
 import net.paramount.auth.domain.UserProfile;
 import net.paramount.auth.entity.UserAccount;
 import net.paramount.auth.exception.CorporateAuthenticationException;
+import net.paramount.auth.service.AuthorityService;
 import net.paramount.auth.service.AuthorizationService;
 import net.paramount.auth.service.UserAccountService;
 import net.paramount.autx.SecurityServiceContextHelper;
 import net.paramount.comm.comp.Communicator;
 import net.paramount.comm.domain.CorpMimeMessage;
 import net.paramount.comm.global.CommunicatorConstants;
+import net.paramount.common.DateTimeUtility;
 import net.paramount.exceptions.CorporateAuthException;
+import net.paramount.exceptions.ObjectNotFoundException;
+import net.paramount.framework.entity.auth.AuthenticationDetails;
 import net.paramount.framework.model.ExecutionContext;
 import net.paramount.global.GlobalConstants;
 
@@ -40,6 +44,9 @@ public class AuthorizationServiceImpl implements AuthorizationService {
 	
 	@Inject
 	private JwtTokenProvider tokenProvider;
+
+	@Inject
+	private AuthorityService authorityService;
 
 	@Override
 	public UserProfile authenticate(String ssoId, String password) throws CorporateAuthenticationException {
@@ -94,17 +101,20 @@ public class AuthorizationServiceImpl implements AuthorizationService {
 
 	@Override
 	public UserProfile register(ExecutionContext context) throws CorporateAuthException {
+		String confirmLink = null;
 		UserAccount updatedUserAccount = null;
 		UserProfile registrationProfile = null;
+		CorpMimeMessage mimeMessage = null;
 		try {
 			updatedUserAccount = (UserAccount)context.get(CommunicatorConstants.CTX_USER_ACCOUNT);
+			updatedUserAccount.setRegisteredDate(DateTimeUtility.getSystemDateTime());
 
 			updatedUserAccount = userAccountService.save(updatedUserAccount);
-			String userToken = tokenProvider.generateToken(updatedUserAccount);
-			updatedUserAccount.setActivationKey(userToken);
+
+			updatedUserAccount.setActivationKey(tokenProvider.generateToken(updatedUserAccount));
 			updatedUserAccount = userAccountService.saveOrUpdate(updatedUserAccount);
 
-			CorpMimeMessage mimeMessage = (CorpMimeMessage)context.get(CommunicatorConstants.CTX_MIME_MESSAGE);
+			mimeMessage = (CorpMimeMessage)context.get(CommunicatorConstants.CTX_MIME_MESSAGE);
 			if (null==mimeMessage) {
 				mimeMessage = CorpMimeMessage.builder()
 						.subject(CommunicatorConstants.CTX_DEFAULT_REGISTRATION_SUBJECT)
@@ -114,7 +124,7 @@ public class AuthorizationServiceImpl implements AuthorizationService {
 			mimeMessage.setRecipients(new String[] {updatedUserAccount.getEmail()});
 			mimeMessage.getDefinitions().put(CommunicatorConstants.CTX_USER_TOKEN, updatedUserAccount.getActivationKey());
 
-			String confirmLink = (String)mimeMessage.getDefinitions().get(GlobalConstants.CONFIG_APP_ACCESS_URL);
+			confirmLink = (String)mimeMessage.getDefinitions().get(GlobalConstants.CONFIG_APP_ACCESS_URL);
 			mimeMessage.getDefinitions().put(CommunicatorConstants.CTX_USER_CONFIRM_LINK, new StringBuilder(confirmLink).append(updatedUserAccount.getActivationKey()).toString());
 
 			context.put(CommunicatorConstants.CTX_MIME_MESSAGE, mimeMessage);
@@ -128,5 +138,27 @@ public class AuthorizationServiceImpl implements AuthorizationService {
 			throw new CorporateAuthException(e);
 		}
 		return registrationProfile;
+	}
+
+	@Override
+	public UserAccount getUserAccount(String ssoId) throws ObjectNotFoundException {
+		return userAccountService.get(ssoId);
+	}
+
+	@Override
+	public UserAccount confirmByToken(String token) throws ObjectNotFoundException {
+		UserAccount confirnUserAccount = null;
+		AuthenticationDetails userDetails = tokenProvider.getUserDetailsFromJWT(token);
+		if (userDetails != null) {
+			confirnUserAccount = this.getUserAccount(userDetails.getSsoId());
+		}
+
+		confirnUserAccount.addPrivilege(authorityService.getMinimumUserAuthority());
+		confirnUserAccount.setActivated(Boolean.TRUE);
+		confirnUserAccount.setVisible(Boolean.TRUE);
+		confirnUserAccount.setActivationDate(DateTimeUtility.getSystemDateTime());
+
+		userAccountService.save(confirnUserAccount);
+		return confirnUserAccount;
 	}
 }

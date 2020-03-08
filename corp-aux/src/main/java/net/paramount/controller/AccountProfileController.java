@@ -18,7 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import net.paramount.auth.component.JwtTokenProvider;
 import net.paramount.auth.entity.UserAccount;
-import net.paramount.auth.service.UserAccountService;
+import net.paramount.auth.service.AuthorizationService;
 import net.paramount.domain.model.ServerResponse;
 import net.paramount.domain.model.ServerResponseCode;
 import net.paramount.framework.controller.BaseController;
@@ -31,87 +31,28 @@ import net.paramount.framework.entity.auth.AuthenticationDetails;
 @Controller
 @RequestMapping(value = "/protected/accountProfile/")
 public class AccountProfileController extends BaseController {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -8922161788640253600L;
 
 	@Inject
 	private JwtTokenProvider tokenProvider;
 
-	//@Inject 
-	//private AuthorizationService authorizationService;
+	@Inject 
+	private AuthorizationService authorizationService;
 	
-	@Inject
-	private UserAccountService userAccountService;
-
 	@RequestMapping(
 			value = "/confirm/{token}", 
 			method = RequestMethod.GET)
-	//@ResponseStatus(HttpStatus.NO_CONTENT)
 	public ModelAndView confirm(HttpServletRequest request, HttpServletResponse response, @PathVariable("token") String token){
-		AuthenticationDetails userDetails = null;
 		UserAccount confirnUserAccount = null;
 		try {
-			userDetails = tokenProvider.getUserDetailsFromJWT(token);
-			if (userDetails != null) {
-				confirnUserAccount = userAccountService.get(userDetails.getSsoId());
-			}
-
+			confirnUserAccount = authorizationService.confirmByToken(token);
 			remoteLogin(request, confirnUserAccount);
-
-			//System.out.println(confirnUserAccount);
-      // Getting servlet request URL
-      String url = request.getRequestURL().toString();
-
-      // Getting servlet request query string.
-      String queryString = request.getQueryString();
-
-      // Getting request information without the hostname.
-      String uri = request.getRequestURI();
-
-      // Below we extract information about the request object path information.
-      String scheme = request.getScheme();
-      String serverName = request.getServerName();
-      int portNumber = request.getServerPort();
-      String contextPath = request.getContextPath();
-      String servletPath = request.getServletPath();
-      String pathInfo = request.getPathInfo();
-      String query = request.getQueryString();
-
-      System.out.println("Url: " + url);
-      System.out.println("Uri: " + uri);
-      System.out.println("Scheme: " + scheme);
-      System.out.println("Server Name: " + serverName);
-      System.out.println("Port: " + portNumber);
-      System.out.println("Context Path: " + contextPath);
-      System.out.println("Servlet Path: " + servletPath);
-      System.out.println("Path Info: " + pathInfo);
-      System.out.println("Query: " + query);
-      
-			//Decode password before login
-			//doAutoLogin(request, confirnUserAccount.getSsoId(), confirnUserAccount.getPassword());
 		} catch (Exception e) {
 			log.error(e);
 		}
 
-		/*try {
-			response.sendRedirect("/index.jsf");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			//e.printStackTrace();
-		}*/
-		return new ModelAndView ("redirect:/index.jsf");//getServerResponse(ServerResponseCode.SUCCESS, false);
+		return new ModelAndView ("redirect:/index.jsf");
 	}
-
-	/*@RequestMapping("confirm")	
-	public ServerResponse schedule(@RequestParam("jobName") String jobName, 
-			@RequestParam("jobScheduleTime") @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm") Date jobScheduleTime, 
-			@RequestParam("cronExpression") String cronExpression){
-		System.out.println("JobController.schedule()");
-
-		return getServerResponse(ServerResponseCode.JOB_WITH_SAME_NAME_EXIST, false);
-	}*/
 
 	@RequestMapping(value="unsubscribe")
 	public void unschedule(HttpServletRequest request, HttpServletResponse response, @RequestParam("jobName") String jobName) {
@@ -123,15 +64,12 @@ public class AccountProfileController extends BaseController {
 		} catch (Exception e) {
 			//e.printStackTrace();
 		}
+
 		try {
 			response.sendRedirect("/index.jsf");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error(e);
 		}
-    //response.setHeader("Location", "/index.jsf");
-    //response.setStatus(302);
-		//return new ModelAndView("redirect:/");	
 	}
 
 	@RequestMapping("delete")
